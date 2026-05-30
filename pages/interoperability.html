@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interoperability — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .integration-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+    @media(max-width:768px){.integration-grid{grid-template-columns:1fr;}}
+    .integration-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .integration-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+    .integration-card .int-icon {
+      width: 52px; height: 52px;
+      background: rgba(14,165,160,0.12);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal-light);
+      margin-bottom: 18px;
+    }
+    .integration-card .int-icon i { width: 26px; height: 26px; }
+    .integration-card .int-tag {
+      display: inline-block;
+      background: rgba(14,165,160,0.1);
+      color: var(--teal-light);
+      font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .integration-card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+    .integration-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+    .standards-section { background: var(--navy-mid); }
+    .standards-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 60px; align-items: center; margin-top: 0; }
+    @media(max-width:768px){.standards-grid{grid-template-columns:1fr;}}
+    .standard-list { display: flex; flex-direction: column; gap: 16px; }
+    .standard-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px;
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .standard-item .si-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(245,158,11,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber);
+    }
+    .standard-item .si-icon i { width: 18px; height: 18px; }
+    .standard-item strong { display: block; color: var(--white); font-size: 0.9rem; margin-bottom: 4px; }
+    .standard-item p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+    .arch-visual {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+    .arch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .arch-node {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.75rem; font-weight: 600; font-family: 'Sora', sans-serif;
+      color: var(--white);
+      text-align: center;
+      flex: 1; min-width: 80px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .arch-node i { width: 18px; height: 18px; color: var(--teal-light); }
+    .arch-node.hub { border-color: var(--teal); background: rgba(14,165,160,0.1); }
+    .arch-node.hub i { color: var(--amber); }
+    .arch-arrow { font-size: 1.4rem; color: var(--teal); flex-shrink: 0; }
+    .arch-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-family: 'Sora', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .arch-connector {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav-header" id="mainNav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="brand-icon"><i data-lucide="activity"></i></span>
+        <span class="brand-text">MediCore <strong>Hub</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="modules.html" class="nav-link">Modules</a>
+        <a href="analytics.html" class="nav-link">Analytics</a>
+        <a href="interoperability.html" class="nav-link active">Interoperability</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="contact.html" class="btn-primary">Request Demo</a>
+      <button class="nav-toggle" id="navToggle"><i data-lucide="menu"></i></button>
+    </div>
+    <div class="mobile-menu hidden" id="mobileMenu">
+      <a href="../index.html" class="mob-link">Home</a>
+      <a href="modules.html" class="mob-link">Modules</a>
+      <a href="analytics.html" class="mob-link">Analytics</a>
+      <a href="interoperability.html" class="mob-link">Interoperability</a>
+      <a href="security.html" class="mob-link">Security</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="contact.html" class="btn-primary mob-cta">Request Demo</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80" alt="Network connections" />
+      <div class="page-hero-bg-overlay"></div>
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Interoperability</span>
+      </div>
+      <h1>Speaks Every<br /><em>Healthcare System's Language</em></h1>
+      <p>MediCore Hub is built on open international standards and integrates natively with Kenya's national health infrastructure — NHIF, KHIS, KEMSA, and SHA.</p>
+    </div>
+  </section>
+
+  <!-- STANDARDS ARCHITECTURE -->
+  <section class="section standards-section">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="section-eyebrow"><i data-lucide="git-branch"></i> Technical Standards</p>
+        <h2 class="section-title">Built on Open Global Standards</h2>
+      </div>
+      <div class="standards-grid">
+        <div class="standard-list">
+          <div class="standard-item">
+            <div class="si-icon"><i data-lucide="link"></i></div>
+            <div>
+              <strong>HL7 FHIR R4</strong>
+              <p>All clinical data exposed and consumed via FHIR R4 RESTful APIs, enabling plug-and-play integration with any compliant system.</p>
+            </div>
+          </div>
+          <div class="standard-item">
+            <div class="si-icon"><i data-lucide="code-2"></i></div>
+            <div>
+              <strong>OpenHIE Architecture</strong>
+              <p>Implements the OpenHIE component framework — Client Registry, Provider Registry, Facility Registry, and Shared Health Record.</p>
+            </div>
+          </div>
+          <div class="standard-item">
+            <div class="si-icon"><i data-lucide="book-open"></i></div>
+            <div>
+              <strong>SNOMED CT &amp; ICD-10</strong>
+              <p>Clinical terminology mapped to SNOMED CT with ICD-10-CM/PCS coding for diagnoses, procedures, and problem lists.</p>
+            </div>
+          </div>
+          <div class="standard-item">
+            <div class="si-icon"><i data-lucide="cpu"></i></div>
+            <div>
+              <strong>HL7 v2.x Messaging</strong>
+              <p>Bidirectional HL7 v2.x ADT, ORM, and ORU messages for legacy system integration — no rip-and-replace required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="arch-visual">
+          <div class="arch-label">MediCore Hub Integration Architecture</div>
+          <div class="arch-row">
+            <div class="arch-node"><i data-lucide="users"></i>NHIF/SHA</div>
+            <div class="arch-arrow">&#8594;</div>
+            <div class="arch-node hub"><i data-lucide="activity"></i>MediCore Hub<br/><small style="font-size:0.65rem;color:var(--teal-light)">FHIR R4 Core</small></div>
+            <div class="arch-arrow">&#8594;</div>
+            <div class="arch-node"><i data-lucide="database"></i>KHIS/DHIS2</div>
+          </div>
+          <div class="arch-connector"></div>
+          <div class="arch-row">
+            <div class="arch-node"><i data-lucide="package"></i>KEMSA</div>
+            <div class="arch-arrow">&#8596;</div>
+            <div class="arch-node"><i data-lucide="message-square"></i>AfricasTalking SMS</div>
+            <div class="arch-arrow">&#8596;</div>
+            <div class="arch-node"><i data-lucide="smartphone"></i>M-Pesa</div>
+          </div>
+          <div class="arch-connector"></div>
+          <div class="arch-row">
+            <div class="arch-node"><i data-lucide="scan"></i>DICOM PACS</div>
+            <div class="arch-arrow">&#8596;</div>
+            <div class="arch-node"><i data-lucide="microscope"></i>Lab Analysers</div>
+            <div class="arch-arrow">&#8596;</div>
+            <div class="arch-node"><i data-lucide="globe"></i>WHO / PEPFAR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS GRID -->
+  <section class="section" style="background:var(--navy);">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="section-eyebrow"><i data-lucide="plug"></i> Pre-Built Integrations</p>
+        <h2 class="section-title">Connect Everything</h2>
+        <p class="section-sub">Production-ready integrations available at deployment. Custom integrations delivered via our FHIR API within weeks, not months.</p>
+      </div>
+      <div class="integration-grid">
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="shield-check"></i></div>
+          <span class="int-tag">Insurance</span>
+          <h3>NHIF &amp; SHA</h3>
+          <p>Real-time eligibility verification, pre-authorisation, electronic claim submission, and remittance reconciliation — fully automated from the clinical workflow.</p>
+        </div>
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="database"></i></div>
+          <span class="int-tag">Surveillance</span>
+          <h3>KHIS / DHIS2</h3>
+          <p>Automated HMIS aggregate data push on configurable schedules — MOH 705A/B, IDSR, and custom programme indicators — eliminating manual data entry.</p>
+        </div>
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="package"></i></div>
+          <span class="int-tag">Supply Chain</span>
+          <h3>KEMSA</h3>
+          <p>Pull requisition generation directly from stock level alerts, electronic GRN processing, and consumption reporting to the national supply chain portal.</p>
+        </div>
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="smartphone"></i></div>
+          <span class="int-tag">Payments</span>
+          <h3>M-Pesa &amp; KRA ETR</h3>
+          <p>STK push payments for patient co-pays, M-Pesa Till integration, and KRA-compliant electronic tax receipt generation for every transaction.</p>
+        </div>
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="message-square"></i></div>
+          <span class="int-tag">Messaging</span>
+          <h3>AfricasTalking SMS</h3>
+          <p>Appointment reminders, lab result notifications, and chronic disease follow-up messages delivered via SMS in Swahili and English.</p>
+        </div>
+        <div class="integration-card">
+          <div class="int-icon"><i data-lucide="heart"></i></div>
+          <span class="int-tag">Programmes</span>
+          <h3>PEPFAR &amp; Global Fund</h3>
+          <p>HIV/AIDS, TB, and malaria programme indicators reported in MER format via automated FHIR-to-DATIM pipelines — audit-ready at any time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <span class="brand-icon"><i data-lucide="activity"></i></span>
+          <span class="brand-text">MediCore <strong>Hub</strong></span>
+        </div>
+        <p>Integrated Health Intelligence Platform for East Africa.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+        </div>
+      </div>
+      <div class="footer-links-col">
+        <h4>Platform</h4>
+        <a href="modules.html">All Modules</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="interoperability.html">Integrations</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Company</h4>
+        <a href="security.html">Security</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Contact</h4>
+        <p><i data-lucide="map-pin"></i> Upper Hill, Nairobi, Kenya</p>
+        <p><i data-lucide="phone"></i> +254 700 000 000</p>
+        <p><i data-lucide="mail"></i> hello@medicorehub.co.ke</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>© 2026 MediCore Hub Ltd.</span>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

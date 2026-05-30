@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .contact-page-section { background: var(--navy); padding: 80px 0; }
+    .contact-page-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .contact-page-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+    .contact-side-info { display: flex; flex-direction: column; gap: 32px; }
+    .contact-info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+    .contact-info-card h3 {
+      font-size: 1rem; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--white);
+    }
+    .contact-info-card h3 i { width: 18px; height: 18px; color: var(--teal-light); }
+    .cic-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .cic-row:last-child { margin-bottom: 0; }
+    .cic-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(14,165,160,0.12);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal-light);
+    }
+    .cic-icon i { width: 16px; height: 16px; }
+    .cic-row strong { display: block; color: var(--white); font-size: 0.88rem; margin-bottom: 2px; }
+    .cic-row span { font-size: 0.82rem; color: var(--text-muted); }
+
+    .response-time-banner {
+      background: rgba(14,165,160,0.08);
+      border: 1px solid rgba(14,165,160,0.2);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .response-time-banner i { width: 22px; height: 22px; color: var(--teal-light); flex-shrink: 0; }
+    .response-time-banner p { font-size: 0.84rem; color: var(--text-body); margin: 0; }
+    .response-time-banner strong { color: var(--white); }
+
+    .contact-form-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+    }
+    @media (max-width: 600px) { .contact-form-wrapper { padding: 24px; } }
+    .form-title {
+      font-size: 1.3rem; margin-bottom: 6px; color: var(--white);
+    }
+    .form-subtitle { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+    .form-group label {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--white);
+      font-family: 'Sora', sans-serif;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14,165,160,0.12);
+    }
+    .form-group select option { background: var(--navy-light); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-submit-btn {
+      width: 100%; justify-content: center;
+      font-size: 1rem; padding: 14px;
+    }
+    .form-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 14px; }
+    .form-note a { color: var(--teal-light); }
+    .success-message {
+      display: none;
+      text-align: center; padding: 32px 20px;
+    }
+    .success-message .sm-icon {
+      width: 64px; height: 64px;
+      background: rgba(14,165,160,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal-light);
+      margin: 0 auto 20px;
+    }
+    .success-message .sm-icon i { width: 32px; height: 32px; }
+    .success-message h3 { color: var(--white); margin-bottom: 10px; }
+    .success-message p { font-size: 0.88rem; color: var(--text-muted); }
+
+    .faq-section { background: var(--navy-mid); padding: 80px 0; }
+    .faq-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-top: 48px; }
+    @media(max-width:768px){.faq-grid{grid-template-columns:1fr;}}
+    .faq-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .faq-card h4 {
+      font-size: 0.95rem; color: var(--white);
+      margin-bottom: 10px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .faq-card h4 i { width: 16px; height: 16px; color: var(--teal-light); flex-shrink: 0; margin-top: 3px; }
+    .faq-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
+
+    .map-placeholder {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 300px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 14px;
+      color: var(--text-muted);
+      margin-top: 32px;
+    }
+    .map-placeholder i { width: 36px; height: 36px; color: var(--teal); }
+    .map-placeholder p { font-size: 0.85rem; text-align: center; }
+    .map-placeholder img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.35) saturate(0.3);
+    }
+    .map-overlay-label {
+      position: absolute;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: white;
+    }
+    .map-wrap { position: relative; }
+    .map-wrap .map-placeholder { position: relative; }
+    .map-label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+      z-index: 2;
+    }
+    .map-label i { width: 32px; height: 32px; color: var(--teal-light); display: block; margin: 0 auto 8px; }
+    .map-label strong { display: block; color: white; font-family: 'Sora', sans-serif; }
+    .map-label span { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <header class="nav-header" id="mainNav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="brand-icon"><i data-lucide="activity"></i></span>
+        <span class="brand-text">MediCore <strong>Hub</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="modules.html" class="nav-link">Modules</a>
+        <a href="analytics.html" class="nav-link">Analytics</a>
+        <a href="interoperability.html" class="nav-link">Interoperability</a>
+        <a href="security.html" class="nav-link">Security</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </nav>
+      <a href="contact.html" class="btn-primary">Request Demo</a>
+      <button class="nav-toggle" id="navToggle"><i data-lucide="menu"></i></button>
+    </div>
+    <div class="mobile-menu hidden" id="mobileMenu">
+      <a href="../index.html" class="mob-link">Home</a>
+      <a href="modules.html" class="mob-link">Modules</a>
+      <a href="analytics.html" class="mob-link">Analytics</a>
+      <a href="interoperability.html" class="mob-link">Interoperability</a>
+      <a href="security.html" class="mob-link">Security</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="contact.html" class="btn-primary mob-cta">Request Demo</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80" alt="Healthcare team" />
+      <div class="page-hero-bg-overlay"></div>
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Contact</span>
+      </div>
+      <h1>Let's Transform Your<br /><em>Facility Together</em></h1>
+      <p>Whether you are a county health department, hospital network, NGO, or faith-based facility — our team is ready to walk you through a deployment plan built around your reality.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-page-section">
+    <div class="container">
+      <div class="contact-page-grid">
+
+        <!-- LEFT: Info -->
+        <div class="contact-side-info">
+          <div class="contact-info-card">
+            <h3><i data-lucide="building-2"></i> Nairobi Office</h3>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="map-pin"></i></div>
+              <div>
+                <strong>Address</strong>
+                <span>Upper Hill Medical Centre, 5th Floor<br />Hospital Road, Nairobi, Kenya</span>
+              </div>
+            </div>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="phone"></i></div>
+              <div>
+                <strong>Phone</strong>
+                <span>+254 700 000 000</span>
+              </div>
+            </div>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="mail"></i></div>
+              <div>
+                <strong>Email</strong>
+                <span>hello@medicorehub.co.ke</span>
+              </div>
+            </div>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="clock"></i></div>
+              <div>
+                <strong>Office Hours</strong>
+                <span>Monday – Friday: 8:00 AM – 6:00 PM EAT<br />Saturday: 9:00 AM – 1:00 PM EAT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <h3><i data-lucide="headphones"></i> Dedicated Support Lines</h3>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="alert-circle"></i></div>
+              <div>
+                <strong>24/7 Critical Support</strong>
+                <span>+254 711 000 001 — For system-down emergencies</span>
+              </div>
+            </div>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="graduation-cap"></i></div>
+              <div>
+                <strong>Training &amp; Onboarding</strong>
+                <span>training@medicorehub.co.ke</span>
+              </div>
+            </div>
+            <div class="cic-row">
+              <div class="cic-icon"><i data-lucide="shield-check"></i></div>
+              <div>
+                <strong>Security Disclosures</strong>
+                <span>security@medicorehub.co.ke</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="response-time-banner">
+            <i data-lucide="zap"></i>
+            <p><strong>Typical response time: under 4 hours</strong> for demo and sales enquiries on business days. Critical support SLA: 1 hour.</p>
+          </div>
+
+          <div class="map-wrap">
+            <div class="map-placeholder">
+              <img src="https://images.unsplash.com/photo-1562447457-579fc34967fb?w=800&q=60" alt="Nairobi map" />
+            </div>
+            <div class="map-label">
+              <i data-lucide="map-pin"></i>
+              <strong>Upper Hill, Nairobi</strong>
+              <span>MediCore Hub HQ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="contact-form-wrapper">
+          <div id="formContent">
+            <h2 class="form-title">Request a Demo or Get in Touch</h2>
+            <p class="form-subtitle">Fill in your details and one of our health IT specialists will be in touch within 4 hours.</p>
+
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" placeholder="e.g. Samuel" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" placeholder="e.g. Ng'anga" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Work Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@facility.or.ke" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+254 7XX XXX XXX" />
+                </div>
+                <div class="form-group">
+                  <label for="county">County</label>
+                  <input type="text" id="county" name="county" placeholder="e.g. Kisumu County" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="facilityType">Facility Type</label>
+                <select id="facilityType" name="facilityType" required>
+                  <option value="" disabled selected>Select facility type...</option>
+                  <option>National Referral Hospital</option>
+                  <option>County Referral Hospital</option>
+                  <option>Sub-County Hospital</option>
+                  <option>Health Centre (Level 3)</option>
+                  <option>Dispensary (Level 2)</option>
+                  <option>Private Hospital / Clinic</option>
+                  <option>Faith-Based Facility</option>
+                  <option>County Health Department</option>
+                  <option>NGO / Development Partner</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="interest">Primary Interest</label>
+                <select id="interest" name="interest" required>
+                  <option value="" disabled selected>What are you looking for?</option>
+                  <option>Full Platform Demo</option>
+                  <option>Electronic Health Records</option>
+                  <option>Laboratory Information System</option>
+                  <option>Pharmacy Management</option>
+                  <option>Analytics &amp; Reporting</option>
+                  <option>NHIF / SHA Integration</option>
+                  <option>Telemedicine</option>
+                  <option>Implementation Pricing</option>
+                  <option>Technical / API Documentation</option>
+                  <option>Partnership or Reseller Enquiry</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your facility, current challenges, or specific questions you have..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary form-submit-btn">
+                <i data-lucide="send"></i>
+                Send Message
+              </button>
+              <p class="form-note">By submitting this form you agree to our <a href="#">Privacy Policy</a>. We will never share your data with third parties.</p>
+            </form>
+          </div>
+
+          <!-- Success state -->
+          <div class="success-message" id="successMessage">
+            <div class="sm-icon"><i data-lucide="check-circle"></i></div>
+            <h3>Message Received</h3>
+            <p>Thank you for reaching out. A MediCore Hub specialist will contact you within 4 business hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="section-eyebrow"><i data-lucide="help-circle"></i> Frequently Asked</p>
+        <h2 class="section-title">Common Questions</h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h4><i data-lucide="clock"></i> How long does implementation take?</h4>
+          <p>A standard deployment for a single-site health centre typically takes 4 – 6 weeks from contract signing to go-live. Multi-site county rollouts are phased over 3 – 6 months with dedicated project management support.</p>
+        </div>
+        <div class="faq-card">
+          <h4><i data-lucide="wifi-off"></i> Does it work without reliable internet?</h4>
+          <p>Yes. MediCore Hub is offline-first by architecture. The system runs fully on a local server at your facility and synchronises with the cloud when connectivity is available. We have successful deployments in ASAL counties with minimal connectivity.</p>
+        </div>
+        <div class="faq-card">
+          <h4><i data-lucide="dollar-sign"></i> How is pricing structured?</h4>
+          <p>Pricing is a monthly subscription per facility, tiered by facility level and number of active users. We offer government and NGO pricing tiers. Contact us for a tailored quote — we do not publish pricing publicly as facilities vary significantly.</p>
+        </div>
+        <div class="faq-card">
+          <h4><i data-lucide="database"></i> Can you migrate our existing data?</h4>
+          <p>Yes. We have migrated data from OpenMRS, KenyaEMR, Daktari, and custom spreadsheet systems. All migrations are performed by our data engineering team with zero data loss guaranteed in writing.</p>
+        </div>
+        <div class="faq-card">
+          <h4><i data-lucide="graduation-cap"></i> What training is included?</h4>
+          <p>All deployments include role-based training for every cadre: CHWs, nurses, clinicians, pharmacists, lab technicians, and administrators. We train the trainers and provide a full e-learning library in Swahili and English.</p>
+        </div>
+        <div class="faq-card">
+          <h4><i data-lucide="server"></i> Where is our data hosted?</h4>
+          <p>Data is hosted in AWS Nairobi (af-south-1) by default, keeping it within Kenya's jurisdiction in compliance with the Data Protection Act 2019. On-premise deployment options are available for county governments requiring full data sovereignty.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <span class="brand-icon"><i data-lucide="activity"></i></span>
+          <span class="brand-text">MediCore <strong>Hub</strong></span>
+        </div>
+        <p>Integrated Health Intelligence Platform for East Africa. Connecting every point of care on one secure, interoperable platform.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+        </div>
+      </div>
+      <div class="footer-links-col">
+        <h4>Platform</h4>
+        <a href="modules.html">EHR System</a>
+        <a href="modules.html#lab">Lab Information System</a>
+        <a href="modules.html#pharmacy">Pharmacy</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="modules.html#telehealth">Telemedicine</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Integration</h4>
+        <a href="interoperability.html">NHIF Integration</a>
+        <a href="interoperability.html">DHIS2 / KHIS</a>
+        <a href="interoperability.html">HL7 FHIR R4</a>
+        <a href="interoperability.html">OpenHIE</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Company</h4>
+        <a href="#">About MediCore Hub</a>
+        <a href="security.html">Security</a>
+        <a href="#">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-links-col">
+        <h4>Contact</h4>
+        <p><i data-lucide="map-pin"></i> Upper Hill, Nairobi, Kenya</p>
+        <p><i data-lucide="phone"></i> +254 700 000 000</p>
+        <p><i data-lucide="mail"></i> hello@medicorehub.co.ke</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>© 2026 MediCore Hub Ltd. Registered in Nairobi, Kenya.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Data Processing Agreement</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Contact form with success state
+    const form = document.getElementById('contactForm');
+    const formContent = document.getElementById('formContent');
+    const successMessage = document.getElementById('successMessage');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        formContent.style.display = 'none';
+        successMessage.style.display = 'block';
+        if (window.lucide) lucide.createIcons();
+      });
+    }
+  </script>
+</body>
+</html>

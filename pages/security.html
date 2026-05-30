@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security &amp; Compliance — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .compliance-badges { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 40px; justify-content: center; }
+    .compliance-badge {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      min-width: 140px;
+      transition: border-color var(--transition);
+    }
+    .compliance-badge:hover { border-color: var(--teal); }
+    .compliance-badge .cb-icon {
+      width: 48px; height: 48px;
+      background: rgba(14,165,160,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal-light);
+    }
+    .compliance-badge .cb-icon i { width: 24px; height: 24px; }
+    .compliance-badge strong { font-family: 'Sora', sans-serif; font-size: 0.85rem; color: var(--white); text-align: center; }
+    .compliance-badge span { font-size: 0.72rem; color: var(--text-muted); text-align: center; }
+    .audit-log-preview {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 48px;
+    }
+    .audit-header {
+      background: var(--navy-light);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.8rem;
+      color: var(--white);
+    }
+    .audit-header i { width: 16px; height: 16px; color: var(--teal-light); }
+    .audit-table { width: 100%; border-collapse: collapse; }
+    .audit-table th {
+      text-align: left; padding: 10px 20px;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .audit-table td {
+      padding: 12px 20px;
+      font-size: 0.82rem;
+      color: var(--text-body);
+      border-bottom: 1px solid rgba(14,165,160,0.05);
+    }
+    .audit-table tr:last-child td { border-bottom: none; }
+    .audit-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .audit-badge.read { background: rgba(14,165,160,0.12); color: var(--teal-light); }
+    .audit-badge.write { background: rgba(245,158,11,0.12); color: var(--amber); }
+    .audit-badge.delete { background: rgba(239,68,68,0.12); color: #EF4444; }
+    .audit-badge.login { background: rgba(122,150,168,0.12); color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header class="nav-header" id="mainNav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="brand-icon"><i data-lucide="activity"></i></span>
+        <span class="brand-text">MediCore <strong>Hub</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="modules.html" class="nav-link">Modules</a>
+        <a href="analytics.html" class="nav-link">Analytics</a>
+        <a href="interoperability.html" class="nav-link">Interoperability</a>
+        <a href="security.html" class="nav-link active">Security</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <a href="contact.html" class="btn-primary">Request Demo</a>
+      <button class="nav-toggle" id="navToggle"><i data-lucide="menu"></i></button>
+    </div>
+    <div class="mobile-menu hidden" id="mobileMenu">
+      <a href="../index.html" class="mob-link">Home</a>
+      <a href="modules.html" class="mob-link">Modules</a>
+      <a href="analytics.html" class="mob-link">Analytics</a>
+      <a href="interoperability.html" class="mob-link">Interoperability</a>
+      <a href="security.html" class="mob-link">Security</a>
+      <a href="contact.html" class="mob-link">Contact</a>
+      <a href="contact.html" class="btn-primary mob-cta">Request Demo</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1400&q=80" alt="Data security" />
+      <div class="page-hero-bg-overlay"></div>
+    </div>
+    <div class="container page-hero-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <i data-lucide="chevron-right"></i>
+        <span>Security &amp; Compliance</span>
+      </div>
+      <h1>Patient Data Security<br />is <em>Non-Negotiable</em></h1>
+      <p>MediCore Hub is built on a security-first architecture, independently audited annually, and fully compliant with Kenya's Data Protection Act 2019.</p>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="section" style="background:var(--navy-mid);">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="section-eyebrow"><i data-lucide="shield-check"></i> Security Architecture</p>
+        <h2 class="section-title">Defence in Depth</h2>
+        <p class="section-sub">Multiple independent security layers — so that no single failure compromises patient data.</p>
+      </div>
+      <div class="security-pillars">
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="lock"></i></div>
+          <h3>AES-256 Encryption</h3>
+          <p>All patient data encrypted at rest using AES-256-GCM. All data in transit protected by TLS 1.3 with certificate pinning for mobile clients. Keys managed via AWS KMS with customer-managed master keys.</p>
+        </div>
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="user-check"></i></div>
+          <h3>Role-Based Access Control</h3>
+          <p>Granular permission sets mapped to clinical cadre — CHW, nurse, clinician, pharmacist, lab technician, administrator. No user can access data outside their approved role. Configurable per-facility.</p>
+        </div>
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="eye"></i></div>
+          <h3>Complete Audit Trail</h3>
+          <p>Every data access, modification, and export logged with user identity, timestamp, and IP address. Audit logs are immutable, stored in a separate ledger system, and available for regulatory review on demand.</p>
+        </div>
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="rotate-ccw"></i></div>
+          <h3>Business Continuity</h3>
+          <p>Automated geo-redundant backups every 15 minutes. Recovery Point Objective of 15 minutes. Recovery Time Objective of 4 hours. Annual disaster recovery drills documented and shared with clients.</p>
+        </div>
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="key"></i></div>
+          <h3>Multi-Factor Authentication</h3>
+          <p>TOTP-based MFA enforced for all administrative and clinician accounts. Single Sign-On supported via SAML 2.0 for facilities with existing Active Directory or LDAP infrastructure.</p>
+        </div>
+        <div class="security-pillar-card">
+          <div class="sp-icon"><i data-lucide="search"></i></div>
+          <h3>Penetration Testing</h3>
+          <p>Annual independent penetration tests by accredited third parties. Vulnerability disclosure programme with responsible disclosure policy. Critical vulnerabilities patched within 24 hours under SLA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE -->
+  <section class="section" style="background:var(--navy);">
+    <div class="container">
+      <div class="section-header centered">
+        <p class="section-eyebrow"><i data-lucide="check-circle"></i> Compliance</p>
+        <h2 class="section-title">Independently Certified and Compliant</h2>
+      </div>
+      <div class="compliance-badges">
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="shield-check"></i></div>
+          <strong>ISO 27001</strong>
+          <span>Annual certification<br/>Issued 2025</span>
+        </div>
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="eye-off"></i></div>
+          <strong>Kenya DPA 2019</strong>
+          <span>Full compliance<br/>Data sovereignty</span>
+        </div>
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="server"></i></div>
+          <strong>SOC 2 Type II</strong>
+          <span>Security &amp; availability<br/>Audit complete 2025</span>
+        </div>
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="link"></i></div>
+          <strong>HL7 FHIR R4</strong>
+          <span>Conformance tested<br/>ONC certified</span>
+        </div>
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="users"></i></div>
+          <strong>GDPR Ready</strong>
+          <span>For facilities with<br/>EU citizen patients</span>
+        </div>
+        <div class="compliance-badge">
+          <div class="cb-icon"><i data-lucide="heart"></i></div>
+          <strong>MoH Approved</strong>
+          <span>Kenya Ministry of Health<br/>Registered HIS</span>
+        </div>
+      </div>
+
+      <!-- AUDIT LOG PREVIEW -->
+      <div class="audit-log-preview">
+        <div class="audit-header">
+          <i data-lucide="list"></i>
+          Sample Audit Log — Illustrative Data
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th>Resource</th>
+                <th>IP Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-05-29 08:14:22</td>
+                <td>dr.kamau@facility</td>
+                <td>Clinician</td>
+                <td><span class="audit-badge read">READ</span></td>
+                <td>Patient/MNH-00192-EHR</td>
+                <td>196.200.xxx.xxx</td>
+              </tr>
+              <tr>
+                <td>2026-05-29 08:15:47</td>
+                <td>dr.kamau@facility</td>
+                <td>Clinician</td>
+                <td><span class="audit-badge write">WRITE</span></td>
+                <td>Encounter/SOAP-Note-00348</td>
+                <td>196.200.xxx.xxx</td>
+              </tr>
+              <tr>
+                <td>2026-05-29 08:22:03</td>
+                <td>lab.tech.wanjiku</td>
+                <td>Lab Technician</td>
+                <td><span class="audit-badge write">WRITE</span></td>
+                <td>Observation/Lab-Result-00821</td>
+                <td>41.90.xxx.xxx</td>
+              </tr>
+              <tr>
+                <td>2026-05-29 08:30:18</td>
+                <td>admin.odhiambo</td>
+                <td>Administrator</td>
+                <td><span class="audit-badge login">LOGIN</span></td>
+                <td>System/Auth — MFA Verified</td>
+                <td>196.202.xxx.xxx</td>
+              </tr>
+              <tr>
+                <td>2026-05-29 09:01:55</td>
+                <td>pharm.njeri@facility</td>
+                <td>Pharmacist</td>
+                <td><span class="audit-badge read">READ</span></td>
+                <td>MedicationRequest/RX-004421</td>
+                <td>41.90.xxx.xxx</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-banner-bg">
+      <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1400&q=80" alt="Security" />
+      <div class="cta-banner-overlay"></div>
+    </div>
+    <div class="container cta-banner-content">
+      <h2>Download Our Security Whitepaper</h2>
+      <p>A full technical overview of MediCore Hub's security architecture, encryption standards, and compliance certifications — for your IT and legal teams.</p>
+      <div class="cta-banner-actions">
+        <a href="contact.html" class="btn-primary large">Request Whitepaper</a>
+        <a href="contact.html" class="btn-ghost-white large">Contact Security Team</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <span class="brand-icon"><i data-lucide="activity"></i></span>
+          <span class="brand-text">MediCore <strong>Hub</strong></span>
+        </div>
+        <p>Integrated Health Intelligence Platform for East Africa.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+        </div>
+      </div>
+      <div class="footer-links-col"><h4>Platform</h4><a href="modules.html">All Modules</a><a href="analytics.html">Analytics</a><a href="interoperability.html">Integrations</a></div>
+      <div class="footer-links-col"><h4>Company</h4><a href="security.html">Security</a><a href="contact.html">Contact</a></div>
+      <div class="footer-links-col"><h4>Contact</h4><p><i data-lucide="map-pin"></i> Upper Hill, Nairobi, Kenya</p><p><i data-lucide="phone"></i> +254 700 000 000</p><p><i data-lucide="mail"></i> hello@medicorehub.co.ke</p></div>
+    </div>
+    <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© 2026 MediCore Hub Ltd.</span><div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div></div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
