@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
-    .contact-page-section { background: var(--navy); padding: 80px 0; }
+    .contact-page-section { background: var(--charcoal); padding: 80px 0; }
     .contact-page-grid {
       display: grid;
       grid-template-columns: 1fr 1.6fr;
@@ -31,7 +31,7 @@
       display: flex; align-items: center; gap: 10px;
       color: var(--white);
     }
-    .contact-info-card h3 i { width: 18px; height: 18px; color: var(--teal-light); }
+    .contact-info-card h3 i { width: 18px; height: 18px; color: var(--green-bright); }
     .cic-row {
       display: flex; align-items: flex-start; gap: 14px;
       margin-bottom: 18px;
@@ -39,23 +39,23 @@
     .cic-row:last-child { margin-bottom: 0; }
     .cic-icon {
       width: 36px; height: 36px; flex-shrink: 0;
-      background: rgba(14,165,160,0.12);
+      background: rgba(27,107,69,0.12);
       border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal-light);
+      color: var(--green-bright);
     }
     .cic-icon i { width: 16px; height: 16px; }
     .cic-row strong { display: block; color: var(--white); font-size: 0.88rem; margin-bottom: 2px; }
     .cic-row span { font-size: 0.82rem; color: var(--text-muted); }
 
     .response-time-banner {
-      background: rgba(14,165,160,0.08);
-      border: 1px solid rgba(14,165,160,0.2);
+      background: rgba(27,107,69,0.08);
+      border: 1px solid rgba(27,107,69,0.2);
       border-radius: var(--radius-md);
       padding: 18px 20px;
       display: flex; align-items: center; gap: 14px;
     }
-    .response-time-banner i { width: 22px; height: 22px; color: var(--teal-light); flex-shrink: 0; }
+    .response-time-banner i { width: 22px; height: 22px; color: var(--green-bright); flex-shrink: 0; }
     .response-time-banner p { font-size: 0.84rem; color: var(--text-body); margin: 0; }
     .response-time-banner strong { color: var(--white); }
 
@@ -81,7 +81,7 @@
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--white);
@@ -95,10 +95,10 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(14,165,160,0.12);
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(27,107,69,0.15);
     }
-    .form-group select option { background: var(--navy-light); }
+    .form-group select option { background: var(--charcoal-light); }
     .form-group textarea { resize: vertical; min-height: 130px; }
     .form-group input::placeholder,
     .form-group textarea::placeholder { color: var(--text-muted); }
@@ -107,28 +107,28 @@
       font-size: 1rem; padding: 14px;
     }
     .form-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 14px; }
-    .form-note a { color: var(--teal-light); }
+    .form-note a { color: var(--green-bright); }
     .success-message {
       display: none;
       text-align: center; padding: 32px 20px;
     }
     .success-message .sm-icon {
       width: 64px; height: 64px;
-      background: rgba(14,165,160,0.12);
+      background: rgba(27,107,69,0.12);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal-light);
+      color: var(--green-bright);
       margin: 0 auto 20px;
     }
     .success-message .sm-icon i { width: 32px; height: 32px; }
     .success-message h3 { color: var(--white); margin-bottom: 10px; }
     .success-message p { font-size: 0.88rem; color: var(--text-muted); }
 
-    .faq-section { background: var(--navy-mid); padding: 80px 0; }
+    .faq-section { background: var(--charcoal-mid); padding: 80px 0; }
     .faq-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-top: 48px; }
     @media(max-width:768px){.faq-grid{grid-template-columns:1fr;}}
     .faq-card {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 24px;
@@ -138,11 +138,11 @@
       margin-bottom: 10px;
       display: flex; align-items: flex-start; gap: 10px;
     }
-    .faq-card h4 i { width: 16px; height: 16px; color: var(--teal-light); flex-shrink: 0; margin-top: 3px; }
+    .faq-card h4 i { width: 16px; height: 16px; color: var(--green-bright); flex-shrink: 0; margin-top: 3px; }
     .faq-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
 
     .map-placeholder {
-      background: var(--navy-light);
+      background: var(--charcoal-light);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
@@ -152,7 +152,7 @@
       color: var(--text-muted);
       margin-top: 32px;
     }
-    .map-placeholder i { width: 36px; height: 36px; color: var(--teal); }
+    .map-placeholder i { width: 36px; height: 36px; color: var(--green); }
     .map-placeholder p { font-size: 0.85rem; text-align: center; }
     .map-placeholder img {
       width: 100%; height: 100%; object-fit: cover;
@@ -171,7 +171,7 @@
       text-align: center;
       z-index: 2;
     }
-    .map-label i { width: 32px; height: 32px; color: var(--teal-light); display: block; margin: 0 auto 8px; }
+    .map-label i { width: 32px; height: 32px; color: var(--green-bright); display: block; margin: 0 auto 8px; }
     .map-label strong { display: block; color: white; font-family: 'Sora', sans-serif; }
     .map-label span { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
   </style>
@@ -224,8 +224,9 @@
   </section>
 
   <!-- CONTACT SECTION -->
-  <section class="contact-page-section">
-    <div class="container">
+  <section class="contact-page-section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1400&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.98) 0%,rgba(28,28,30,0.96) 100%);"></div></div>
+    <div class="container img-section-content">
       <div class="contact-page-grid">
 
         <!-- LEFT: Info -->
@@ -397,8 +398,9 @@
   </section>
 
   <!-- FAQ -->
-  <section class="faq-section">
-    <div class="container">
+  <section class="faq-section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1400&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(20,82,53,0.07) 100%);"></div></div>
+    <div class="container img-section-content">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="help-circle"></i> Frequently Asked</p>
         <h2 class="section-title">Common Questions</h2>

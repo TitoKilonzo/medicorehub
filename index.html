@@ -29,12 +29,9 @@
         <a href="pages/contact.html" class="nav-link">Contact</a>
       </nav>
       <a href="pages/contact.html" class="btn-primary">Request Demo</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <i data-lucide="menu"></i>
-      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
     </div>
-    <!-- mobile menu -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu hidden" id="mobileMenu">
       <a href="index.html" class="mob-link">Home</a>
       <a href="pages/modules.html" class="mob-link">Modules</a>
       <a href="pages/analytics.html" class="mob-link">Analytics</a>
@@ -48,10 +45,10 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=80" alt="Modern hospital corridor" class="hero-img" />
+      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=85" alt="Modern hospital" class="hero-img" />
       <div class="hero-overlay"></div>
     </div>
-    <div class="hero-grid-lines"></div>
+    <div class="hero-grain"></div>
     <div class="container hero-content">
       <div class="hero-badge">
         <i data-lucide="shield-check"></i>
@@ -61,9 +58,7 @@
       <p class="hero-sub">MediCore Hub connects every point of care — from rural dispensaries to referral hospitals — on a single, secure, interoperable platform built for African healthcare infrastructure.</p>
       <div class="hero-actions">
         <a href="pages/modules.html" class="btn-primary large">Explore Platform</a>
-        <a href="pages/analytics.html" class="btn-ghost large">
-          <i data-lucide="bar-chart-2"></i> View Analytics
-        </a>
+        <a href="pages/analytics.html" class="btn-ghost large"><i data-lucide="bar-chart-2"></i> View Analytics</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item">
@@ -87,12 +82,10 @@
         </div>
       </div>
     </div>
-    <div class="hero-scroll-cue">
-      <i data-lucide="chevrons-down"></i>
-    </div>
+    <div class="hero-scroll-cue"><i data-lucide="chevrons-down"></i></div>
   </section>
 
-  <!-- MARQUEE STRIP -->
+  <!-- MARQUEE -->
   <div class="marquee-strip">
     <div class="marquee-track">
       <span><i data-lucide="check-circle"></i> Electronic Health Records</span>
@@ -114,44 +107,50 @@
     </div>
   </div>
 
-  <!-- PROBLEM / MISSION -->
-  <section class="section mission-section">
-    <div class="container mission-grid">
-      <div class="mission-image-col">
-        <div class="image-stack">
-          <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=700&q=80" alt="Doctor reviewing digital records" class="img-main" />
-          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80" alt="Health data on tablet" class="img-accent" />
-          <div class="image-badge">
-            <i data-lucide="trending-up"></i>
-            <span>70% reduction<br/>in documentation time</span>
+  <!-- MISSION — with image background -->
+  <section class="section mission-section img-section">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1400&q=70" alt="Hospital corridor background" />
+      <div class="img-section-bg-overlay"></div>
+    </div>
+    <div class="container img-section-content">
+      <div class="mission-grid">
+        <div class="mission-image-col">
+          <div class="image-stack">
+            <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=700&q=80" alt="Doctor reviewing digital records" class="img-main" />
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80" alt="Health data on tablet" class="img-accent" />
+            <div class="image-badge">
+              <i data-lucide="trending-up"></i>
+              <span>70% reduction<br/>in documentation time</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="mission-text-col">
-        <p class="section-eyebrow"><i data-lucide="target"></i> Our Mission</p>
-        <h2 class="section-title">Healthcare Data Should Work <em>For</em> Clinicians — Not Against Them</h2>
-        <p class="section-body">Fragmented records. Offline systems. Paper registers at the point of care. These are not abstractions — they cost lives. MediCore Hub was engineered specifically for Kenya and East Africa's health system reality: low bandwidth, multi-site facilities, and a critical shortage of clinical staff.</p>
-        <p class="section-body">We replace silos with a single source of truth — accessible from a browser, offline-capable, and built on open standards that integrate with NHIF, KHIS, and national health registries.</p>
-        <div class="mission-pillars">
-          <div class="pillar">
-            <span class="pillar-icon"><i data-lucide="wifi-off"></i></span>
-            <div>
-              <strong>Offline-First Architecture</strong>
-              <p>Works in low-connectivity environments. Syncs when connectivity returns.</p>
+        <div class="mission-text-col">
+          <p class="section-eyebrow"><i data-lucide="target"></i> Our Mission</p>
+          <h2 class="section-title">Healthcare Data Should Work <em>For</em> Clinicians</h2>
+          <p class="section-body">Fragmented records. Offline systems. Paper registers at the point of care. These are not abstractions — they cost lives. MediCore Hub was engineered specifically for Kenya and East Africa's health system reality: low bandwidth, multi-site facilities, and a critical shortage of clinical staff.</p>
+          <p class="section-body">We replace silos with a single source of truth — accessible from a browser, offline-capable, and built on open standards that integrate with NHIF, KHIS, and national health registries.</p>
+          <div class="mission-pillars">
+            <div class="pillar">
+              <span class="pillar-icon"><i data-lucide="wifi-off"></i></span>
+              <div>
+                <strong>Offline-First Architecture</strong>
+                <p>Works in low-connectivity environments. Syncs when connectivity returns.</p>
+              </div>
             </div>
-          </div>
-          <div class="pillar">
-            <span class="pillar-icon"><i data-lucide="git-merge"></i></span>
-            <div>
-              <strong>Open Standards Integration</strong>
-              <p>HL7 FHIR R4, OpenHIE, and SNOMED CT built in from the ground up.</p>
+            <div class="pillar">
+              <span class="pillar-icon"><i data-lucide="git-merge"></i></span>
+              <div>
+                <strong>Open Standards Integration</strong>
+                <p>HL7 FHIR R4, OpenHIE, and SNOMED CT built in from the ground up.</p>
+              </div>
             </div>
-          </div>
-          <div class="pillar">
-            <span class="pillar-icon"><i data-lucide="users"></i></span>
-            <div>
-              <strong>Designed for All Cadres</strong>
-              <p>From CHWs in the field to specialist consultants at referral hospitals.</p>
+            <div class="pillar">
+              <span class="pillar-icon"><i data-lucide="users"></i></span>
+              <div>
+                <strong>Designed for All Cadres</strong>
+                <p>From CHWs in the field to specialist consultants at referral hospitals.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -159,15 +158,18 @@
     </div>
   </section>
 
-  <!-- CORE MODULES GRID -->
-  <section class="section modules-preview">
-    <div class="container">
+  <!-- MODULES — with image background -->
+  <section class="section modules-preview img-section">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&q=70" alt="Medical technology background" />
+      <div class="img-section-bg-overlay"></div>
+    </div>
+    <div class="container img-section-content">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="layout-grid"></i> Platform Modules</p>
         <h2 class="section-title">Every Clinical Workflow.<br />One Integrated Platform.</h2>
       </div>
       <div class="modules-grid">
-
         <a href="pages/modules.html#ehr" class="module-card featured">
           <div class="module-img-wrap">
             <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80" alt="Electronic health records" />
@@ -180,56 +182,48 @@
             <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
           </div>
         </a>
-
         <a href="pages/modules.html#lab" class="module-card">
           <div class="module-icon"><i data-lucide="microscope"></i></div>
           <h3>Laboratory Information System</h3>
           <p>End-to-end specimen tracking, result entry, critical value alerts, and automated NHIF-compliant result delivery to ordering clinicians.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#pharmacy" class="module-card">
           <div class="module-icon"><i data-lucide="pill"></i></div>
           <h3>Pharmacy Management</h3>
           <p>Formulary management, drug interaction checking, dispensing workflows, and automated reorder alerts linked to the national essential medicines list.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#radiology" class="module-card">
           <div class="module-icon"><i data-lucide="scan"></i></div>
-          <h3>Radiology & PACS</h3>
+          <h3>Radiology &amp; PACS</h3>
           <p>Web-based DICOM viewer, radiology order entry, and integrated reporting — no expensive workstations required.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#scheduling" class="module-card">
           <div class="module-icon"><i data-lucide="calendar-days"></i></div>
-          <h3>Scheduling & Appointments</h3>
+          <h3>Scheduling &amp; Appointments</h3>
           <p>Multi-resource appointment booking, SMS reminders in Swahili and English, and no-show prediction powered by patient behaviour analytics.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#billing" class="module-card">
           <div class="module-icon"><i data-lucide="receipt"></i></div>
           <h3>Revenue Cycle Management</h3>
           <p>NHIF pre-authorisation, SHA claims processing, co-payment collection, and real-time denial management to maximise facility revenue.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#telehealth" class="module-card">
           <div class="module-icon"><i data-lucide="video"></i></div>
           <h3>Telemedicine</h3>
           <p>Secure video consultations, asynchronous messaging, and e-prescribing that extends specialist care to underserved facilities.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
         <a href="pages/modules.html#supply" class="module-card">
           <div class="module-icon"><i data-lucide="package"></i></div>
-          <h3>Supply Chain & Inventory</h3>
+          <h3>Supply Chain &amp; Inventory</h3>
           <p>Real-time stock visibility, expiry tracking, KEMSA integration, and consumption-based forecasting to eliminate stockouts.</p>
           <span class="module-cta">Learn more <i data-lucide="arrow-right"></i></span>
         </a>
-
       </div>
       <div class="center-cta">
         <a href="pages/modules.html" class="btn-primary">View All Modules</a>
@@ -237,66 +231,78 @@
     </div>
   </section>
 
-  <!-- ANALYTICS SHOWCASE -->
-  <section class="section analytics-showcase">
-    <div class="container analytics-grid">
-      <div class="analytics-text">
-        <p class="section-eyebrow light"><i data-lucide="bar-chart-2"></i> Real-Time Analytics</p>
-        <h2 class="section-title light">Command-Level Visibility Across Your Entire Health System</h2>
-        <p class="section-body light">From ward occupancy to county-level disease surveillance — MediCore Hub's analytics layer gives health managers and MOH officials the intelligence they need, when they need it.</p>
-        <ul class="analytics-list">
-          <li><i data-lucide="check"></i> Live dashboards for bed management and OPD flow</li>
-          <li><i data-lucide="check"></i> Outbreak detection and IDSR reporting to DHIS2</li>
-          <li><i data-lucide="check"></i> Clinician performance and quality metrics</li>
-          <li><i data-lucide="check"></i> Financial KPIs with drill-down to encounter level</li>
-        </ul>
-        <a href="pages/analytics.html" class="btn-primary">Explore Analytics</a>
-      </div>
-      <div class="analytics-visual">
-        <div class="analytics-card-stack">
-          <div class="a-card primary">
-            <div class="a-card-head">
-              <span>OPD Attendance — This Week</span>
-              <i data-lucide="trending-up"></i>
+  <!-- ANALYTICS — with image background -->
+  <section class="section analytics-showcase img-section">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=70" alt="Analytics background" />
+      <div class="img-section-bg-overlay"></div>
+    </div>
+    <div class="container img-section-content">
+      <div class="analytics-grid">
+        <div class="analytics-text">
+          <p class="section-eyebrow light"><i data-lucide="bar-chart-2"></i> Real-Time Analytics</p>
+          <h2 class="section-title light">Command-Level Visibility Across Your Entire Health System</h2>
+          <p class="section-body light">From ward occupancy to county-level disease surveillance — MediCore Hub's analytics layer gives health managers and MOH officials the intelligence they need, when they need it.</p>
+          <ul class="analytics-list">
+            <li><i data-lucide="check"></i> Live dashboards for bed management and OPD flow</li>
+            <li><i data-lucide="check"></i> Outbreak detection and IDSR reporting to DHIS2</li>
+            <li><i data-lucide="check"></i> Clinician performance and quality metrics</li>
+            <li><i data-lucide="check"></i> Financial KPIs with drill-down to encounter level</li>
+          </ul>
+          <a href="pages/analytics.html" class="btn-gold large">Explore Analytics</a>
+        </div>
+        <div class="analytics-visual">
+          <div class="analytics-card-stack">
+            <div class="a-card primary">
+              <div class="a-card-head">
+                <span>OPD Attendance — This Week</span>
+                <i data-lucide="trending-up"></i>
+              </div>
+              <div class="a-bars">
+                <div class="a-bar" style="--h:55%"><span>Mon</span></div>
+                <div class="a-bar" style="--h:72%"><span>Tue</span></div>
+                <div class="a-bar" style="--h:61%"><span>Wed</span></div>
+                <div class="a-bar" style="--h:88%"><span>Thu</span></div>
+                <div class="a-bar" style="--h:78%"><span>Fri</span></div>
+                <div class="a-bar accent" style="--h:43%"><span>Sat</span></div>
+                <div class="a-bar accent" style="--h:30%"><span>Sun</span></div>
+              </div>
+              <div class="a-card-foot">
+                <span class="uptick"><i data-lucide="arrow-up-right"></i> 12.4% vs last week</span>
+              </div>
             </div>
-            <div class="a-bars">
-              <div class="a-bar" style="--h:55%"><span>Mon</span></div>
-              <div class="a-bar" style="--h:72%"><span>Tue</span></div>
-              <div class="a-bar" style="--h:61%"><span>Wed</span></div>
-              <div class="a-bar" style="--h:88%"><span>Thu</span></div>
-              <div class="a-bar" style="--h:78%"><span>Fri</span></div>
-              <div class="a-bar accent" style="--h:43%"><span>Sat</span></div>
-              <div class="a-bar accent" style="--h:30%"><span>Sun</span></div>
+            <div class="a-card secondary">
+              <div class="donut-wrap">
+                <svg viewBox="0 0 80 80" class="donut-svg">
+                  <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="10"/>
+                  <circle cx="40" cy="40" r="30" fill="none" stroke="var(--gold)" stroke-width="10"
+                    stroke-dasharray="113 75" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+                </svg>
+                <span class="donut-val">60%</span>
+              </div>
+              <p>Bed Occupancy</p>
+              <p class="a-sub">General Ward</p>
             </div>
-            <div class="a-card-foot">
-              <span class="uptick"><i data-lucide="arrow-up-right"></i> 12.4% vs last week</span>
+            <div class="a-card tertiary">
+              <i data-lucide="alert-triangle"></i>
+              <div>
+                <strong>3 Critical Alerts</strong>
+                <p>Lab values requiring immediate clinician review</p>
+              </div>
             </div>
-          </div>
-          <div class="a-card secondary">
-            <div class="donut-wrap">
-              <svg viewBox="0 0 80 80" class="donut-svg">
-                <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
-                <circle cx="40" cy="40" r="30" fill="none" stroke="var(--amber)" stroke-width="10"
-                  stroke-dasharray="113 75" stroke-linecap="round" transform="rotate(-90 40 40)"/>
-              </svg>
-              <span class="donut-val">60%</span>
-            </div>
-            <p>Bed Occupancy</p>
-            <p class="a-sub">General Ward</p>
-          </div>
-          <div class="a-card tertiary">
-            <i data-lucide="alert-triangle"></i>
-            <strong>3 Critical Alerts</strong>
-            <p>Lab values requiring immediate clinician review</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INTEROPERABILITY -->
-  <section class="section interop-section">
-    <div class="container">
+  <!-- INTEROP — with image background -->
+  <section class="section interop-section img-section">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=70" alt="Network infrastructure" />
+      <div class="img-section-bg-overlay"></div>
+    </div>
+    <div class="container img-section-content">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="git-branch"></i> Interoperability</p>
         <h2 class="section-title">Speaks Every Healthcare System's Language</h2>
@@ -310,7 +316,7 @@
         <div class="interop-badge"><i data-lucide="shield"></i><span>SHA</span></div>
         <div class="interop-badge"><i data-lucide="globe"></i><span>SNOMED CT</span></div>
         <div class="interop-badge"><i data-lucide="package"></i><span>KEMSA</span></div>
-        <div class="interop-badge"><i data-lucide="cpu"></i><span>MPESA Payments</span></div>
+        <div class="interop-badge"><i data-lucide="smartphone"></i><span>MPESA Payments</span></div>
       </div>
       <div class="center-cta">
         <a href="pages/interoperability.html" class="btn-outline">View All Integrations</a>
@@ -318,9 +324,13 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section testimonials-section">
-    <div class="container">
+  <!-- TESTIMONIALS — with image background -->
+  <section class="section testimonials-section img-section">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1400&q=70" alt="Hospital team" />
+      <div class="img-section-bg-overlay"></div>
+    </div>
+    <div class="container img-section-content">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="message-square"></i> Field Voices</p>
         <h2 class="section-title">Trusted Across Kenya's Health System</h2>
@@ -350,7 +360,7 @@
         </div>
         <div class="testi-card">
           <div class="testi-quote"><i data-lucide="quote"></i></div>
-          <p class="testi-text">"NHIF pre-authorisation used to take two days and a phone call. Now it is done in under 10 seconds directly from the patient's chart. Our claims rejection rate has dropped by 67%."</p>
+          <p class="testi-text">"NHIF pre-authorisation used to take two days and a phone call. Now it is done in under 10 seconds. Our claims rejection rate has dropped by 67% since deploying MediCore Hub."</p>
           <div class="testi-author">
             <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=80&q=80" alt="Dr. Peter Kariuki" />
             <div>
@@ -364,45 +374,15 @@
   </section>
 
   <!-- SECURITY STRIP -->
-  <section class="security-strip">
+  <div class="security-strip">
     <div class="container security-inner">
-      <div class="sec-item">
-        <i data-lucide="lock"></i>
-        <div>
-          <strong>AES-256 Encryption</strong>
-          <span>At rest and in transit</span>
-        </div>
-      </div>
-      <div class="sec-item">
-        <i data-lucide="shield-check"></i>
-        <div>
-          <strong>ISO 27001 Certified</strong>
-          <span>Annual independent audit</span>
-        </div>
-      </div>
-      <div class="sec-item">
-        <i data-lucide="eye-off"></i>
-        <div>
-          <strong>Kenya DPA 2019</strong>
-          <span>Full compliance, data sovereignty</span>
-        </div>
-      </div>
-      <div class="sec-item">
-        <i data-lucide="rotate-ccw"></i>
-        <div>
-          <strong>Automated Backups</strong>
-          <span>Every 15 minutes, geo-redundant</span>
-        </div>
-      </div>
-      <div class="sec-item">
-        <i data-lucide="user-check"></i>
-        <div>
-          <strong>Role-Based Access</strong>
-          <span>Granular permissions per cadre</span>
-        </div>
-      </div>
+      <div class="sec-item"><i data-lucide="lock"></i><div><strong>AES-256 Encryption</strong><span>At rest and in transit</span></div></div>
+      <div class="sec-item"><i data-lucide="shield-check"></i><div><strong>ISO 27001 Certified</strong><span>Annual independent audit</span></div></div>
+      <div class="sec-item"><i data-lucide="eye-off"></i><div><strong>Kenya DPA 2019</strong><span>Full compliance, data sovereignty</span></div></div>
+      <div class="sec-item"><i data-lucide="rotate-ccw"></i><div><strong>Automated Backups</strong><span>Every 15 minutes, geo-redundant</span></div></div>
+      <div class="sec-item"><i data-lucide="user-check"></i><div><strong>Role-Based Access</strong><span>Granular permissions per cadre</span></div></div>
     </div>
-  </section>
+  </div>
 
   <!-- CTA BANNER -->
   <section class="cta-banner">
@@ -414,7 +394,7 @@
       <h2>Ready to Transform Your Facility's Digital Infrastructure?</h2>
       <p>Join 480+ facilities across Kenya on MediCore Hub. Implementation in as little as 6 weeks.</p>
       <div class="cta-banner-actions">
-        <a href="pages/contact.html" class="btn-primary large">Schedule a Demo</a>
+        <a href="pages/contact.html" class="btn-gold large">Schedule a Demo</a>
         <a href="pages/modules.html" class="btn-ghost-white large">Explore Features</a>
       </div>
     </div>
@@ -457,7 +437,6 @@
         <a href="pages/security.html">Security</a>
         <a href="#">Careers</a>
         <a href="pages/contact.html">Contact</a>
-        <a href="#">Documentation</a>
       </div>
       <div class="footer-links-col">
         <h4>Contact</h4>

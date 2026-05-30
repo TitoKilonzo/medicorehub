@@ -11,14 +11,14 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
     .dashboard-preview {
-      background: var(--navy-mid);
+      background: var(--charcoal-mid);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
       margin-top: 48px;
     }
     .dashboard-topbar {
-      background: var(--navy-light);
+      background: var(--charcoal-light);
       border-bottom: 1px solid var(--border);
       padding: 14px 24px;
       display: flex;
@@ -35,7 +35,7 @@
     }
     .dash-filters { display: flex; gap: 10px; flex-wrap: wrap; }
     .dash-filter {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       color: var(--text-muted);
       font-size: 0.75rem;
@@ -44,11 +44,11 @@
       cursor: pointer;
       transition: color var(--transition), border-color var(--transition);
     }
-    .dash-filter.active, .dash-filter:hover { color: var(--teal-light); border-color: var(--teal); }
+    .dash-filter.active, .dash-filter:hover { color: var(--green-bright); border-color: var(--green); }
     .dashboard-body { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     @media (max-width: 768px) { .dashboard-body { grid-template-columns: 1fr; } }
     .dash-panel {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 20px;
@@ -77,7 +77,7 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       font-family: 'Sora', sans-serif; font-weight: 700;
     }
-    .donut-large-val span:first-child { font-size: 1.4rem; color: var(--teal-light); }
+    .donut-large-val span:first-child { font-size: 1.4rem; color: var(--green-bright); }
     .donut-large-val span:last-child { font-size: 0.65rem; color: var(--text-muted); }
     .donut-legend { display: flex; flex-direction: column; gap: 10px; flex: 1; }
     .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--text-body); }
@@ -88,12 +88,12 @@
     .h-bar-item { display: flex; align-items: center; gap: 12px; font-size: 0.78rem; color: var(--text-muted); }
     .h-bar-label { width: 90px; flex-shrink: 0; }
     .h-bar-track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 100px; height: 8px; }
-    .h-bar-fill { height: 100%; border-radius: 100px; background: var(--teal); transition: width 1s ease; }
+    .h-bar-fill { height: 100%; border-radius: 100px; background: var(--green); transition: width 1s ease; }
     .h-bar-val { width: 40px; text-align: right; color: var(--white); font-weight: 600; }
     /* KPI row */
     .kpi-row { display: flex; gap: 20px; flex-wrap: wrap; }
     .kpi-item { flex: 1; min-width: 100px; }
-    .kpi-item .kpi-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--teal-light); }
+    .kpi-item .kpi-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--green-bright); }
     .kpi-item .kpi-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
     .kpi-item .kpi-delta { font-size: 0.72rem; color: var(--amber); font-weight: 600; }
     /* Alert list */
@@ -104,11 +104,11 @@
     }
     .alert-item.critical { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
     .alert-item.warning { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); }
-    .alert-item.info { background: rgba(14,165,160,0.08); border: 1px solid rgba(14,165,160,0.2); }
+    .alert-item.info { background: rgba(27,107,69,0.08); border: 1px solid rgba(27,107,69,0.2); }
     .alert-item i { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
     .alert-item.critical i { color: #EF4444; }
     .alert-item.warning i { color: var(--amber); }
-    .alert-item.info i { color: var(--teal-light); }
+    .alert-item.info i { color: var(--green-bright); }
     .alert-item p { color: var(--white); margin: 0; }
     .alert-item span { font-size: 0.72rem; color: var(--text-muted); }
 
@@ -121,13 +121,13 @@
       padding: 28px;
       transition: border-color var(--transition), transform var(--transition);
     }
-    .report-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+    .report-card:hover { border-color: var(--green); transform: translateY(-4px); }
     .report-card .rc-icon {
       width: 48px; height: 48px;
-      background: rgba(14,165,160,0.12);
+      background: rgba(27,107,69,0.12);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal-light);
+      color: var(--green-bright);
       margin-bottom: 18px;
     }
     .report-card .rc-icon i { width: 24px; height: 24px; }
@@ -191,7 +191,8 @@
   </section>
 
   <!-- METRICS -->
-  <section class="section" style="background:var(--navy-mid);">
+  <section class="section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.12) saturate(0.5);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(28,28,30,0.92) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="activity"></i> Live System Metrics</p>
@@ -244,8 +245,8 @@
               <svg class="line-chart-svg" viewBox="0 0 600 120" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#0EA5A0" stop-opacity="0.25"/>
-                    <stop offset="100%" stop-color="#0EA5A0" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#2A9D6B" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#2A9D6B" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
                 <!-- Grid lines -->
@@ -257,7 +258,7 @@
                   fill="url(#lineGrad)"/>
                 <!-- Line -->
                 <path d="M0,80 L43,65 L86,70 L129,50 L172,55 L215,40 L258,45 L301,35 L344,40 L387,30 L430,38 L473,28 L516,33 L600,25"
-                  fill="none" stroke="#0EA5A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  fill="none" stroke="#2A9D6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <!-- Dots -->
                 <circle cx="301" cy="35" r="4" fill="#F59E0B"/>
                 <circle cx="473" cy="28" r="4" fill="#F59E0B"/>
@@ -271,7 +272,7 @@
               <div class="donut-large-wrap">
                 <svg class="donut-large-svg" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
-                  <circle cx="50" cy="50" r="38" fill="none" stroke="#0EA5A0" stroke-width="12" stroke-dasharray="90 149" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="#2A9D6B" stroke-width="12" stroke-dasharray="90 149" stroke-linecap="round" transform="rotate(-90 50 50)"/>
                   <circle cx="50" cy="50" r="38" fill="none" stroke="#F59E0B" stroke-width="12" stroke-dasharray="52 187" stroke-linecap="round" transform="rotate(125 50 50)"/>
                   <circle cx="50" cy="50" r="38" fill="none" stroke="#7A96A8" stroke-width="12" stroke-dasharray="27 212" stroke-linecap="round" transform="rotate(230 50 50)"/>
                 </svg>
@@ -281,10 +282,10 @@
                 </div>
               </div>
               <div class="donut-legend">
-                <div class="legend-item"><span class="legend-dot" style="background:#0EA5A0"></span>NHIF<span class="legend-pct">38%</span></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#2A9D6B"></span>NHIF<span class="legend-pct">38%</span></div>
                 <div class="legend-item"><span class="legend-dot" style="background:#F59E0B"></span>SHA<span class="legend-pct">22%</span></div>
                 <div class="legend-item"><span class="legend-dot" style="background:#7A96A8"></span>Cash<span class="legend-pct">28%</span></div>
-                <div class="legend-item"><span class="legend-dot" style="background:#2EC4BF"></span>Other<span class="legend-pct">12%</span></div>
+                <div class="legend-item"><span class="legend-dot" style="background:#34D399"></span>Other<span class="legend-pct">12%</span></div>
               </div>
             </div>
           </div>
@@ -371,7 +372,8 @@
   </section>
 
   <!-- REPORT TYPES -->
-  <section class="section" style="background:var(--navy);">
+  <section class="section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.98) 0%,rgba(20,82,53,0.08) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="file-bar-chart"></i> Reporting Suite</p>

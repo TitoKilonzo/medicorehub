@@ -19,20 +19,20 @@
       padding: 28px;
       transition: border-color var(--transition), transform var(--transition);
     }
-    .integration-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+    .integration-card:hover { border-color: var(--green); transform: translateY(-4px); }
     .integration-card .int-icon {
       width: 52px; height: 52px;
-      background: rgba(14,165,160,0.12);
+      background: rgba(27,107,69,0.12);
       border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal-light);
+      color: var(--green-bright);
       margin-bottom: 18px;
     }
     .integration-card .int-icon i { width: 26px; height: 26px; }
     .integration-card .int-tag {
       display: inline-block;
-      background: rgba(14,165,160,0.1);
-      color: var(--teal-light);
+      background: rgba(27,107,69,0.1);
+      color: var(--green-bright);
       font-size: 0.68rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.08em;
       padding: 3px 10px; border-radius: 100px;
@@ -40,14 +40,14 @@
     }
     .integration-card h3 { font-size: 1.05rem; margin-bottom: 10px; }
     .integration-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
-    .standards-section { background: var(--navy-mid); }
+    .standards-section { background: var(--charcoal-mid); }
     .standards-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 60px; align-items: center; margin-top: 0; }
     @media(max-width:768px){.standards-grid{grid-template-columns:1fr;}}
     .standard-list { display: flex; flex-direction: column; gap: 16px; }
     .standard-item {
       display: flex; align-items: flex-start; gap: 16px;
       padding: 16px;
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
     }
@@ -62,14 +62,14 @@
     .standard-item strong { display: block; color: var(--white); font-size: 0.9rem; margin-bottom: 4px; }
     .standard-item p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
     .arch-visual {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px;
     }
     .arch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
     .arch-node {
-      background: var(--navy-mid);
+      background: var(--charcoal-mid);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 12px 16px;
@@ -79,10 +79,10 @@
       flex: 1; min-width: 80px;
       display: flex; flex-direction: column; align-items: center; gap: 6px;
     }
-    .arch-node i { width: 18px; height: 18px; color: var(--teal-light); }
-    .arch-node.hub { border-color: var(--teal); background: rgba(14,165,160,0.1); }
+    .arch-node i { width: 18px; height: 18px; color: var(--green-bright); }
+    .arch-node.hub { border-color: var(--green); background: rgba(27,107,69,0.1); }
     .arch-node.hub i { color: var(--amber); }
-    .arch-arrow { font-size: 1.4rem; color: var(--teal); flex-shrink: 0; }
+    .arch-arrow { font-size: 1.4rem; color: var(--green); flex-shrink: 0; }
     .arch-label {
       text-align: center;
       font-size: 0.7rem;
@@ -94,7 +94,7 @@
     }
     .arch-connector {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      background: linear-gradient(90deg, transparent, var(--green-light), transparent);
       margin: 8px 0;
     }
   </style>
@@ -146,7 +146,8 @@
   </section>
 
   <!-- STANDARDS ARCHITECTURE -->
-  <section class="section standards-section">
+  <section class="section standards-section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(20,82,53,0.1) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="git-branch"></i> Technical Standards</p>
@@ -188,7 +189,7 @@
           <div class="arch-row">
             <div class="arch-node"><i data-lucide="users"></i>NHIF/SHA</div>
             <div class="arch-arrow">&#8594;</div>
-            <div class="arch-node hub"><i data-lucide="activity"></i>MediCore Hub<br/><small style="font-size:0.65rem;color:var(--teal-light)">FHIR R4 Core</small></div>
+            <div class="arch-node hub"><i data-lucide="activity"></i>MediCore Hub<br/><small style="font-size:0.65rem;color:var(--green-bright)">FHIR R4 Core</small></div>
             <div class="arch-arrow">&#8594;</div>
             <div class="arch-node"><i data-lucide="database"></i>KHIS/DHIS2</div>
           </div>
@@ -214,7 +215,8 @@
   </section>
 
   <!-- INTEGRATIONS GRID -->
-  <section class="section" style="background:var(--navy);">
+  <section class="section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(28,28,30,0.95) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="plug"></i> Pre-Built Integrations</p>

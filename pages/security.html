@@ -20,26 +20,26 @@
       min-width: 140px;
       transition: border-color var(--transition);
     }
-    .compliance-badge:hover { border-color: var(--teal); }
+    .compliance-badge:hover { border-color: var(--green); }
     .compliance-badge .cb-icon {
       width: 48px; height: 48px;
-      background: rgba(14,165,160,0.12);
+      background: rgba(27,107,69,0.12);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal-light);
+      color: var(--green-bright);
     }
     .compliance-badge .cb-icon i { width: 24px; height: 24px; }
     .compliance-badge strong { font-family: 'Sora', sans-serif; font-size: 0.85rem; color: var(--white); text-align: center; }
     .compliance-badge span { font-size: 0.72rem; color: var(--text-muted); text-align: center; }
     .audit-log-preview {
-      background: var(--navy);
+      background: var(--charcoal);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
       margin-top: 48px;
     }
     .audit-header {
-      background: var(--navy-light);
+      background: var(--charcoal-light);
       border-bottom: 1px solid var(--border);
       padding: 14px 20px;
       display: flex; align-items: center; gap: 10px;
@@ -47,7 +47,7 @@
       font-size: 0.8rem;
       color: var(--white);
     }
-    .audit-header i { width: 16px; height: 16px; color: var(--teal-light); }
+    .audit-header i { width: 16px; height: 16px; color: var(--green-bright); }
     .audit-table { width: 100%; border-collapse: collapse; }
     .audit-table th {
       text-align: left; padding: 10px 20px;
@@ -63,7 +63,7 @@
       padding: 12px 20px;
       font-size: 0.82rem;
       color: var(--text-body);
-      border-bottom: 1px solid rgba(14,165,160,0.05);
+      border-bottom: 1px solid rgba(27,107,69,0.05);
     }
     .audit-table tr:last-child td { border-bottom: none; }
     .audit-badge {
@@ -73,7 +73,7 @@
       padding: 3px 10px;
       border-radius: 100px;
     }
-    .audit-badge.read { background: rgba(14,165,160,0.12); color: var(--teal-light); }
+    .audit-badge.read { background: rgba(27,107,69,0.12); color: var(--green-bright); }
     .audit-badge.write { background: rgba(245,158,11,0.12); color: var(--amber); }
     .audit-badge.delete { background: rgba(239,68,68,0.12); color: #EF4444; }
     .audit-badge.login { background: rgba(122,150,168,0.12); color: var(--text-muted); }
@@ -126,7 +126,8 @@
   </section>
 
   <!-- PILLARS -->
-  <section class="section" style="background:var(--navy-mid);">
+  <section class="section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(20,82,53,0.08) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="shield-check"></i> Security Architecture</p>
@@ -169,7 +170,8 @@
   </section>
 
   <!-- COMPLIANCE -->
-  <section class="section" style="background:var(--navy);">
+  <section class="section img-section" style="position:relative;overflow:hidden;">
+    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1200&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.98) 0%,rgba(28,28,30,0.95) 100%);"></div></div>
     <div class="container">
       <div class="section-header centered">
         <p class="section-eyebrow"><i data-lucide="check-circle"></i> Compliance</p>
