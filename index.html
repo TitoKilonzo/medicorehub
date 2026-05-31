@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MediCore Hub — Integrated Health Intelligence Platform</title>
   <meta name="description" content="MediCore Hub is a next-generation Health IT platform unifying patient records, diagnostics, scheduling, and analytics for modern healthcare facilities in East Africa." />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0284C7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="MediCore Hub" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,7 +34,7 @@
         <a href="pages/security.html" class="nav-link">Security</a>
         <a href="pages/contact.html" class="nav-link">Contact</a>
       </nav>
-      <a href="pages/contact.html" class="btn-primary">Request Demo</a>
+      <a href="app/pages/login.html" class="btn-primary">Sign In</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i data-lucide="menu"></i></button>
     </div>
     <div class="mobile-menu hidden" id="mobileMenu">
@@ -458,5 +464,10 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+    }
+  </script>
 </body>
 </html>

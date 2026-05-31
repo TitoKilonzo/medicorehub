@@ -257,3 +257,42 @@ hello@medicorehub.co.ke
 ---
 
 *Built with precision for East Africa's health system — 2026*
+
+---
+
+## v3 Updates — PWA + Auth + App Pages
+
+### New Theme
+Complete redesign to **Sky Blue (#0284C7) + Pure White + Coral (#FF6B4A)**. Fonts upgraded to **Plus Jakarta Sans** (headings) + **Instrument Sans** (body).
+
+### PWA Features
+- `manifest.json` — installable on Android/iOS/desktop
+- `sw.js` — service worker with network-first caching + offline fallback
+- Push notification support with clinical alert payloads
+- Background sync for offline form submissions
+- Install prompt banner with dismiss/install flow
+
+### App Pages (`/app/pages/`)
+
+| Page | File | Description |
+|---|---|---|
+| Login | `login.html` | Email/password + social SSO buttons + demo credentials |
+| Register | `register.html` | 2-step registration with password strength meter |
+| Reset Password | `reset-password.html` | 4-state flow: request → email sent → set new → success |
+| Onboarding | `onboarding.html` | 5-step preference wizard with chip selection + module toggles |
+| Dashboard | `dashboard.html` | Live stats, clinical alerts, appointment schedule, audit log |
+| Settings | `settings.html` | Profile, password, notifications, preferences, security, danger zone |
+| Modules (App) | `modules.html` | Section-based scrollable module reference with ToC + reading progress |
+
+### Database Layer (`/app/js/db.js`)
+Simulates Turso/libSQL with localStorage persistence. Swap each method body for `await client.execute({ sql, args })` using `@libsql/client` in production. Full schema SQL is embedded as a comment.
+
+### Contact Page — Implementation Journey
+Replaced the FAQ section with a visual **Implementation Journey timeline** — 5 phases from Discovery through Ongoing Support — plus a proof-strip with key deployment metrics.
+
+### To run
+```bash
+cd medicorehub
+python3 -m http.server 8080
+# Navigate to http://localhost:8080/app/pages/login.html
+```

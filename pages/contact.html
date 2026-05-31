@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us — MediCore Hub</title>
+  <link rel="manifest" href="../manifest.json" />
+  <meta name="theme-color" content="#0284C7" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -174,6 +176,73 @@
     .map-label i { width: 32px; height: 32px; color: var(--green-bright); display: block; margin: 0 auto 8px; }
     .map-label strong { display: block; color: white; font-family: 'Sora', sans-serif; }
     .map-label span { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* ── Implementation Journey Timeline ── */
+    .journey-timeline { display:flex; flex-direction:column; gap:0; max-width:860px; margin:0 auto 72px; }
+    .journey-step { display:grid; grid-template-columns:80px 1fr; gap:0; }
+    .journey-marker { display:flex; flex-direction:column; align-items:center; padding-top:4px; }
+    .journey-num {
+      width:44px; height:44px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Sora',sans-serif; font-weight:800; font-size:0.82rem;
+      color:var(--green-bright); background:rgba(27,107,69,0.12);
+      border:2px solid rgba(52,211,153,0.3);
+      position:relative; z-index:2;
+    }
+    .journey-line { flex:1; width:2px; background:rgba(52,211,153,0.15); margin:8px 0; min-height:32px; }
+    .journey-content { padding:0 0 40px 24px; }
+    .journey-week {
+      font-family:'Sora',sans-serif; font-size:0.7rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.12em; color:var(--green-bright);
+      margin-bottom:12px;
+    }
+    .journey-card {
+      display:flex; align-items:flex-start; gap:18px;
+      background:rgba(44,44,50,0.6); border:1px solid rgba(200,150,60,0.1);
+      border-radius:16px; padding:24px;
+      backdrop-filter:blur(8px);
+      transition:border-color 0.3s, transform 0.3s;
+    }
+    .journey-card:hover { border-color:rgba(52,211,153,0.25); transform:translateX(4px); }
+    .journey-icon {
+      width:48px; height:48px; flex-shrink:0; border-radius:12px;
+      background:rgba(27,107,69,0.15); border:1px solid rgba(52,211,153,0.2);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--green-bright);
+    }
+    .journey-icon i { width:22px; height:22px; }
+    .journey-text h3 { font-size:1rem; color:var(--white); margin-bottom:8px; }
+    .journey-text p { font-size:0.84rem; color:var(--text-body); line-height:1.7; margin-bottom:14px; }
+    .journey-deliverables { display:flex; flex-wrap:wrap; gap:8px; }
+    .journey-deliverables span {
+      display:inline-flex; align-items:center; gap:5px;
+      background:rgba(27,107,69,0.1); border:1px solid rgba(52,211,153,0.15);
+      color:var(--green-bright); font-size:0.74rem; font-weight:600;
+      padding:4px 10px; border-radius:100px;
+    }
+    .journey-deliverables i { width:11px; height:11px; }
+
+    /* ── Impact strip ── */
+    .impact-strip {
+      display:flex; align-items:stretch; flex-wrap:wrap;
+      background:rgba(44,44,50,0.7); border:1px solid rgba(200,150,60,0.12);
+      border-radius:16px; overflow:hidden; backdrop-filter:blur(8px);
+      max-width:860px; margin:0 auto;
+    }
+    .impact-item { flex:1; min-width:160px; padding:28px 24px; text-align:center; }
+    .impact-val {
+      font-family:'Sora',sans-serif; font-size:1.8rem; font-weight:800;
+      color:var(--green-bright); line-height:1; margin-bottom:8px;
+    }
+    .impact-label { font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+    .impact-divider { width:1px; background:rgba(200,150,60,0.1); align-self:stretch; }
+    @media(max-width:768px){
+      .journey-step { grid-template-columns:1fr; }
+      .journey-marker { display:none; }
+      .journey-content { padding:0 0 24px 0; }
+      .impact-strip { flex-direction:column; }
+      .impact-divider { width:100%; height:1px; }
+    }
   </style>
 </head>
 <body>
@@ -397,40 +466,160 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="faq-section img-section" style="position:relative;overflow:hidden;">
-    <div class="img-section-bg"><img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1400&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" /><div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(130deg,rgba(28,28,30,0.97) 0%,rgba(20,82,53,0.07) 100%);"></div></div>
+  <!-- IMPLEMENTATION JOURNEY + IMPACT PROOF -->
+  <section class="img-section" style="position:relative;overflow:hidden;padding:100px 0;">
+    <div class="img-section-bg">
+      <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1400&q=60" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.1) saturate(0.4);" />
+      <div class="img-section-bg-overlay" style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(28,28,30,0.97) 0%,rgba(20,82,53,0.06) 100%);"></div>
+    </div>
     <div class="container img-section-content">
-      <div class="section-header centered">
-        <p class="section-eyebrow"><i data-lucide="help-circle"></i> Frequently Asked</p>
-        <h2 class="section-title">Common Questions</h2>
+
+      <!-- Section header -->
+      <div class="section-header centered" style="margin-bottom:64px">
+        <p class="section-eyebrow"><i data-lucide="map"></i> From Decision to Go-Live</p>
+        <h2 class="section-title">Your Implementation Journey</h2>
+        <p class="section-sub" style="max-width:540px;margin:0 auto">A structured, low-disruption rollout managed end-to-end by our implementation team — so your clinical staff can focus on patients, not technology.</p>
       </div>
-      <div class="faq-grid">
-        <div class="faq-card">
-          <h4><i data-lucide="clock"></i> How long does implementation take?</h4>
-          <p>A standard deployment for a single-site health centre typically takes 4 – 6 weeks from contract signing to go-live. Multi-site county rollouts are phased over 3 – 6 months with dedicated project management support.</p>
+
+      <!-- Timeline -->
+      <div class="journey-timeline">
+
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-num">01</div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <div class="journey-week">Week 1 — 2</div>
+            <div class="journey-card">
+              <div class="journey-icon"><i data-lucide="clipboard-list"></i></div>
+              <div class="journey-text">
+                <h3>Discovery &amp; Scoping</h3>
+                <p>Our implementation manager visits your facility, maps existing workflows, identifies integration touchpoints (NHIF, KEMSA, lab equipment), and produces a written deployment plan with a fixed go-live date.</p>
+                <div class="journey-deliverables">
+                  <span><i data-lucide="check-circle"></i> Workflow audit report</span>
+                  <span><i data-lucide="check-circle"></i> Integration map</span>
+                  <span><i data-lucide="check-circle"></i> Fixed go-live date</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="faq-card">
-          <h4><i data-lucide="wifi-off"></i> Does it work without reliable internet?</h4>
-          <p>Yes. MediCore Hub is offline-first by architecture. The system runs fully on a local server at your facility and synchronises with the cloud when connectivity is available. We have successful deployments in ASAL counties with minimal connectivity.</p>
+
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-num">02</div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <div class="journey-week">Week 2 — 3</div>
+            <div class="journey-card">
+              <div class="journey-icon"><i data-lucide="database"></i></div>
+              <div class="journey-text">
+                <h3>Data Migration &amp; Configuration</h3>
+                <p>We migrate your existing patient records from OpenMRS, KenyaEMR, paper registers, or any legacy system. The platform is configured to your facility's MOH tier, service lines, and formulary — all before any staff training begins.</p>
+                <div class="journey-deliverables">
+                  <span><i data-lucide="check-circle"></i> Zero-loss data migration</span>
+                  <span><i data-lucide="check-circle"></i> Facility-specific configuration</span>
+                  <span><i data-lucide="check-circle"></i> Formulary &amp; NHIF setup</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="faq-card">
-          <h4><i data-lucide="dollar-sign"></i> How is pricing structured?</h4>
-          <p>Pricing is a monthly subscription per facility, tiered by facility level and number of active users. We offer government and NGO pricing tiers. Contact us for a tailored quote — we do not publish pricing publicly as facilities vary significantly.</p>
+
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-num">03</div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <div class="journey-week">Week 3 — 4</div>
+            <div class="journey-card">
+              <div class="journey-icon"><i data-lucide="graduation-cap"></i></div>
+              <div class="journey-text">
+                <h3>Role-Based Staff Training</h3>
+                <p>Dedicated half-day sessions per cadre: clinicians, nurses, pharmacists, lab technicians, and administrators. Training is in Swahili and English, delivered on-site or via telehealth. Champion users are identified and trained as internal trainers.</p>
+                <div class="journey-deliverables">
+                  <span><i data-lucide="check-circle"></i> On-site training per cadre</span>
+                  <span><i data-lucide="check-circle"></i> Swahili &amp; English materials</span>
+                  <span><i data-lucide="check-circle"></i> Champion user programme</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="faq-card">
-          <h4><i data-lucide="database"></i> Can you migrate our existing data?</h4>
-          <p>Yes. We have migrated data from OpenMRS, KenyaEMR, Daktari, and custom spreadsheet systems. All migrations are performed by our data engineering team with zero data loss guaranteed in writing.</p>
+
+        <div class="journey-step">
+          <div class="journey-marker">
+            <div class="journey-num">04</div>
+            <div class="journey-line"></div>
+          </div>
+          <div class="journey-content">
+            <div class="journey-week">Week 5 — 6</div>
+            <div class="journey-card">
+              <div class="journey-icon"><i data-lucide="rocket"></i></div>
+              <div class="journey-text">
+                <h3>Parallel Run &amp; Go-Live</h3>
+                <p>A supervised parallel run period ensures confidence before cutover. On go-live day, an implementation engineer is on-site for the first 48 hours. Critical support SLA (1-hour response) begins from Day 1.</p>
+                <div class="journey-deliverables">
+                  <span><i data-lucide="check-circle"></i> 48-hour on-site go-live support</span>
+                  <span><i data-lucide="check-circle"></i> 1-hour critical SLA from Day 1</span>
+                  <span><i data-lucide="check-circle"></i> 30-day hypercare period</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="faq-card">
-          <h4><i data-lucide="graduation-cap"></i> What training is included?</h4>
-          <p>All deployments include role-based training for every cadre: CHWs, nurses, clinicians, pharmacists, lab technicians, and administrators. We train the trainers and provide a full e-learning library in Swahili and English.</p>
+
+        <div class="journey-step" style="margin-bottom:0">
+          <div class="journey-marker">
+            <div class="journey-num" style="background:var(--green);border-color:var(--green)">
+              <i data-lucide="check" style="width:16px;height:16px"></i>
+            </div>
+          </div>
+          <div class="journey-content">
+            <div class="journey-week">Ongoing</div>
+            <div class="journey-card" style="border-color:rgba(52,211,153,0.2);background:rgba(27,107,69,0.06)">
+              <div class="journey-icon" style="background:rgba(52,211,153,0.1);color:var(--green-bright)"><i data-lucide="headphones"></i></div>
+              <div class="journey-text">
+                <h3>Continuous Support &amp; Growth</h3>
+                <p>Your dedicated customer success manager conducts quarterly business reviews, monitors system health, and ensures your facility is always on the latest platform version. Feature requests are tracked and implemented in regular releases.</p>
+                <div class="journey-deliverables">
+                  <span><i data-lucide="check-circle"></i> Dedicated CSM</span>
+                  <span><i data-lucide="check-circle"></i> Quarterly reviews</span>
+                  <span><i data-lucide="check-circle"></i> 24/7 critical support line</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="faq-card">
-          <h4><i data-lucide="server"></i> Where is our data hosted?</h4>
-          <p>Data is hosted in AWS Nairobi (af-south-1) by default, keeping it within Kenya's jurisdiction in compliance with the Data Protection Act 2019. On-premise deployment options are available for county governments requiring full data sovereignty.</p>
+
+      </div><!-- /timeline -->
+
+      <!-- Impact proof strip -->
+      <div class="impact-strip">
+        <div class="impact-item">
+          <div class="impact-val">6 wks</div>
+          <div class="impact-label">Average time from contract to go-live</div>
+        </div>
+        <div class="impact-divider"></div>
+        <div class="impact-item">
+          <div class="impact-val">100%</div>
+          <div class="impact-label">Facilities successfully onboarded on schedule</div>
+        </div>
+        <div class="impact-divider"></div>
+        <div class="impact-item">
+          <div class="impact-val">Zero</div>
+          <div class="impact-label">Data loss incidents across all migrations</div>
+        </div>
+        <div class="impact-divider"></div>
+        <div class="impact-item">
+          <div class="impact-val">4.8/5</div>
+          <div class="impact-label">Average training satisfaction score from staff</div>
         </div>
       </div>
+
     </div>
   </section>
 

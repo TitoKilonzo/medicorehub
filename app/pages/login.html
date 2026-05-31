@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="manifest" href="../../manifest.json" />
+  <meta name="theme-color" content="#0284C7" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+<div class="offline-bar" id="offlineBar"><i data-lucide="wifi-off"></i> You are offline — changes will sync when reconnected</div>
+
+<div class="auth-shell">
+  <!-- LEFT PANEL -->
+  <div class="auth-left">
+    <div class="auth-left-bg"><img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&q=70" alt="" /></div>
+    <div class="auth-left-overlay"></div>
+    <div class="auth-left-mesh"></div>
+    <div class="auth-left-pattern"></div>
+    <div class="auth-left-content">
+      <a href="../../index.html" class="auth-brand">
+        <span class="auth-brand-icon"><i data-lucide="activity"></i></span>
+        MediCore <strong style="color:#BAE6FD">Hub</strong>
+      </a>
+      <div class="auth-hero-block">
+        <div class="auth-hero-badge"><i data-lucide="shield-check"></i> Trusted by 480+ Facilities</div>
+        <h1 class="auth-hero-title">
+          One login.<br/>
+          <span>Every clinical workflow.</span>
+        </h1>
+        <p class="auth-hero-sub">From patient registration to lab results, pharmacy and billing — all in one secure, offline-capable platform built for East Africa's health system.</p>
+        <div class="auth-feature-list">
+          <div class="auth-feature-item"><i data-lucide="wifi-off"></i> Works offline — syncs automatically</div>
+          <div class="auth-feature-item"><i data-lucide="shield-check"></i> ISO 27001 certified, Kenya DPA compliant</div>
+          <div class="auth-feature-item"><i data-lucide="zap"></i> Average login-to-record in under 4 seconds</div>
+          <div class="auth-feature-item"><i data-lucide="users"></i> Role-based access for every clinical cadre</div>
+        </div>
+      </div>
+      <div class="auth-left-footer">
+        <div class="auth-left-stat"><div class="val">480+</div><div class="label">Facilities</div></div>
+        <div class="auth-stat-divider"></div>
+        <div class="auth-left-stat"><div class="val">2.4M</div><div class="label">Records</div></div>
+        <div class="auth-stat-divider"></div>
+        <div class="auth-left-stat"><div class="val">99.9%</div><div class="label">Uptime</div></div>
+        <div class="auth-stat-divider"></div>
+        <div class="auth-left-stat"><div class="val">14</div><div class="label">Counties</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="auth-right">
+    <div class="auth-form-wrapper">
+      <div class="auth-form-header">
+        <div class="auth-form-eyebrow"><i data-lucide="log-in"></i> Secure Access</div>
+        <h1 class="auth-form-title">Welcome back</h1>
+        <p class="auth-form-sub">Sign in to your MediCore Hub workspace</p>
+      </div>
+
+      <div class="social-auth">
+        <button class="btn-social" onclick="Toast.info('SSO configured per facility', 'Contact your admin')">
+          <i data-lucide="building-2"></i> Facility SSO
+        </button>
+        <button class="btn-social" onclick="Toast.info('Google Workspace login', 'Coming soon')">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+      </div>
+
+      <div class="divider"><div class="divider-line"></div><span class="divider-text">or continue with email</span><div class="divider-line"></div></div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon"><i data-lucide="mail"></i></span>
+            <input type="email" id="email" class="form-input has-icon" placeholder="you@facility.or.ke" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">
+            Password
+            <a href="reset-password.html" style="float:right;font-weight:500;color:var(--sky-600);font-size:0.78rem">Forgot password?</a>
+          </label>
+          <div class="input-wrap">
+            <span class="input-icon"><i data-lucide="lock"></i></span>
+            <input type="password" id="password" class="form-input has-icon has-toggle" placeholder="Enter your password" autocomplete="current-password" required />
+            <button type="button" class="input-toggle" aria-label="Toggle password"><i data-lucide="eye"></i></button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="rememberMe" class="form-checkbox" />
+            <span class="checkbox-label">Keep me signed in for 8 hours</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-sky btn-full btn-lg" id="loginBtn">
+          <span class="btn-text"><i data-lucide="log-in"></i> Sign In</span>
+        </button>
+      </form>
+
+      <div class="auth-switch">Don't have an account? <a href="register.html">Create one free</a></div>
+
+      <div style="margin-top:28px;padding:16px;background:var(--sky-50);border:1px solid var(--sky-200);border-radius:12px;">
+        <p style="font-size:0.76rem;font-weight:700;color:var(--sky-700);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em">Demo Credentials</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;">
+            <span style="color:var(--text-500)">Email:</span>
+            <code style="color:var(--sky-700);font-weight:600">demo@medicorehub.co.ke</code>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.8rem;">
+            <span style="color:var(--text-500)">Password:</span>
+            <code style="color:var(--sky-700);font-weight:600">Demo@2026</code>
+          </div>
+        </div>
+        <button onclick="fillDemo()" style="margin-top:10px;width:100%;height:32px;border:1px solid var(--sky-300);background:white;border-radius:8px;font-size:0.78rem;font-weight:600;color:var(--sky-700);cursor:pointer;font-family:inherit">Use Demo Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/db.js"></script>
+<script src="../js/app.js"></script>
+<script>
+function fillDemo() {
+  document.getElementById('email').value    = 'demo@medicorehub.co.ke';
+  document.getElementById('password').value = 'Demo@2026';
+  Toast.info('Demo credentials filled', 'Click Sign In to continue');
+}
+
+// Ensure demo account exists
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await db.findUserByEmail('demo@medicorehub.co.ke') ||
+      await db.createUser({
+        name: 'Dr. Demo User', email: 'demo@medicorehub.co.ke',
+        password: 'Demo@2026', role: 'clinician',
+        facility: 'Kenyatta National Hospital', county: 'Nairobi'
+      });
+  } catch {}
+});
+
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn   = document.getElementById('loginBtn');
+  const email = document.getElementById('email').value.trim();
+  const pw    = document.getElementById('password').value;
+  clearAllErrors(e.target);
+
+  if (!email) { showFieldError(document.getElementById('email'), 'Email is required'); return; }
+  if (!validateEmail(email)) { showFieldError(document.getElementById('email'), 'Enter a valid email address'); return; }
+  if (!pw) { showFieldError(document.getElementById('password'), 'Password is required'); return; }
+
+  setLoading(btn, true);
+  try {
+    const user    = await db.authenticate(email, pw);
+    const session = await db.createSession(user.id);
+    db.saveAuth(session.token, user);
+
+    // Check if onboarding complete
+    const ob = await db.getOnboarding(user.id);
+    Toast.success('Signed in successfully', `Welcome back, ${user.name.split(' ')[0]}`);
+    setTimeout(() => {
+      window.location.href = (!ob.completed && !user.onboarded)
+        ? 'onboarding.html' : 'dashboard.html';
+    }, 800);
+  } catch (err) {
+    setLoading(btn, false);
+    showFormAlert(e.target, err.message);
+  }
+});
+</script>
+</body>
+</html>

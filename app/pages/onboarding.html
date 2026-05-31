@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Set Up Your Workspace — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <meta name="theme-color" content="#0284C7"/>
+  <link rel="stylesheet" href="../css/app.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+<div class="offline-bar" id="offlineBar"><i data-lucide="wifi-off"></i> You are offline — onboarding progress will be saved locally</div>
+
+<div class="onboarding-shell">
+  <!-- Top bar -->
+  <div class="onboarding-topbar">
+    <div class="onboarding-logo">
+      <div class="logo-icon"><i data-lucide="activity"></i></div>
+      Medicore<span>Hub</span>
+    </div>
+    <span class="onboarding-step-label" id="stepLabel">Step 1 of 5 — Welcome</span>
+    <button onclick="skipOnboarding()" style="background:none;border:none;font-size:0.82rem;color:var(--text-400);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px" onmouseover="this.style.color='var(--sky-600)'" onmouseout="this.style.color='var(--text-400)'">
+      Skip setup <i data-lucide="skip-forward" style="width:13px;height:13px"></i>
+    </button>
+  </div>
+
+  <!-- Progress -->
+  <div class="onboarding-progress-wrap">
+    <div class="progress-steps" id="progressSteps">
+      <div class="progress-step">
+        <div class="step-node active" id="sn1">1</div>
+        <div class="step-connector" id="sc1"></div>
+      </div>
+      <div class="progress-step">
+        <div class="step-node" id="sn2">2</div>
+        <div class="step-connector" id="sc2"></div>
+      </div>
+      <div class="progress-step">
+        <div class="step-node" id="sn3">3</div>
+        <div class="step-connector" id="sc3"></div>
+      </div>
+      <div class="progress-step">
+        <div class="step-node" id="sn4">4</div>
+        <div class="step-connector" id="sc4"></div>
+      </div>
+      <div class="progress-step" style="flex:0">
+        <div class="step-node" id="sn5">5</div>
+      </div>
+    </div>
+    <div class="step-labels">
+      <span class="step-label-item active" id="sl1">Welcome</span>
+      <span class="step-label-item" id="sl2">Role</span>
+      <span class="step-label-item" id="sl3">Modules</span>
+      <span class="step-label-item" id="sl4">Notifications</span>
+      <span class="step-label-item" id="sl5">Done</span>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="onboarding-body">
+    <div class="onboarding-card">
+
+      <!-- STEP 1: Welcome -->
+      <div class="onboarding-step active" id="step1">
+        <div class="step-icon-wrap"><i data-lucide="hand-metal"></i></div>
+        <h2 class="step-title" id="welcomeName">Welcome to MediCore Hub!</h2>
+        <p class="step-sub">Let's personalise your workspace in 5 quick steps. This takes about 2 minutes and helps us show you the most relevant tools for your clinical role.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px">
+          <div style="background:var(--sky-50);border:1.5px solid var(--sky-200);border-radius:12px;padding:18px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <i data-lucide="clock" style="width:16px;height:16px;color:var(--sky-600)"></i>
+              <span style="font-size:0.78rem;font-weight:700;color:var(--sky-700);text-transform:uppercase;letter-spacing:0.08em">Time</span>
+            </div>
+            <p style="font-size:1rem;font-weight:700;color:var(--text-900)">~2 minutes</p>
+            <p style="font-size:0.76rem;color:var(--text-400)">Quick setup, big impact</p>
+          </div>
+          <div style="background:var(--coral-pale);border:1.5px solid #FDBA74;border-radius:12px;padding:18px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <i data-lucide="settings-2" style="width:16px;height:16px;color:var(--coral)"></i>
+              <span style="font-size:0.78rem;font-weight:700;color:var(--coral-dark);text-transform:uppercase;letter-spacing:0.08em">Steps</span>
+            </div>
+            <p style="font-size:1rem;font-weight:700;color:var(--text-900)">5 questions</p>
+            <p style="font-size:0.76rem;color:var(--text-400)">Change anytime in settings</p>
+          </div>
+        </div>
+        <div class="onboarding-nav">
+          <span></span>
+          <button class="btn btn-sky btn-lg" onclick="goStep(2)">
+            Get Started <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Clinical Role & Department -->
+      <div class="onboarding-step" id="step2">
+        <div class="step-icon-wrap"><i data-lucide="stethoscope"></i></div>
+        <h2 class="step-title">What best describes your role?</h2>
+        <p class="step-sub">We'll surface the right modules, shortcuts, and alerts for your day-to-day work.</p>
+        <div class="pref-grid" id="roleChips">
+          <div class="pref-chip" data-value="clinician"><i data-lucide="stethoscope"></i> Clinician / Doctor</div>
+          <div class="pref-chip" data-value="nurse"><i data-lucide="heart-pulse"></i> Nurse</div>
+          <div class="pref-chip" data-value="pharmacist"><i data-lucide="pill"></i> Pharmacist</div>
+          <div class="pref-chip" data-value="lab_tech"><i data-lucide="microscope"></i> Lab Technician</div>
+          <div class="pref-chip" data-value="radiology"><i data-lucide="scan"></i> Radiographer</div>
+          <div class="pref-chip" data-value="admin"><i data-lucide="clipboard-list"></i> Administrator</div>
+          <div class="pref-chip" data-value="manager"><i data-lucide="bar-chart-2"></i> Facility Manager</div>
+          <div class="pref-chip" data-value="chw"><i data-lucide="users"></i> Community Health Worker</div>
+        </div>
+        <div class="form-group" style="margin-top:4px">
+          <label class="form-label">Primary Department <span style="color:var(--text-300);font-weight:400">(optional)</span></label>
+          <div class="input-wrap">
+            <span class="input-icon"><i data-lucide="building-2"></i></span>
+            <input type="text" id="department" class="form-input has-icon" placeholder="e.g. General Medicine, Paediatrics, ICU…"/>
+          </div>
+        </div>
+        <div class="onboarding-nav">
+          <button class="btn btn-ghost" onclick="goStep(1)"><i data-lucide="arrow-left"></i> Back</button>
+          <button class="btn btn-sky btn-lg" onclick="saveStep2()">Continue <i data-lucide="arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Module Preferences -->
+      <div class="onboarding-step" id="step3">
+        <div class="step-icon-wrap"><i data-lucide="layout-grid"></i></div>
+        <h2 class="step-title">Which modules will you use?</h2>
+        <p class="step-sub">Select all that apply to your daily workflow. You can enable or disable modules any time in Settings.</p>
+        <div class="module-toggle-list" id="moduleToggles">
+          <label class="module-toggle selected" data-module="ehr">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="file-text"></i></div>
+              <div><div class="module-toggle-name">Electronic Health Records</div><div class="module-toggle-desc">Patient charts, clinical notes, problem lists</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-track"></span></label>
+          </label>
+          <label class="module-toggle" data-module="lab">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="microscope"></i></div>
+              <div><div class="module-toggle-name">Laboratory (LIS)</div><div class="module-toggle-desc">Test orders, results, specimen tracking</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+          </label>
+          <label class="module-toggle" data-module="pharmacy">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="pill"></i></div>
+              <div><div class="module-toggle-name">Pharmacy</div><div class="module-toggle-desc">Prescriptions, dispensing, drug interactions</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+          </label>
+          <label class="module-toggle" data-module="scheduling">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="calendar-days"></i></div>
+              <div><div class="module-toggle-name">Scheduling</div><div class="module-toggle-desc">Appointments, SMS reminders, waitlists</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+          </label>
+          <label class="module-toggle" data-module="billing">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="receipt"></i></div>
+              <div><div class="module-toggle-name">Billing & Claims</div><div class="module-toggle-desc">NHIF/SHA, M-Pesa, revenue cycle</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+          </label>
+          <label class="module-toggle" data-module="analytics">
+            <div class="module-toggle-left">
+              <div class="module-toggle-icon"><i data-lucide="bar-chart-2"></i></div>
+              <div><div class="module-toggle-name">Analytics & Reports</div><div class="module-toggle-desc">Dashboards, DHIS2, regulatory reports</div></div>
+            </div>
+            <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+          </label>
+        </div>
+        <!-- Sync toggle states with visual class -->
+        <div class="onboarding-nav">
+          <button class="btn btn-ghost" onclick="goStep(2)"><i data-lucide="arrow-left"></i> Back</button>
+          <button class="btn btn-sky btn-lg" onclick="saveStep3()">Continue <i data-lucide="arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Notification Preferences -->
+      <div class="onboarding-step" id="step4">
+        <div class="step-icon-wrap"><i data-lucide="bell"></i></div>
+        <h2 class="step-title">How should we notify you?</h2>
+        <p class="step-sub">Choose which clinical alerts you want to receive and how. You can fine-tune these in Notification Settings later.</p>
+
+        <div style="margin-bottom:24px">
+          <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-400);margin-bottom:12px">Alert Types</p>
+          <div class="pref-grid" id="notifChips">
+            <div class="pref-chip selected" data-value="critical_lab"><i data-lucide="flask-conical"></i> Critical Lab Values</div>
+            <div class="pref-chip selected" data-value="med_alerts"><i data-lucide="alert-triangle"></i> Medication Alerts</div>
+            <div class="pref-chip" data-value="appointments"><i data-lucide="calendar"></i> Appointment Changes</div>
+            <div class="pref-chip" data-value="stock_alerts"><i data-lucide="package"></i> Stockout Warnings</div>
+            <div class="pref-chip" data-value="claims"><i data-lucide="receipt"></i> Claims Updates</div>
+            <div class="pref-chip" data-value="system"><i data-lucide="server"></i> System Updates</div>
+          </div>
+        </div>
+
+        <div>
+          <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-400);margin-bottom:12px">Delivery Method</p>
+          <div class="pref-grid" id="deliveryChips">
+            <div class="pref-chip selected" data-value="in_app"><i data-lucide="bell"></i> In-App</div>
+            <div class="pref-chip" data-value="sms"><i data-lucide="message-square"></i> SMS</div>
+            <div class="pref-chip" data-value="email"><i data-lucide="mail"></i> Email</div>
+            <div class="pref-chip" data-value="push"><i data-lucide="smartphone"></i> Push Notification</div>
+          </div>
+        </div>
+
+        <div class="onboarding-nav">
+          <button class="btn btn-ghost" onclick="goStep(3)"><i data-lucide="arrow-left"></i> Back</button>
+          <button class="btn btn-sky btn-lg" onclick="saveStep4()">Continue <i data-lucide="arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 5: All done -->
+      <div class="onboarding-step" id="step5">
+        <div style="text-align:center;padding:16px 0">
+          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--sky-100),var(--sky-200));border:2px solid var(--sky-300);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:var(--sky-600)">
+            <i data-lucide="party-popper" style="width:36px;height:36px"></i>
+          </div>
+          <h2 style="font-size:1.5rem;font-weight:800;color:var(--text-900);margin-bottom:10px">You're all set!</h2>
+          <p style="font-size:0.9rem;color:var(--text-400);max-width:380px;margin:0 auto 28px;line-height:1.7">Your workspace has been personalised. Your choices are saved and you can update them any time in <strong style="color:var(--sky-600)">Settings → Preferences</strong>.</p>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:left;margin-bottom:28px">
+            <p style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-300);margin-bottom:12px">Your Setup Summary</p>
+            <div id="summaryList" style="display:flex;flex-direction:column;gap:8px"></div>
+          </div>
+
+          <button class="btn btn-sky btn-full btn-lg" id="finishBtn" onclick="finishOnboarding()">
+            <span class="btn-text"><i data-lucide="arrow-right"></i> Open My Dashboard</span>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /onboarding-card -->
+  </div>
+</div>
+
+<script src="../js/db.js"></script>
+<script src="../js/app.js"></script>
+<script>
+let currentStep = 1;
+const prefs = { role: '', department: '', modules: ['ehr'], notifications: ['critical_lab','med_alerts'], delivery: ['in_app'] };
+
+const stepTitles = ['Welcome','Role & Dept','Modules','Notifications','All Done!'];
+const auth = db.getAuth();
+if (!auth) window.location.href = 'login.html';
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (auth?.user?.name) {
+    const first = auth.user.name.split(' ')[0];
+    document.getElementById('welcomeName').textContent = `Welcome, ${first}!`;
+  }
+  // Load existing onboarding progress
+  db.getOnboarding(auth.user.id).then(ob => {
+    if (ob.completed) window.location.href = 'dashboard.html';
+    if (ob.step > 1) goStep(ob.step);
+  });
+  initChipGroups();
+  initModuleToggles();
+});
+
+function initChipGroups() {
+  document.querySelectorAll('.pref-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('selected');
+      if (window.lucide) lucide.createIcons({ nodes: [chip] });
+    });
+  });
+}
+
+function initModuleToggles() {
+  document.querySelectorAll('.module-toggle input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      e.target.closest('.module-toggle').classList.toggle('selected', e.target.checked);
+    });
+  });
+}
+
+function goStep(n) {
+  document.getElementById(`step${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`step${n}`).classList.add('active');
+  document.getElementById('stepLabel').textContent = `Step ${n} of 5 — ${stepTitles[n-1]}`;
+  // Update progress nodes
+  for (let i = 1; i <= 5; i++) {
+    const node = document.getElementById(`sn${i}`);
+    const conn = document.getElementById(`sc${i}`);
+    const lbl  = document.getElementById(`sl${i}`);
+    node.className = 'step-node' + (i < n ? ' done' : i === n ? ' active' : '');
+    if (i < n) node.innerHTML = '<i data-lucide="check"></i>';
+    else node.textContent = i;
+    if (conn) conn.className = 'step-connector' + (i < n ? ' done' : '');
+    if (lbl) lbl.className = 'step-label-item' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+  if (window.lucide) lucide.createIcons();
+  db.saveOnboardingStep(auth.user.id, n, prefs);
+}
+
+function getSelected(groupId) {
+  return Array.from(document.querySelectorAll(`#${groupId} .pref-chip.selected`)).map(c => c.dataset.value);
+}
+
+function saveStep2() {
+  prefs.role       = document.querySelector('#roleChips .pref-chip.selected')?.dataset.value || 'clinician';
+  prefs.department = document.getElementById('department').value.trim();
+  goStep(3);
+}
+
+function saveStep3() {
+  prefs.modules = Array.from(document.querySelectorAll('.module-toggle input:checked'))
+    .map(cb => cb.closest('.module-toggle').dataset.module);
+  goStep(4);
+}
+
+function saveStep4() {
+  prefs.notifications = getSelected('notifChips');
+  prefs.delivery      = getSelected('deliveryChips');
+  buildSummary();
+  goStep(5);
+}
+
+function buildSummary() {
+  const items = [
+    { icon: 'user', label: 'Role', value: prefs.role.replace('_',' ') || 'Not set' },
+    { icon: 'building-2', label: 'Department', value: prefs.department || 'Not specified' },
+    { icon: 'layout-grid', label: 'Modules enabled', value: `${prefs.modules.length} selected` },
+    { icon: 'bell', label: 'Alert types', value: `${prefs.notifications.length} enabled` },
+  ];
+  const list = document.getElementById('summaryList');
+  list.innerHTML = items.map(it => `
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:30px;height:30px;border-radius:7px;background:var(--sky-50);border:1px solid var(--sky-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600);flex-shrink:0">
+        <i data-lucide="${it.icon}" style="width:14px;height:14px"></i>
+      </div>
+      <span style="font-size:0.82rem;color:var(--text-500)">${it.label}:</span>
+      <span style="font-size:0.82rem;font-weight:600;color:var(--text-900);margin-left:auto">${it.value}</span>
+    </div>`).join('');
+  if (window.lucide) lucide.createIcons({ nodes: [list] });
+}
+
+async function finishOnboarding() {
+  const btn = document.getElementById('finishBtn');
+  setLoading(btn, true);
+  await db.saveOnboardingStep(auth.user.id, 5, prefs);
+  await db.finishOnboarding(auth.user.id);
+  // Update session user
+  const updated = await db.getUser(auth.user.id);
+  db.saveAuth(auth.token, updated);
+  Toast.success('Workspace configured!', 'Opening your dashboard…');
+  setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
+}
+
+async function skipOnboarding() {
+  await db.finishOnboarding(auth.user.id);
+  window.location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>

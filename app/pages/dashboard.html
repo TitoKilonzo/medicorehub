@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — MediCore Hub</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg"/>
+  <link rel="manifest" href="../../manifest.json"/>
+  <meta name="theme-color" content="#0284C7"/>
+  <link rel="stylesheet" href="../css/app.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+<div class="offline-bar" id="offlineBar"><i data-lucide="wifi-off"></i> You are offline — viewing cached data</div>
+
+<!-- PWA banner -->
+<div class="pwa-banner hidden" id="pwaBanner">
+  <div class="pwa-banner-icon"><i data-lucide="download"></i></div>
+  <div class="pwa-banner-text">
+    <h4>Install MediCore Hub</h4>
+    <p>Add to your home screen for offline access</p>
+  </div>
+  <div class="pwa-banner-actions">
+    <button class="pwa-dismiss" id="pwaDismiss">Not now</button>
+    <button class="btn btn-sky btn-sm" id="pwaInstall"><i data-lucide="download"></i> Install</button>
+  </div>
+</div>
+
+<div class="app-shell">
+  <!-- TOPBAR -->
+  <header class="app-topbar">
+    <a href="../../index.html" class="topbar-brand">
+      <div class="brand-icon"><i data-lucide="activity"></i></div>
+      MediCore<span>Hub</span>
+    </a>
+    <div class="topbar-search">
+      <i data-lucide="search"></i>
+      <input type="text" placeholder="Search patients, results, records…" />
+    </div>
+    <div class="topbar-actions">
+      <button class="topbar-icon-btn" title="Notifications" onclick="Toast.info('3 unread alerts','2 critical lab values, 1 stock alert')">
+        <i data-lucide="bell"></i>
+        <span class="notif-badge"></span>
+      </button>
+      <button class="topbar-icon-btn" title="Help"><i data-lucide="help-circle"></i></button>
+      <div class="topbar-avatar" id="topbarAvatar" onclick="window.location.href='settings.html'" title="My Account">UN</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="app-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Clinical</div>
+      <a href="#" class="sidebar-link active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+      <a href="../../pages/modules.html#ehr" class="sidebar-link"><i data-lucide="file-text"></i> Patient Records</a>
+      <a href="../../pages/modules.html#scheduling" class="sidebar-link"><i data-lucide="calendar-days"></i> Appointments<span class="sidebar-badge">4</span></a>
+      <a href="../../pages/modules.html#lab" class="sidebar-link"><i data-lucide="microscope"></i> Laboratory<span class="sidebar-badge">2</span></a>
+      <a href="../../pages/modules.html#pharmacy" class="sidebar-link"><i data-lucide="pill"></i> Pharmacy</a>
+      <a href="../../pages/modules.html#radiology" class="sidebar-link"><i data-lucide="scan"></i> Radiology</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Administration</div>
+      <a href="../../pages/analytics.html" class="sidebar-link"><i data-lucide="bar-chart-2"></i> Analytics</a>
+      <a href="../../pages/modules.html#billing" class="sidebar-link"><i data-lucide="receipt"></i> Billing & Claims</a>
+      <a href="../../pages/modules.html#supply" class="sidebar-link"><i data-lucide="package"></i> Supply Chain</a>
+      <a href="../../pages/interoperability.html" class="sidebar-link"><i data-lucide="git-branch"></i> Integrations</a>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Account</div>
+      <a href="settings.html" class="sidebar-link"><i data-lucide="settings"></i> Settings</a>
+      <a href="../../pages/security.html" class="sidebar-link"><i data-lucide="shield-check"></i> Security</a>
+      <a href="#" class="sidebar-link" id="signOutBtn"><i data-lucide="log-out"></i> Sign Out</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="app-main">
+    <div class="app-page">
+      <!-- Page header -->
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div>
+          <div class="page-eyebrow">Overview</div>
+          <h1 class="page-title" id="dashGreeting">Good morning</h1>
+          <p class="page-sub" id="dashDate">Loading…</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="Toast.info('Report generated','Downloading PDF…')">
+            <i data-lucide="download"></i> Export Report
+          </button>
+          <button class="btn btn-sky btn-sm">
+            <i data-lucide="plus"></i> New Patient
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-card-icon sky"><i data-lucide="users"></i></div>
+            <span class="stat-delta up"><i data-lucide="arrow-up-right"></i> +8.3%</span>
+          </div>
+          <div class="stat-value">1,247</div>
+          <div class="stat-label">OPD Patients this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-card-icon coral"><i data-lucide="bed"></i></div>
+            <span class="stat-delta up"><i data-lucide="arrow-up-right"></i> +2.1%</span>
+          </div>
+          <div class="stat-value">73%</div>
+          <div class="stat-label">Bed occupancy rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-card-icon green"><i data-lucide="clock"></i></div>
+            <span class="stat-delta down"><i data-lucide="arrow-down-right"></i> -14%</span>
+          </div>
+          <div class="stat-value">38<span style="font-size:1rem;font-weight:500;color:var(--text-400)"> min</span></div>
+          <div class="stat-label">Avg lab turnaround time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <div class="stat-card-icon amber"><i data-lucide="shield-check"></i></div>
+            <span class="stat-delta up"><i data-lucide="arrow-up-right"></i> +3.2%</span>
+          </div>
+          <div class="stat-value">94%</div>
+          <div class="stat-label">Claims approval rate</div>
+        </div>
+      </div>
+
+      <!-- Grid row 1 -->
+      <div class="grid-2" style="margin-bottom:20px">
+        <!-- Alerts -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i data-lucide="alert-circle"></i> Active Clinical Alerts</div>
+            <button class="btn btn-sm btn-ghost">View all</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="alertList">
+              <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border)">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--error);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Critical: Potassium 6.8 mEq/L — Patient MNH-00192</p>
+                  <p style="font-size:0.76rem;color:var(--text-400)">Lab result 14 min ago · Awaiting clinician acknowledgement</p>
+                </div>
+                <button class="btn btn-sm btn-sky" onclick="Toast.success('Alert acknowledged','Logged to patient record')">Ack</button>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border)">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--error);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Critical: Haemoglobin 4.2 g/dL — Patient MNH-00438</p>
+                  <p style="font-size:0.76rem;color:var(--text-400)">Lab result 31 min ago · Blood transfusion protocol triggered</p>
+                </div>
+                <button class="btn btn-sm btn-sky" onclick="Toast.success('Alert acknowledged','Logged to patient record')">Ack</button>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;padding:16px 20px">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--warning);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Stock Alert: Ceftriaxone 1g at 18% — Reorder threshold</p>
+                  <p style="font-size:0.76rem;color:var(--text-400)">Pharmacy · 1 hour ago · KEMSA requisition recommended</p>
+                </div>
+                <button class="btn btn-sm btn-ghost" onclick="Toast.info('KEMSA requisition drafted','Pending approval')">Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today's Schedule -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i data-lucide="calendar-days"></i> Today's Appointments</div>
+            <button class="btn btn-sm btn-ghost">Full schedule</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div id="scheduleList">
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border)">
+                <div style="text-align:center;min-width:46px">
+                  <div style="font-size:0.78rem;font-weight:800;color:var(--sky-700)">08:30</div>
+                  <div style="font-size:0.66rem;color:var(--text-300);font-weight:500">AM</div>
+                </div>
+                <div style="width:3px;height:36px;border-radius:2px;background:var(--sky-400);flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Wanjiku, M. — Follow-up DM</p>
+                  <p style="font-size:0.75rem;color:var(--text-400)">General Medicine · Dr. Kamau</p>
+                </div>
+                <span style="font-size:0.7rem;padding:3px 9px;background:#F0FDF4;color:#166534;border-radius:20px;font-weight:700">Arrived</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border)">
+                <div style="text-align:center;min-width:46px">
+                  <div style="font-size:0.78rem;font-weight:800;color:var(--sky-700)">09:15</div>
+                  <div style="font-size:0.66rem;color:var(--text-300);font-weight:500">AM</div>
+                </div>
+                <div style="width:3px;height:36px;border-radius:2px;background:var(--warning);flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Otieno, J. — Antenatal Visit 28wk</p>
+                  <p style="font-size:0.75px;color:var(--text-400)">Maternity · Nurse Constance</p>
+                </div>
+                <span style="font-size:0.7rem;padding:3px 9px;background:#FFFBEB;color:#92400E;border-radius:20px;font-weight:700">Pending</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border)">
+                <div style="text-align:center;min-width:46px">
+                  <div style="font-size:0.78rem;font-weight:800;color:var(--sky-700)">10:00</div>
+                  <div style="font-size:0.66rem;color:var(--text-300);font-weight:500">AM</div>
+                </div>
+                <div style="width:3px;height:36px;border-radius:2px;background:var(--sky-400);flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Mwangi, P. — Post-op Review</p>
+                  <p style="font-size:0.75rem;color:var(--text-400)">Surgical Ward · Dr. Achieng</p>
+                </div>
+                <span style="font-size:0.7rem;padding:3px 9px;background:#EFF6FF;color:#1D4ED8;border-radius:20px;font-weight:700">Scheduled</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 20px">
+                <div style="text-align:center;min-width:46px">
+                  <div style="font-size:0.78rem;font-weight:800;color:var(--text-300)">11:30</div>
+                  <div style="font-size:0.66rem;color:var(--text-300);font-weight:500">AM</div>
+                </div>
+                <div style="width:3px;height:36px;border-radius:2px;background:var(--border-mid);flex-shrink:0"></div>
+                <div style="flex:1">
+                  <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Chebet, A. — Telehealth Consult</p>
+                  <p style="font-size:0.75rem;color:var(--text-400)">Paediatrics · Dr. Mutua</p>
+                </div>
+                <span style="font-size:0.7rem;padding:3px 9px;background:var(--surface-2);color:var(--text-500);border-radius:20px;font-weight:700">Upcoming</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid row 2 -->
+      <div class="grid-3">
+        <!-- Quick actions -->
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i data-lucide="zap"></i> Quick Actions</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn btn-outline-sky btn-full" onclick="Toast.info('New encounter opened')"><i data-lucide="plus"></i> New Patient Encounter</button>
+            <button class="btn btn-outline-sky btn-full" onclick="Toast.info('Lab order form opened')"><i data-lucide="microscope"></i> Order Lab Test</button>
+            <button class="btn btn-outline-sky btn-full" onclick="Toast.info('Prescription form opened')"><i data-lucide="pill"></i> Write Prescription</button>
+            <button class="btn btn-ghost btn-full" onclick="Toast.info('Referral form opened')"><i data-lucide="send"></i> Create Referral</button>
+          </div>
+        </div>
+
+        <!-- System health -->
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i data-lucide="server"></i> System Status</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.84rem;color:var(--text-700)">Core Platform</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:#166534"><span style="width:7px;height:7px;border-radius:50%;background:var(--success)"></span>Operational</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.84rem;color:var(--text-700)">NHIF Integration</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:#166534"><span style="width:7px;height:7px;border-radius:50%;background:var(--success)"></span>Operational</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.84rem;color:var(--text-700)">DHIS2 Sync</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:#166534"><span style="width:7px;height:7px;border-radius:50%;background:var(--success)"></span>Synced 2h ago</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.84rem;color:var(--text-700)">Backups</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:#166534"><span style="width:7px;height:7px;border-radius:50%;background:var(--success)"></span>15 min ago</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.84rem;color:var(--text-700)">SMS Gateway</span>
+              <span style="display:flex;align-items:center;gap:5px;font-size:0.76rem;font-weight:700;color:#92400E"><span style="width:7px;height:7px;border-radius:50%;background:var(--warning)"></span>Degraded</span>
+            </div>
+            <div style="background:var(--surface);border-radius:8px;padding:10px 12px;margin-top:4px">
+              <p style="font-size:0.72rem;color:var(--text-400)">Uptime this month</p>
+              <p style="font-size:1.1rem;font-weight:800;color:var(--sky-700)">99.94%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i data-lucide="clock"></i> Recent Activity</div></div>
+          <div class="card-body" style="padding:0">
+            <div id="recentActivity" style="display:flex;flex-direction:column"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../js/db.js"></script>
+<script src="../js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const auth = requireAuth();
+  if (!auth) return;
+
+  // Greeting
+  const hr = new Date().getHours();
+  const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('dashGreeting').textContent = `${greet}, ${auth.user.name.split(' ')[0]}`;
+  document.getElementById('dashDate').textContent = new Date().toLocaleDateString('en-KE', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  // Recent activity from audit log
+  const logs = await db.getAuditLog(auth.user.id, 6);
+  const icons = { LOGIN:'log-in', USER_REGISTERED:'user-plus', PROFILE_UPDATED:'edit', PASSWORD_CHANGED:'key', ONBOARDING_COMPLETED:'check-circle' };
+  const labels = { LOGIN:'Signed in', USER_REGISTERED:'Account created', PROFILE_UPDATED:'Profile updated', PASSWORD_CHANGED:'Password changed', ONBOARDING_COMPLETED:'Onboarding completed' };
+  const list = document.getElementById('recentActivity');
+  if (logs.length === 0) {
+    list.innerHTML = '<p style="padding:20px;font-size:0.84rem;color:var(--text-400);text-align:center">No recent activity</p>';
+  } else {
+    list.innerHTML = logs.map(log => `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border)">
+        <div style="width:30px;height:30px;border-radius:8px;background:var(--sky-50);border:1px solid var(--sky-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600);flex-shrink:0">
+          <i data-lucide="${icons[log.action]||'activity'}" style="width:13px;height:13px"></i>
+        </div>
+        <div style="flex:1">
+          <p style="font-size:0.82rem;font-weight:600;color:var(--text-900)">${labels[log.action]||log.action}</p>
+          <p style="font-size:0.72rem;color:var(--text-400)">${new Date(log.created_at).toLocaleString('en-KE',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})}</p>
+        </div>
+      </div>`).join('');
+    if (window.lucide) lucide.createIcons({ nodes: [list] });
+  }
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async e => {
+  e.preventDefault();
+  const auth = db.getAuth();
+  if (auth) await db.destroySession(auth.token);
+  db.clearAuth();
+  Toast.info('Signed out', 'See you next time');
+  setTimeout(() => { window.location.href = 'login.html'; }, 700);
+});
+</script>
+</body>
+</html>

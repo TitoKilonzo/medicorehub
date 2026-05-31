@@ -1,0 +1,31 @@
+{
+  "name": "MediCore Hub",
+  "short_name": "MediCore",
+  "description": "Integrated Health Intelligence Platform for East Africa",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#F0F7FF",
+  "theme_color": "#0284C7",
+  "orientation": "any",
+  "icons": [
+    { "src": "icons/icon-72.png",  "sizes": "72x72",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-96.png",  "sizes": "96x96",   "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Patient Records",
+      "url": "/app/pages/dashboard.html",
+      "description": "Open patient records"
+    },
+    {
+      "name": "Analytics",
+      "url": "/pages/analytics.html",
+      "description": "View analytics"
+    }
+  ],
+  "categories": ["medical", "health", "productivity"],
+  "screenshots": []
+}
