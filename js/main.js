@@ -110,6 +110,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Dynamic header buttons (Sign In -> Dashboard if logged in)
+  const isLoggedIn = sessionStorage.getItem('mch_tok');
+  if (isLoggedIn) {
+    document.querySelectorAll('a[href*="login.html"]').forEach(btn => {
+      btn.textContent = 'Dashboard';
+      btn.href = '/app/pages/dashboard.html';
+    });
+  }
+
   // Active nav link detection
   const currentPage = window.location.pathname.split('/').pop();
   document.querySelectorAll('.nav-link').forEach(link => {

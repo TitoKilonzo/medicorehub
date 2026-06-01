@@ -118,6 +118,9 @@ class TursoClient {
   }
 
   async _execute(sql, args = []) {
+    if (!this._client && this._ready) {
+      await this._ready;
+    }
     if (!this._client) throw new Error('Remote Turso client not initialized.');
     return await this._client.execute({ sql, args });
   }

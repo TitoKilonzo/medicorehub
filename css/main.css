@@ -949,9 +949,8 @@ em { font-style: normal; color: var(--sky); }
   .footer-grid { grid-template-columns: 1fr 1fr 1fr; }
   .footer-brand-col { grid-column: span 3; }
   .section { padding: 80px 0; }
-}
-@media (max-width: 768px) {
-  .section { padding: 60px 0; }
+
+  /* Mobile navigation layout triggers at 1024px */
   .nav-links, .nav-header .btn-primary { display: none; }
   .nav-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-sm); }
   .nav-toggle:hover { background: rgba(2,132,199,0.1); }
@@ -976,6 +975,9 @@ em { font-style: normal; color: var(--sky); }
     color: var(--sky);
   }
   .mob-cta { margin-top: 16px; text-align: center; justify-content: center; }
+}
+@media (max-width: 768px) {
+  .section { padding: 60px 0; }
   .hero-title { font-size: 2.2rem; line-height: 1.1; }
   .hero-stats { flex-direction: column; gap: 12px; }
   .stat-divider { width: 100%; height: 1px; }
@@ -1033,3 +1035,156 @@ section[class*="img-section"] > .container { position: relative; z-index: 2; }
 .footer h1, .footer h2, .footer h3, .footer h4 { color: rgba(255,255,255,0.9) !important; }
 .marquee-strip h1, .marquee-strip h2 { color: var(--white) !important; }
 /* Hero headings keep white */
+
+/* ============================================================
+   CONTRAST & TEXT VISIBILITY OVERRIDES (Clinical theme)
+   ============================================================ */
+
+/* 1. Modules Page Detail Sections (Dark background image + overlay) */
+.module-detail-section {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.module-detail-section h2.section-title {
+  color: var(--white) !important;
+}
+.module-detail-section .section-eyebrow {
+  color: var(--sky-bright) !important;
+}
+.module-detail-section .section-body {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.module-detail-section .feature-list li {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.module-detail-section .feature-list li i {
+  color: var(--sky-bright) !important;
+}
+
+/* 2. Contact Page form & info cards (Light theme consistency) */
+.contact-page-section {
+  background: var(--charcoal-mid) !important;
+}
+.contact-info-card {
+  background: var(--white) !important;
+  border: 1px solid rgba(2, 132, 199, 0.15) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.contact-info-card h3 {
+  color: #0F172A !important;
+}
+.contact-info-card h3 i {
+  color: var(--sky) !important;
+}
+.cic-row strong {
+  color: #1E3A5F !important;
+}
+.cic-row span {
+  color: #475569 !important;
+}
+.contact-form-wrapper {
+  background: var(--white) !important;
+  border: 1px solid rgba(2, 132, 199, 0.15) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.form-title {
+  color: #0F172A !important;
+}
+.form-subtitle {
+  color: var(--text-muted) !important;
+}
+.contact-form-wrapper .form-group label {
+  color: #334155 !important;
+}
+.contact-form-wrapper .form-group input,
+.contact-form-wrapper .form-group select,
+.contact-form-wrapper .form-group textarea {
+  background: #F8FAFC !important;
+  border: 1px solid rgba(2, 132, 199, 0.15) !important;
+  color: #1E3A5F !important;
+}
+.contact-form-wrapper .form-group input:focus,
+.contact-form-wrapper .form-group select:focus,
+.contact-form-wrapper .form-group textarea:focus {
+  border-color: var(--sky) !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+}
+.contact-form-wrapper .form-group select option {
+  background: var(--white) !important;
+  color: #1E3A5F !important;
+}
+.contact-form-wrapper .form-group input::placeholder,
+.contact-form-wrapper .form-group textarea::placeholder {
+  color: #94A3B8 !important;
+}
+.success-message h3 {
+  color: #0F172A !important;
+}
+.success-message p {
+  color: var(--text-muted) !important;
+}
+.response-time-banner {
+  background: rgba(2, 132, 199, 0.08) !important;
+  border: 1px solid rgba(2, 132, 199, 0.2) !important;
+}
+.response-time-banner i {
+  color: var(--sky) !important;
+}
+.response-time-banner p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.response-time-banner strong {
+  color: var(--white) !important;
+}
+
+/* 3. Security Page Compliance Badges & Audit Table */
+.compliance-badge {
+  background: var(--white) !important;
+  border: 1px solid rgba(2, 132, 199, 0.15) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+.compliance-badge:hover {
+  border-color: var(--sky) !important;
+}
+.compliance-badge .cb-icon {
+  background: rgba(2, 132, 199, 0.08) !important;
+  color: var(--sky) !important;
+}
+.compliance-badge strong {
+  color: #1E3A5F !important;
+}
+.compliance-badge span {
+  color: var(--text-muted) !important;
+}
+.audit-log-preview {
+  background: var(--white) !important;
+  border: 1px solid rgba(2, 132, 199, 0.15) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.audit-header {
+  background: #F8FAFC !important;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.15) !important;
+  color: #1E3A5F !important;
+}
+.audit-header i {
+  color: var(--sky) !important;
+}
+.audit-table th {
+  color: #475569 !important;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.15) !important;
+}
+.audit-table td {
+  color: #1E3A5F !important;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.05) !important;
+}
+.audit-badge.read {
+  background: rgba(2, 132, 199, 0.08) !important;
+  color: var(--sky) !important;
+}
+.audit-badge.write {
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #D97706 !important;
+}
+.audit-badge.login {
+  background: rgba(100, 116, 139, 0.12) !important;
+  color: #64748B !important;
+}

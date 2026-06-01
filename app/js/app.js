@@ -140,7 +140,7 @@ window.formAlert    = formAlert;
 // ── Auth guard ────────────────────────────────────────────────────
 function requireAuth(redirect) {
   if (!window.db) return null;
-  const auth = db.getAuth();
+  const auth = window.db.getAuth();
   if (!auth) {
     window.location.href = redirect || '/app/pages/login.html';
     return null;

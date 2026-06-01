@@ -266,11 +266,12 @@
   </div>
 </div>
 
-<script src="../js/db.js"></script>
-<script src="../js/app.js"></script>
+<script src="/app/js/db.js"></script>
+<script src="/app/js/app.js"></script>
 <script>
 (function () {
   'use strict';
+  const db = window.db;
 
   let step = 1;
   const prefs = { role: 'clinician', department: '', modules: ['ehr'], alerts: ['critical_lab','med_alerts'], delivery: ['in_app'] };
