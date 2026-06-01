@@ -218,7 +218,7 @@
   </div>
 </div>
 
-<script type="module" src="../js/db.js"></script>
+<script src="../js/db.js"></script>
 <script src="../js/app.js"></script>
 <script>
 (function () {
@@ -271,6 +271,7 @@
     const btn = document.getElementById('registerBtn');
     setLoading(btn, true);
     try {
+      await window.dbReady;
       const user = await db.createUser({
         name: `${document.getElementById('regFirstName').value.trim()} ${document.getElementById('regLastName').value.trim()}`,
         email:    document.getElementById('regEmail').value.trim(),

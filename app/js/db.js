@@ -1,17 +1,14 @@
-﻿import { createClient } from 'https://cdn.jsdelivr.net/npm/@libsql/client@0.17.3/lib-esm/web.js';
-
 /**
  * MediCore Hub — Turso (libSQL) Database Layer
  * Production-ready database access using @libsql/client in the browser.
  * If no valid Turso URL/auth token is set, the file falls back to the built-in localStorage simulation.
  *
- * To use a real Turso database, set TURSO_CONFIG.url and TURSO_CONFIG.authToken below.
+ * Loaded as a regular script (NOT type="module") so that window.db is
+ * available synchronously to all subsequent inline <script> blocks.
+ * The Turso client is imported dynamically at runtime.
  */
 
 const TURSO_CONFIG = {
-  // Example:
-  // url: 'libsql://medicorehub-<your-org>.turso.io',
-  // authToken: '<your-auth-token>',
   url: 'libsql://medicorehub-titokilonzo.aws-ap-northeast-1.turso.io',
   authToken: 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3ODAzMDU2OTQsImlkIjoiMDE5ZTgyNjktMTIwMS03Zjc1LWI2ZjMtOWE2ODViNmFkYjFiIiwicmlkIjoiNDFjNzc0YWEtZTM5Zi00NmM2LWE0OTEtZDYxZmY3YTM0YTk1In0.Duyj9osYecIUugCWW2HDs8-FgqJzRYk2gGQD4SFpWALfg3RsBlJQBDYhvO9Mhcr6ULiybFuTt83P2Vn0T-aCBw'
 };
@@ -81,15 +78,17 @@ class TursoClient {
   }
 
   async _initRemote() {
-    this._client = createClient({
-      url: TURSO_CONFIG.url,
-      authToken: TURSO_CONFIG.authToken
-    });
-
     try {
+      const { createClient } = await import('https://cdn.jsdelivr.net/npm/@libsql/client@0.17.3/lib-esm/web.js');
+      this._client = createClient({
+        url: TURSO_CONFIG.url,
+        authToken: TURSO_CONFIG.authToken
+      });
       await this._execute(SCHEMA_SQL);
     } catch (error) {
-      console.warn('Unable to initialize remote schema. Ensure your Turso URL/authToken are correct.', error);
+      console.warn('Unable to initialize remote database. Falling back to localStorage.', error);
+      this._useRemote = false;
+      this._client = null;
     }
   }
 
@@ -145,11 +144,17 @@ class TursoClient {
   async _findUserByEmail(email) {
     const normalized = email.toLowerCase();
     if (this._useRemote) {
+      await this._ready;
       const user = await this._getRow('SELECT * FROM users WHERE email = ? LIMIT 1', [normalized]);
       return user ? this._safe(user) : null;
     }
     const u = this._store.users.find(u => u.email.toLowerCase() === normalized);
     return u ? this._safe(u) : null;
+  }
+
+  // Public alias so callers don't need the underscore
+  async findUserByEmail(email) {
+    return this._findUserByEmail(email);
   }
 
   async createUser({ name, email, password, role = 'clinician', facility = '', county = '', phone = '' }) {
@@ -437,3 +442,7 @@ class TursoClient {
 
 const db = new TursoClient();
 window.db = db;
+
+// Expose a promise that resolves once the DB is fully initialized.
+// Inline scripts should: await window.dbReady; before calling db methods.
+window.dbReady = db._ready;
