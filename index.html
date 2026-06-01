@@ -14,7 +14,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
@@ -56,10 +56,6 @@
     </div>
     <div class="hero-grain"></div>
     <div class="container hero-content">
-      <div class="hero-badge">
-        <i data-lucide="shield-check"></i>
-        <span>HL7 FHIR R4 Compliant &bull; ISO 27001 Certified</span>
-      </div>
       <h1 class="hero-title">The Unified<br /><em>Health Intelligence</em><br />Platform</h1>
       <p class="hero-sub">MediCore Hub connects every point of care — from rural dispensaries to referral hospitals — on a single, secure, interoperable platform built for African healthcare infrastructure.</p>
       <div class="hero-actions">
@@ -148,7 +144,7 @@
               <span class="pillar-icon"><i data-lucide="git-merge"></i></span>
               <div>
                 <strong>Open Standards Integration</strong>
-                <p>HL7 FHIR R4, OpenHIE, and SNOMED CT built in from the ground up.</p>
+                <p>OpenHIE, SNOMED CT, and standard messaging protocols built in from the ground up.</p>
               </div>
             </div>
             <div class="pillar">
@@ -315,14 +311,164 @@
         <p class="section-sub">MediCore Hub connects seamlessly with Kenya's national health infrastructure and global open standards.</p>
       </div>
       <div class="interop-logos">
-        <div class="interop-badge"><i data-lucide="server"></i><span>NHIF</span></div>
-        <div class="interop-badge"><i data-lucide="database"></i><span>KHIS / DHIS2</span></div>
-        <div class="interop-badge"><i data-lucide="link"></i><span>HL7 FHIR R4</span></div>
-        <div class="interop-badge"><i data-lucide="code-2"></i><span>OpenHIE</span></div>
-        <div class="interop-badge"><i data-lucide="shield"></i><span>SHA</span></div>
-        <div class="interop-badge"><i data-lucide="globe"></i><span>SNOMED CT</span></div>
-        <div class="interop-badge"><i data-lucide="package"></i><span>KEMSA</span></div>
-        <div class="interop-badge"><i data-lucide="smartphone"></i><span>MPESA Payments</span></div>
+        <!-- NHIF: National Health Insurance Fund -->
+        <div class="interop-badge nhif-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="nhif-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#nhif-grad)" rx="15"/>
+            <!-- Shield shape -->
+            <path d="M 100 30 L 140 55 L 140 110 C 140 155 100 170 100 170 C 100 170 60 155 60 110 L 60 55 Z" fill="white" opacity="0.95"/>
+            <text x="100" y="135" font-size="28" font-weight="bold" fill="#DC2626" text-anchor="middle" font-family="Arial, sans-serif">NH</text>
+          </svg>
+          <span>NHIF</span>
+        </div>
+        <!-- KHIS/DHIS2 -->
+        <div class="interop-badge khis-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="khis-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#khis-grad)" rx="15"/>
+            <!-- Data visualization bars -->
+            <rect x="45" y="100" width="15" height="50" fill="white" opacity="0.9" rx="3"/>
+            <rect x="70" y="70" width="15" height="80" fill="white" opacity="0.9" rx="3"/>
+            <rect x="95" y="50" width="15" height="100" fill="white" opacity="0.9" rx="3"/>
+            <rect x="120" y="80" width="15" height="70" fill="white" opacity="0.9" rx="3"/>
+            <text x="100" y="25" font-size="16" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">DHIS2</text>
+          </svg>
+          <span>KHIS/DHIS2</span>
+        </div>
+        <!-- OpenHIE -->
+        <div class="interop-badge openhie-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="openhie-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#6D28D9;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#openhie-grad)" rx="15"/>
+            <!-- Interconnected nodes -->
+            <circle cx="60" cy="60" r="18" fill="white" opacity="0.95"/>
+            <circle cx="140" cy="60" r="18" fill="white" opacity="0.95"/>
+            <circle cx="100" cy="140" r="18" fill="white" opacity="0.95"/>
+            <!-- Connection lines -->
+            <line x1="75" y1="70" x2="125" y2="70" stroke="white" stroke-width="3" opacity="0.8"/>
+            <line x1="70" y1="75" x2="95" y2="125" stroke="white" stroke-width="3" opacity="0.8"/>
+            <line x1="130" y1="75" x2="105" y2="125" stroke="white" stroke-width="3" opacity="0.8"/>
+            <!-- Center -->
+            <circle cx="100" cy="100" r="6" fill="#7C3AED"/>
+          </svg>
+          <span>OpenHIE</span>
+        </div>
+        <!-- SHA: Shared Authority -->
+        <div class="interop-badge sha-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sha-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0369A1;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#0C4A6E;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#sha-grad)" rx="15"/>
+            <!-- Document/Authority symbol -->
+            <rect x="45" y="40" width="110" height="130" fill="white" opacity="0.95" rx="8" stroke="white" stroke-width="2"/>
+            <line x1="55" y1="60" x2="145" y2="60" stroke="#0369A1" stroke-width="4"/>
+            <line x1="55" y1="80" x2="145" y2="80" stroke="#0369A1" stroke-width="3"/>
+            <line x1="55" y1="95" x2="135" y2="95" stroke="#0369A1" stroke-width="3"/>
+            <line x1="55" y1="110" x2="140" y2="110" stroke="#0369A1" stroke-width="3"/>
+            <path d="M 70 135 Q 85 150 100 135 Q 115 150 130 135" fill="#0369A1" opacity="0.8"/>
+          </svg>
+          <span>SHA</span>
+        </div>
+        <!-- SNOMED CT -->
+        <div class="interop-badge snomed-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="snomed-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#2563EB;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#snomed-grad)" rx="15"/>
+            <!-- Medical terminology symbol: medical cross in hexagon -->
+            <polygon points="100,30 155,60 155,130 100,160 45,130 45,60" fill="white" opacity="0.95"/>
+            <!-- Cross -->
+            <rect x="85" y="60" width="30" height="80" fill="#2563EB" rx="4"/>
+            <rect x="60" y="85" width="80" height="30" fill="#2563EB" rx="4"/>
+          </svg>
+          <span>SNOMED CT</span>
+        </div>
+        <!-- KEMSA -->
+        <div class="interop-badge kemsa-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="kemsa-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#EA580C;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#C2410C;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#kemsa-grad)" rx="15"/>
+            <!-- Supply box/package -->
+            <rect x="50" y="50" width="100" height="85" fill="white" opacity="0.95" rx="6" stroke="white" stroke-width="2"/>
+            <polygon points="50,50 100,20 150,50" fill="white" opacity="0.9"/>
+            <line x1="100" y1="20" x2="100" y2="50" stroke="white" stroke-width="2"/>
+            <!-- Package tape -->
+            <rect x="45" y="110" width="110" height="6" fill="#EA580C" opacity="0.6"/>
+            <text x="100" y="150" font-size="20" font-weight="bold" fill="#EA580C" text-anchor="middle" font-family="Arial">KEMSA</text>
+          </svg>
+          <span>KEMSA</span>
+        </div>
+        <!-- M-Pesa -->
+        <div class="interop-badge mpesa-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="mpesa-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#16A34A;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#15803D;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#mpesa-grad)" rx="15"/>
+            <!-- Mobile phone -->
+            <rect x="55" y="35" width="90" height="130" fill="white" opacity="0.95" rx="8" stroke="white" stroke-width="2"/>
+            <!-- Screen -->
+            <rect x="65" y="50" width="70" height="85" fill="#16A34A" rx="4"/>
+            <!-- Phone button -->
+            <circle cx="100" cy="155" r="8" fill="#16A34A"/>
+            <!-- Money symbol -->
+            <text x="100" y="100" font-size="40" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">₩</text>
+          </svg>
+          <span>M-Pesa</span>
+        </div>
+        <!-- HL7/FHIR -->
+        <div class="interop-badge standard-badge">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="fhir-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0891B2;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#0E7490;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#fhir-grad)" rx="15"/>
+            <!-- Data transmission symbol -->
+            <circle cx="70" cy="100" r="20" fill="white" opacity="0.95"/>
+            <circle cx="130" cy="100" r="20" fill="white" opacity="0.95"/>
+            <!-- Arrows -->
+            <path d="M 92 95 L 108 95 L 105 90 M 108 95 L 105 100" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+            <path d="M 108 105 L 92 105 L 95 110 M 92 105 L 95 100" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+            <!-- HL7 text indicator -->
+            <text x="100" y="165" font-size="13" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial">HL7/FHIR</text>
+          </svg>
+          <span>HL7/FHIR</span>
+        </div>
       </div>
       <div class="center-cta">
         <a href="pages/interoperability.html" class="btn-outline">View All Integrations</a>
@@ -383,7 +529,7 @@
   <div class="security-strip">
     <div class="container security-inner">
       <div class="sec-item"><i data-lucide="lock"></i><div><strong>AES-256 Encryption</strong><span>At rest and in transit</span></div></div>
-      <div class="sec-item"><i data-lucide="shield-check"></i><div><strong>ISO 27001 Certified</strong><span>Annual independent audit</span></div></div>
+      <div class="sec-item"><i data-lucide="shield-check"></i><div><strong>Kenya DPA Compliant</strong><span>Data Protection Act 2019</span></div></div>
       <div class="sec-item"><i data-lucide="eye-off"></i><div><strong>Kenya DPA 2019</strong><span>Full compliance, data sovereignty</span></div></div>
       <div class="sec-item"><i data-lucide="rotate-ccw"></i><div><strong>Automated Backups</strong><span>Every 15 minutes, geo-redundant</span></div></div>
       <div class="sec-item"><i data-lucide="user-check"></i><div><strong>Role-Based Access</strong><span>Granular permissions per cadre</span></div></div>
@@ -400,7 +546,7 @@
       <h2>Ready to Transform Your Facility's Digital Infrastructure?</h2>
       <p>Join 480+ facilities across Kenya on MediCore Hub. Implementation in as little as 6 weeks.</p>
       <div class="cta-banner-actions">
-        <a href="pages/contact.html" class="btn-gold large">Schedule a Demo</a>
+        <a href="app/pages/register.html" class="btn-gold large">Get Started Free</a>
         <a href="pages/modules.html" class="btn-ghost-white large">Explore Features</a>
       </div>
     </div>
@@ -433,7 +579,7 @@
         <h4>Integration</h4>
         <a href="pages/interoperability.html">NHIF Integration</a>
         <a href="pages/interoperability.html">DHIS2 / KHIS</a>
-        <a href="pages/interoperability.html">HL7 FHIR R4</a>
+        <a href="pages/interoperability.html">Interoperability</a>
         <a href="pages/interoperability.html">OpenHIE</a>
         <a href="pages/interoperability.html">KEMSA</a>
       </div>

@@ -8,723 +8,570 @@
   <link rel="manifest" href="../../manifest.json"/>
   <meta name="theme-color" content="#0284C7"/>
   <link rel="stylesheet" href="../css/app.css"/>
-  <style>
-    /* ── Section-based page extras ─────────────────────── */
-    .module-hero-banner {
-      position: relative; overflow: hidden;
-      background: linear-gradient(135deg, var(--sky-900) 0%, var(--sky-700) 100%);
-      padding: 52px 32px 48px;
-    }
-    .module-hero-banner::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .module-hero-banner img.banner-bg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0.12; filter: saturate(0.3);
-    }
-    .banner-content { position: relative; z-index: 1; }
-    .banner-badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.85); font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
-    }
-    .banner-badge i { width: 11px; height: 11px; }
-    .banner-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.7rem; font-weight: 800; color: white; margin-bottom: 10px;
-    }
-    .banner-sub { font-size: 0.9rem; color: rgba(255,255,255,0.65); max-width: 520px; line-height: 1.65; }
-    .banner-meta {
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-      margin-top: 24px;
-    }
-    .banner-meta-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 0.8rem; color: rgba(255,255,255,0.6);
-    }
-    .banner-meta-item i { width: 13px; height: 13px; color: var(--sky-300, #7DD3FC); }
-    .banner-meta-item strong { color: white; }
-
-    /* ── TOC sticky sidebar ─────────────────────────────── */
-    .module-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 28px;
-      padding: 28px 32px;
-      max-width: 1200px;
-      margin: 0 auto;
-      align-items: start;
-    }
-    .modules-toc {
-      position: sticky; top: 80px;
-      background: white; border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden;
-    }
-    .toc-header {
-      padding: 14px 16px 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .toc-header-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-400);
-    }
-    .toc-header i { width: 13px; height: 13px; color: var(--sky-500); }
-    .toc-body { padding: 8px; }
-    .toc-link {
-      display: flex; align-items: center; gap: 9px;
-      padding: 9px 10px; border-radius: var(--r-sm);
-      color: var(--text-500); font-size: 0.82rem; font-weight: 500;
-      cursor: pointer; text-decoration: none;
-      transition: all var(--transition);
-    }
-    .toc-link i { width: 13px; height: 13px; color: var(--text-300); flex-shrink: 0; }
-    .toc-link:hover { background: var(--sky-50); color: var(--sky-700); }
-    .toc-link.active {
-      background: var(--sky-50); color: var(--sky-600); font-weight: 600;
-    }
-    .toc-link.active i { color: var(--sky-500); }
-    .toc-link.active::before {
-      content: ''; display: block; width: 3px; height: 20px;
-      background: var(--sky-600); border-radius: 2px; margin-right: 2px;
-      flex-shrink: 0;
-    }
-    .toc-progress-bar {
-      height: 3px; background: var(--sky-600); transition: width 0.3s ease;
-      margin: 0 16px 8px; border-radius: 2px;
-    }
-    .toc-read-count {
-      padding: 10px 16px; font-size: 0.72rem; color: var(--text-300);
-      border-top: 1px solid var(--border); text-align: center;
-    }
-
-    /* ── Module section blocks ──────────────────────────── */
-    .modules-feed { display: flex; flex-direction: column; gap: 20px; }
-    .module-section-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: var(--r-xl); overflow: hidden;
-      scroll-margin-top: 80px;
-      transition: box-shadow var(--transition);
-    }
-    .module-section-card:hover { box-shadow: var(--shadow-md); }
-
-    .mscard-hero {
-      position: relative; height: 220px; overflow: hidden;
-    }
-    .mscard-hero img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-    .module-section-card:hover .mscard-hero img { transform: scale(1.04); }
-    .mscard-hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 30%, rgba(255,255,255,0.98) 100%);
-    }
-    .mscard-hero-badge {
-      position: absolute; top: 16px; left: 16px;
-      display: inline-flex; align-items: center; gap: 6px;
-      background: white; border: 1px solid var(--border);
-      padding: 5px 12px; border-radius: 100px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.68rem; font-weight: 700; color: var(--sky-700);
-      box-shadow: var(--shadow-sm);
-    }
-    .mscard-hero-badge i { width: 11px; height: 11px; color: var(--sky-500); }
-    .mscard-hero-num {
-      position: absolute; top: 16px; right: 16px;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--sky-600); color: white;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.72rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .mscard-body { padding: 0 28px 28px; }
-    .mscard-top {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 16px;
-      margin-top: -24px; margin-bottom: 18px;
-    }
-    .mscard-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--sky-600); color: white;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 20px rgba(2,132,199,0.3); flex-shrink: 0;
-      border: 3px solid white;
-    }
-    .mscard-icon i { width: 24px; height: 24px; }
-    .mscard-status {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.7rem; font-weight: 700; padding: 4px 10px;
-      border-radius: 100px; margin-top: 6px;
-    }
-    .mscard-status.live   { background: #F0FDF4; color: #166534; }
-    .mscard-status.live::before   { content:''; width:6px; height:6px; border-radius:50%; background:#22C55E; }
-    .mscard-status.beta   { background: #FFF7ED; color: #C2410C; }
-    .mscard-status.beta::before   { content:''; width:6px; height:6px; border-radius:50%; background:#F97316; }
-
-    .mscard-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.15rem; font-weight: 800; color: var(--text-900); margin-bottom: 6px;
-    }
-    .mscard-subtitle { font-size: 0.85rem; color: var(--text-400); margin-bottom: 16px; }
-    .mscard-desc { font-size: 0.88rem; color: var(--text-500); line-height: 1.75; margin-bottom: 20px; }
-
-    .mscard-features {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-bottom: 22px;
-    }
-    .mscard-feature {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 0.82rem; color: var(--text-700); line-height: 1.5;
-    }
-    .mscard-feature i { width: 14px; height: 14px; color: var(--sky-500); flex-shrink: 0; margin-top: 2px; }
-
-    .mscard-stats {
-      display: flex; gap: 0;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-md); overflow: hidden; margin-bottom: 20px;
-    }
-    .mscard-stat { flex: 1; padding: 14px 16px; text-align: center; }
-    .mscard-stat + .mscard-stat { border-left: 1px solid var(--border); }
-    .mscard-stat .sv {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.1rem; font-weight: 800; color: var(--sky-700); line-height: 1;
-    }
-    .mscard-stat .sl { font-size: 0.7rem; color: var(--text-400); margin-top: 4px; }
-
-    .mscard-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding-top: 18px; border-top: 1px solid var(--border);
-      flex-wrap: wrap; gap: 10px;
-    }
-    .mscard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .mscard-tag {
-      font-size: 0.68rem; font-weight: 700; padding: 3px 9px;
-      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .mscard-tag.sky    { background: var(--sky-50);   color: var(--sky-700);   border: 1px solid var(--sky-200); }
-    .mscard-tag.coral  { background: var(--coral-pale); color: var(--coral-dark); border: 1px solid #FDBA74; }
-    .mscard-tag.green  { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
-
-    /* Reading progress bar at top of page */
-    .reading-progress {
-      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
-      height: 3px; background: var(--border);
-    }
-    .reading-progress-fill {
-      height: 100%; background: linear-gradient(90deg, var(--sky-400), var(--coral));
-      width: 0%; transition: width 0.1s;
-    }
-
-    @media (max-width: 960px) {
-      .module-layout { grid-template-columns: 1fr; padding: 20px; }
-      .modules-toc { display: none; }
-    }
-    @media (max-width: 600px) {
-      .module-hero-banner { padding: 36px 20px; }
-      .banner-title { font-size: 1.3rem; }
-      .mscard-features { grid-template-columns: 1fr; }
-    }
-  </style>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
 </head>
 <body>
-<div class="offline-bar" id="offlineBar"><i data-lucide="wifi-off"></i> You are offline — viewing cached data</div>
+<div class="offline-bar" id="offlineBar">
+  <i data-lucide="wifi-off"></i> You are offline — viewing cached content
+</div>
 
 <!-- Reading progress bar -->
-<div class="reading-progress"><div class="reading-progress-fill" id="readingBar"></div></div>
+<div class="reading-bar"><div class="reading-bar-fill" id="readingBar"></div></div>
 
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="app-shell">
-  <!-- TOPBAR -->
   <header class="app-topbar">
     <a href="dashboard.html" class="topbar-brand">
       <div class="brand-icon"><i data-lucide="activity"></i></div>
       MediCore<span>Hub</span>
     </a>
+    <button type="button" class="topbar-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
     <div class="topbar-search">
       <i data-lucide="search"></i>
-      <input type="text" placeholder="Search modules…" id="moduleSearch"/>
+      <input type="text" id="moduleSearchInput" placeholder="Search modules…" aria-label="Search modules"/>
     </div>
-    <div class="topbar-actions">
-      <a href="dashboard.html" class="topbar-icon-btn" title="Dashboard"><i data-lucide="layout-dashboard"></i></a>
-      <button class="topbar-icon-btn" title="Notifications"><i data-lucide="bell"></i><span class="notif-badge"></span></button>
-      <div class="topbar-avatar" id="topbarAvatar" onclick="window.location.href='settings.html'" title="Settings">UN</div>
+    <div class="topbar-right">
+      <a href="dashboard.html" class="topbar-btn" title="Dashboard">
+        <i data-lucide="layout-dashboard"></i>
+      </a>
+      <button type="button" class="topbar-btn" title="Notifications"
+        onclick="Toast.info('3 unread alerts')">
+        <i data-lucide="bell"></i><span class="notif-dot"></span>
+      </button>
+      <div class="topbar-avatar" id="topbarAvatar"
+        onclick="window.location.href='settings.html'" title="Settings"
+        style="cursor:pointer">UN</div>
     </div>
   </header>
 
-  <!-- SIDEBAR -->
-  <aside class="app-sidebar">
+  <nav class="app-sidebar" aria-label="Main navigation">
     <div class="sidebar-section">
       <div class="sidebar-section-label">Clinical</div>
       <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-      <a href="modules.html" class="sidebar-link active"><i data-lucide="layout-grid"></i> Modules</a>
-      <a href="#" class="sidebar-link"><i data-lucide="calendar-days"></i> Appointments</a>
-      <a href="#" class="sidebar-link"><i data-lucide="microscope"></i> Laboratory</a>
-      <a href="#" class="sidebar-link"><i data-lucide="pill"></i> Pharmacy</a>
+      <a href="modules.html"   class="sidebar-link is-active"><i data-lucide="layout-grid"></i> Modules</a>
+      <a href="#mod-scheduling" class="sidebar-link"><i data-lucide="calendar-days"></i> Appointments</a>
+      <a href="#mod-lab"        class="sidebar-link"><i data-lucide="microscope"></i> Laboratory</a>
+      <a href="#mod-pharmacy"   class="sidebar-link"><i data-lucide="pill"></i> Pharmacy</a>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
+      <div class="sidebar-section-label">Administration</div>
       <a href="../../pages/analytics.html" class="sidebar-link"><i data-lucide="bar-chart-2"></i> Analytics</a>
       <a href="settings.html" class="sidebar-link"><i data-lucide="settings"></i> Settings</a>
-      <a href="#" class="sidebar-link" id="signOutBtn"><i data-lucide="log-out"></i> Sign Out</a>
+      <button type="button" class="sidebar-link" id="signOutBtn"
+        style="width:100%;background:none;border:none;text-align:left">
+        <i data-lucide="log-out"></i> Sign Out
+      </button>
     </div>
-  </aside>
+  </nav>
 
-  <!-- MAIN -->
-  <main class="app-main" id="mainScroll">
-
+  <main class="app-main" id="mainArea">
     <!-- Hero banner -->
-    <div class="module-hero-banner">
-      <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&q=60" alt="" class="banner-bg"/>
-      <div class="banner-content">
-        <div class="banner-badge"><i data-lucide="layout-grid"></i> Platform Modules</div>
-        <h1 class="banner-title">Every Clinical Workflow.<br/>One Integrated Platform.</h1>
-        <p class="banner-sub">Eight deeply integrated modules connecting every point of care — from patient registration to discharge, lab to pharmacy, radiology to billing.</p>
-        <div class="banner-meta">
-          <div class="banner-meta-item"><i data-lucide="check-circle"></i> <strong>8</strong> modules</div>
-          <div class="banner-meta-item"><i data-lucide="link"></i> <strong>HL7 FHIR R4</strong> interoperable</div>
-          <div class="banner-meta-item"><i data-lucide="wifi-off"></i> <strong>Offline-first</strong> architecture</div>
-          <div class="banner-meta-item"><i data-lucide="shield-check"></i> <strong>ISO 27001</strong> certified</div>
+    <div style="position:relative;overflow:hidden;background:linear-gradient(155deg,#1565C0 0%,#0D47A1 100%);padding:44px 32px 40px">
+      <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&q=50"
+        alt="" aria-hidden="true"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.1;filter:saturate(0.3)"/>
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px"></div>
+      <div style="position:relative;z-index:1">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:5px 14px;margin-bottom:14px">
+          <i data-lucide="layout-grid" style="width:11px;height:11px;color:rgba(255,255,255,0.7)"></i>
+          <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.85)">Platform Modules</span>
+        </div>
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:white;margin-bottom:10px;letter-spacing:-0.02em">
+          Every Clinical Workflow.<br/>One Integrated Platform.
+        </h1>
+        <p style="font-size:0.9rem;color:rgba(255,255,255,0.62);max-width:500px;line-height:1.65;margin-bottom:22px">
+          Eight deeply integrated modules — from patient registration to discharge,
+          lab to pharmacy, radiology to billing.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:16px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.6)">
+            <i data-lucide="check-circle" style="width:13px;height:13px;color:#93C5FD"></i>
+            <strong style="color:white">8</strong> modules
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.6)">
+            <i data-lucide="link" style="width:13px;height:13px;color:#93C5FD"></i>
+            <strong style="color:white">OpenHIE Standard</strong> interoperable
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.6)">
+            <i data-lucide="wifi-off" style="width:13px;height:13px;color:#93C5FD"></i>
+            <strong style="color:white">Offline-first</strong> architecture
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:rgba(255,255,255,0.6)">
+            <i data-lucide="shield-check" style="width:13px;height:13px;color:#93C5FD"></i>
+            <strong style="color:white">Kenya DPA</strong> compliant
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Section layout -->
-    <div class="module-layout">
+    <!-- Modules layout -->
+    <div class="module-page-layout">
       <!-- ToC -->
-      <nav class="modules-toc">
-        <div class="toc-header"><i data-lucide="list"></i><span class="toc-header-title">Modules</span></div>
-        <div class="toc-progress-bar" id="tocProgressBar" style="width:12%"></div>
-        <div class="toc-body">
-          <a href="#mod-ehr"        class="toc-link active" data-target="mod-ehr"><i data-lucide="file-text"></i> EHR System</a>
-          <a href="#mod-lab"        class="toc-link" data-target="mod-lab"><i data-lucide="microscope"></i> Laboratory (LIS)</a>
-          <a href="#mod-pharmacy"   class="toc-link" data-target="mod-pharmacy"><i data-lucide="pill"></i> Pharmacy</a>
-          <a href="#mod-radiology"  class="toc-link" data-target="mod-radiology"><i data-lucide="scan"></i> Radiology / PACS</a>
-          <a href="#mod-scheduling" class="toc-link" data-target="mod-scheduling"><i data-lucide="calendar-days"></i> Scheduling</a>
-          <a href="#mod-billing"    class="toc-link" data-target="mod-billing"><i data-lucide="receipt"></i> Revenue Cycle</a>
-          <a href="#mod-telehealth" class="toc-link" data-target="mod-telehealth"><i data-lucide="video"></i> Telemedicine</a>
-          <a href="#mod-supply"     class="toc-link" data-target="mod-supply"><i data-lucide="package"></i> Supply Chain</a>
+      <nav class="modules-toc" aria-label="Module sections">
+        <div class="toc-head"><span class="toc-head-label">Modules</span></div>
+        <div class="toc-prog" id="tocProgress" style="width:12%"></div>
+        <div class="toc-list">
+          <a href="#mod-ehr"        class="toc-item is-active" data-toc-id="mod-ehr"><i data-lucide="file-text"></i> EHR System</a>
+          <a href="#mod-lab"        class="toc-item" data-toc-id="mod-lab"><i data-lucide="microscope"></i> Laboratory (LIS)</a>
+          <a href="#mod-pharmacy"   class="toc-item" data-toc-id="mod-pharmacy"><i data-lucide="pill"></i> Pharmacy</a>
+          <a href="#mod-radiology"  class="toc-item" data-toc-id="mod-radiology"><i data-lucide="scan"></i> Radiology / PACS</a>
+          <a href="#mod-scheduling" class="toc-item" data-toc-id="mod-scheduling"><i data-lucide="calendar-days"></i> Scheduling</a>
+          <a href="#mod-billing"    class="toc-item" data-toc-id="mod-billing"><i data-lucide="receipt"></i> Revenue Cycle</a>
+          <a href="#mod-telehealth" class="toc-item" data-toc-id="mod-telehealth"><i data-lucide="video"></i> Telemedicine</a>
+          <a href="#mod-supply"     class="toc-item" data-toc-id="mod-supply"><i data-lucide="package"></i> Supply Chain</a>
         </div>
-        <div class="toc-read-count" id="tocReadCount">1 of 8 modules viewed</div>
+        <div class="toc-foot" id="tocReadCount">1 of 8 viewed</div>
       </nav>
 
-      <!-- Module feed -->
-      <div class="modules-feed">
+      <!-- Module cards feed -->
+      <div class="modules-feed" id="modulesFeed">
 
+        <!-- Each mod-card follows the same structure -->
         <!-- EHR -->
-        <div class="module-section-card" id="mod-ehr">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-ehr" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=900&q=80" alt="Electronic Health Records"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="file-text"></i> Core Module</div>
-            <div class="mscard-hero-num">01</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="file-text"></i> Core Module</div>
+            <div class="mod-card-img-num">01</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:var(--sky-600)"><i data-lucide="file-text"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:var(--sky-600)"><i data-lucide="file-text"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Electronic Health Records</h2>
-            <p class="mscard-subtitle">Longitudinal patient records — structured, searchable, offline-capable</p>
-            <p class="mscard-desc">A complete longitudinal patient record that follows every patient across every encounter and every facility they visit. Built to Kenya MOH's standard health record formats, with offline-first architecture so clinical work never stops — even in areas with no connectivity.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Structured SOAP notes with voice-to-text in Swahili and English</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> MOH 240, 257, 333, 405 form templates built in</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Problem lists, allergies, and medication history</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Cross-facility record linkage via national patient ID</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Configurable clinical decision support alerts</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Growth monitoring and immunisation history</div>
+            <h2 class="mod-title">Electronic Health Records</h2>
+            <p class="mod-sub">Longitudinal patient records — structured, searchable, offline-capable</p>
+            <p class="mod-desc">A complete longitudinal patient record that follows every patient across every encounter and every facility. Built to Kenya MOH standard formats, with offline-first architecture so clinical work never stops — even in areas with no connectivity.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> SOAP notes with voice-to-text in Swahili &amp; English</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> MOH 240, 257, 333, 405 templates built in</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Problem lists, allergies, medication history</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Cross-facility record linkage via national ID</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Configurable clinical decision support alerts</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Growth monitoring and immunisation history</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">2.4M</div><div class="sl">Active records</div></div>
-              <div class="mscard-stat"><div class="sv">4 sec</div><div class="sl">Avg record load</div></div>
-              <div class="mscard-stat"><div class="sv">100%</div><div class="sl">Offline capable</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">2.4M</div><div class="sl">Active records</div></div>
+              <div class="mod-stat"><div class="sv">4 sec</div><div class="sl">Avg record load</div></div>
+              <div class="mod-stat"><div class="sv">100%</div><div class="sl">Offline capable</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">HL7 FHIR R4</span>
-                <span class="mscard-tag sky">SNOMED CT</span>
-                <span class="mscard-tag green">Offline-First</span>
-                <span class="mscard-tag coral">MOH Compliant</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">OpenHIE</span>
+                <span class="tag tag-sky">SNOMED CT</span>
+                <span class="tag tag-green">Offline-First</span>
+                <span class="tag tag-coral">MOH Compliant</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- LIS -->
-        <div class="module-section-card" id="mod-lab">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-lab" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=900&q=80" alt="Laboratory Information System"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="microscope"></i> Laboratory</div>
-            <div class="mscard-hero-num">02</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="microscope"></i> Laboratory</div>
+            <div class="mod-card-img-num">02</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#0891B2"><i data-lucide="microscope"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#0891B2"><i data-lucide="microscope"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Laboratory Information System</h2>
-            <p class="mscard-subtitle">Specimen to result — end-to-end, zero paper</p>
-            <p class="mscard-desc">Eliminates paper-based lab workflows from test ordering to result delivery. Barcoded specimen tracking, real-time result entry, and critical value alerts pushed to the ordering clinician the moment results are verified — reducing lab turnaround from hours to minutes.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Barcoded specimen tracking from collection to result</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Analyser interfaces for common POC devices</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Instant critical value alerts to ordering clinician</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Turnaround time monitoring and QC management</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> NHIF-compliant result formatting for claims</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Reflex testing rules and delta checks</div>
+            <h2 class="mod-title">Laboratory Information System</h2>
+            <p class="mod-sub">Specimen to result — end-to-end, zero paper</p>
+            <p class="mod-desc">Eliminates paper lab workflows. Barcoded specimen tracking, real-time result entry, and critical value alerts pushed instantly to the ordering clinician — reducing turnaround from hours to under 40 minutes.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Barcoded specimen tracking from collection to result</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Analyser interfaces for common POC devices</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Instant critical value alerts to ordering clinician</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Turnaround time monitoring and QC management</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> NHIF-compliant result formatting for claims</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Reflex testing rules and delta checks</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">38 min</div><div class="sl">Avg TAT</div></div>
-              <div class="mscard-stat"><div class="sv">-67%</div><div class="sl">Error reduction</div></div>
-              <div class="mscard-stat"><div class="sv">&lt;1 min</div><div class="sl">Critical alert</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">38 min</div><div class="sl">Avg TAT</div></div>
+              <div class="mod-stat"><div class="sv">-67%</div><div class="sl">Error reduction</div></div>
+              <div class="mod-stat"><div class="sv">&lt;1 min</div><div class="sl">Critical alert</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">HL7 v2.x</span>
-                <span class="mscard-tag sky">LOINC</span>
-                <span class="mscard-tag coral">NHIF</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">Standard Messaging</span>
+                <span class="tag tag-sky">LOINC</span>
+                <span class="tag tag-coral">NHIF</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- PHARMACY -->
-        <div class="module-section-card" id="mod-pharmacy">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-pharmacy" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=900&q=80" alt="Pharmacy Management"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="pill"></i> Pharmacy</div>
-            <div class="mscard-hero-num">03</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="pill"></i> Pharmacy</div>
+            <div class="mod-card-img-num">03</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#059669"><i data-lucide="pill"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#059669"><i data-lucide="pill"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Pharmacy Management</h2>
-            <p class="mscard-subtitle">From prescription to dispensing — safe, traceable, fully integrated</p>
-            <p class="mscard-desc">Closes the loop between prescribing clinician and dispensing pharmacist. Drug-interaction checking enforces medication safety at the point of prescribing. Automated reorder alerts linked directly to KEMSA prevent stockouts before they impact patient care.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Electronic prescribing with drug-drug interaction alerts</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Formulary management aligned to KEML</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Dispensing verification and patient counselling</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Controlled substance audit trail</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Automated KEMSA reorder triggers</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Expiry management with rotation enforcement</div>
+            <h2 class="mod-title">Pharmacy Management</h2>
+            <p class="mod-sub">From prescription to dispensing — safe, traceable, fully integrated</p>
+            <p class="mod-desc">Closes the loop between prescribing clinician and pharmacist. Real-time drug-interaction checking, automated KEMSA reorder alerts, and controlled substance audit trails — all connected to the national essential medicines list.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Electronic prescribing with drug interaction alerts</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Formulary management aligned to KEML</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Dispensing verification and patient counselling</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Controlled substance audit trail</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Automated KEMSA reorder triggers</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Expiry management with FEFO enforcement</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">99.2%</div><div class="sl">Dispensing accuracy</div></div>
-              <div class="mscard-stat"><div class="sv">-43%</div><div class="sl">Stockout reduction</div></div>
-              <div class="mscard-stat"><div class="sv">KEML</div><div class="sl">Compliant</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">99.2%</div><div class="sl">Dispensing accuracy</div></div>
+              <div class="mod-stat"><div class="sv">-43%</div><div class="sl">Stockout reduction</div></div>
+              <div class="mod-stat"><div class="sv">KEML</div><div class="sl">Compliant</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">RxNorm</span>
-                <span class="mscard-tag green">KEMSA</span>
-                <span class="mscard-tag coral">NHIF</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">RxNorm</span>
+                <span class="tag tag-green">KEMSA</span>
+                <span class="tag tag-coral">NHIF</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- RADIOLOGY -->
-        <div class="module-section-card" id="mod-radiology">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-radiology" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=900&q=80" alt="Radiology PACS"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="scan"></i> Radiology</div>
-            <div class="mscard-hero-num">04</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="scan"></i> Radiology</div>
+            <div class="mod-card-img-num">04</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#7C3AED"><i data-lucide="scan"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#7C3AED"><i data-lucide="scan"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Radiology &amp; PACS</h2>
-            <p class="mscard-subtitle">Web-based DICOM viewer — no costly workstations required</p>
-            <p class="mscard-desc">A zero-footprint web DICOM viewer and radiology order management system that eliminates the need for expensive dedicated radiology workstations. Specialist reporting can be done remotely, enabling teleradiology for facilities that lack on-site radiologists.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Zero-footprint DICOM viewer in any browser</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Integrated order entry from clinician EHR view</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Structured reporting templates per modality</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Teleradiology for remote specialist review</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> DICOM conformance with all major equipment</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Prior study comparison and hanging protocols</div>
+            <h2 class="mod-title">Radiology &amp; PACS</h2>
+            <p class="mod-sub">Web-based DICOM viewer — no costly workstations required</p>
+            <p class="mod-desc">A zero-footprint web DICOM viewer that works in any modern browser, eliminating dedicated workstation costs. Teleradiology enables remote specialist reporting for facilities that lack on-site radiologists.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Zero-footprint DICOM viewer in any browser</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Integrated order entry from clinician EHR view</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Structured reporting templates per modality</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Teleradiology for remote specialist review</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> DICOM conformance with all major equipment</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Prior study comparison and hanging protocols</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">DICOM</div><div class="sl">Fully compliant</div></div>
-              <div class="mscard-stat"><div class="sv">Zero</div><div class="sl">Workstations needed</div></div>
-              <div class="mscard-stat"><div class="sv">Remote</div><div class="sl">Reporting capable</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">DICOM</div><div class="sl">Fully compliant</div></div>
+              <div class="mod-stat"><div class="sv">Zero</div><div class="sl">Workstations needed</div></div>
+              <div class="mod-stat"><div class="sv">Remote</div><div class="sl">Reporting capable</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">DICOM 3.0</span>
-                <span class="mscard-tag sky">IHE</span>
-                <span class="mscard-tag coral">NHIF</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">DICOM 3.0</span>
+                <span class="tag tag-sky">IHE</span>
+                <span class="tag tag-coral">NHIF</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- SCHEDULING -->
-        <div class="module-section-card" id="mod-scheduling">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-scheduling" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=900&q=80" alt="Appointment Scheduling"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="calendar-days"></i> Scheduling</div>
-            <div class="mscard-hero-num">05</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="calendar-days"></i> Scheduling</div>
+            <div class="mod-card-img-num">05</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#D97706"><i data-lucide="calendar-days"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#D97706"><i data-lucide="calendar-days"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Scheduling &amp; Appointments</h2>
-            <p class="mscard-subtitle">Multi-resource booking, SMS reminders, no-show prediction</p>
-            <p class="mscard-desc">Reduces no-shows by up to 34% through automated SMS reminders in Swahili and English. Machine learning on patient history predicts no-show risk and suggests overbooking levels for each slot — maximising clinician utilisation without overwhelming facilities.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Multi-resource scheduling — clinicians, rooms, equipment</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Automated SMS reminders via AfricasTalking</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> No-show prediction using patient history ML</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Online self-booking portal with NHI verification</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Waitlist management and slot optimisation</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Follow-up scheduling from discharge summary</div>
+            <h2 class="mod-title">Scheduling &amp; Appointments</h2>
+            <p class="mod-sub">Multi-resource booking, SMS reminders, no-show prediction</p>
+            <p class="mod-desc">Reduces no-shows by up to 34% through automated SMS reminders in Swahili and English. Machine learning predicts no-show risk per slot, maximising clinician utilisation without overwhelming facilities.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Multi-resource scheduling — clinicians, rooms, equipment</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Automated SMS reminders via AfricasTalking</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> No-show prediction with ML on patient history</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Online self-booking portal with NHI verification</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Waitlist management and slot optimisation</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Follow-up scheduling from discharge summary</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">-34%</div><div class="sl">No-show reduction</div></div>
-              <div class="mscard-stat"><div class="sv">SMS</div><div class="sl">Swahili &amp; English</div></div>
-              <div class="mscard-stat"><div class="sv">Real-time</div><div class="sl">Availability</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">-34%</div><div class="sl">No-show reduction</div></div>
+              <div class="mod-stat"><div class="sv">SMS</div><div class="sl">Swahili &amp; English</div></div>
+              <div class="mod-stat"><div class="sv">Real-time</div><div class="sl">Availability</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">iCal</span>
-                <span class="mscard-tag green">AfricasTalking</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">iCal</span>
+                <span class="tag tag-green">AfricasTalking</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- BILLING -->
-        <div class="module-section-card" id="mod-billing">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-billing" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80" alt="Revenue Cycle Management"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="receipt"></i> Revenue Cycle</div>
-            <div class="mscard-hero-num">06</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="receipt"></i> Revenue Cycle</div>
+            <div class="mod-card-img-num">06</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#DC2626"><i data-lucide="receipt"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#DC2626"><i data-lucide="receipt"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Revenue Cycle Management</h2>
-            <p class="mscard-subtitle">NHIF, SHA, M-Pesa — fully automated from encounter to settlement</p>
-            <p class="mscard-desc">Maximises facility revenue by eliminating manual claims entry. NHIF pre-authorisation completes in under 10 seconds directly from the patient's chart. SHA claims auto-generate from clinical documentation with no additional data entry required from clinical staff.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Real-time NHIF eligibility verification at registration</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> SHA claims auto-generated from clinical notes</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> M-Pesa STK push and KRA ETR integration</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Denial management with resubmission workflows</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> AR ageing and payer mix analytics</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Revenue per encounter and margin reporting</div>
+            <h2 class="mod-title">Revenue Cycle Management</h2>
+            <p class="mod-sub">NHIF, SHA, M-Pesa — automated from encounter to settlement</p>
+            <p class="mod-desc">NHIF pre-authorisation completes in under 10 seconds directly from the patient chart. SHA claims auto-generate from clinical documentation — no extra data entry required from clinical staff.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Real-time NHIF eligibility verification at registration</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> SHA claims auto-generated from clinical notes</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> M-Pesa STK push and KRA ETR integration</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Denial management with resubmission workflows</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> AR ageing and payer mix analytics</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Revenue per encounter and margin reporting</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">10 sec</div><div class="sl">Pre-auth time</div></div>
-              <div class="mscard-stat"><div class="sv">-67%</div><div class="sl">Rejection rate</div></div>
-              <div class="mscard-stat"><div class="sv">94%</div><div class="sl">Approval rate</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">10 sec</div><div class="sl">Pre-auth time</div></div>
+              <div class="mod-stat"><div class="sv">-67%</div><div class="sl">Rejection rate</div></div>
+              <div class="mod-stat"><div class="sv">94%</div><div class="sl">Approval rate</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag coral">NHIF</span>
-                <span class="mscard-tag coral">SHA</span>
-                <span class="mscard-tag green">M-Pesa</span>
-                <span class="mscard-tag sky">KRA ETR</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-coral">NHIF</span>
+                <span class="tag tag-coral">SHA</span>
+                <span class="tag tag-green">M-Pesa</span>
+                <span class="tag tag-sky">KRA ETR</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- TELEHEALTH -->
-        <div class="module-section-card" id="mod-telehealth">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-telehealth" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=900&q=80" alt="Telemedicine"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="video"></i> Telemedicine</div>
-            <div class="mscard-hero-num" style="background:var(--coral)">07</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="video"></i> Telemedicine</div>
+            <div class="mod-card-img-num" style="background:var(--coral)">07</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:var(--coral)"><i data-lucide="video"></i></div>
-              <span class="mscard-status beta">Beta — rolling out</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:var(--coral)"><i data-lucide="video"></i></div>
+              <span class="status-badge status-beta">Beta — rolling out</span>
             </div>
-            <h2 class="mscard-title">Telemedicine</h2>
-            <p class="mscard-subtitle">Specialist care for every patient, regardless of location</p>
-            <p class="mscard-desc">Extends specialist care to facilities that lack on-site specialists — without requiring patients to travel hundreds of kilometres. Every teleconsultation is automatically recorded and attached to the patient's permanent MediCore Hub record, with e-prescriptions delivered directly to the facility pharmacist.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Encrypted video optimised for 3G networks</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Asynchronous store-and-forward messaging</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> E-prescribing with digital signature</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Specialist referral routing with warm handoff</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Consultation summaries auto-appended to EHR</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> NHIF billing fully integrated</div>
+            <h2 class="mod-title">Telemedicine</h2>
+            <p class="mod-sub">Specialist care for every patient, regardless of location</p>
+            <p class="mod-desc">Extends specialist care to facilities without on-site specialists — without requiring patients to travel hundreds of kilometres. Every teleconsultation is recorded and automatically attached to the permanent patient record.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Encrypted video optimised for 3G networks</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Asynchronous store-and-forward messaging</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> E-prescribing with digital signature</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Specialist referral routing with warm handoff</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Consultation summaries auto-appended to EHR</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> NHIF billing fully integrated</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">3G</div><div class="sl">Network optimised</div></div>
-              <div class="mscard-stat"><div class="sv">E2E</div><div class="sl">Encrypted</div></div>
-              <div class="mscard-stat"><div class="sv">Auto</div><div class="sl">EHR sync</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">3G</div><div class="sl">Optimised for</div></div>
+              <div class="mod-stat"><div class="sv">E2E</div><div class="sl">Encrypted</div></div>
+              <div class="mod-stat"><div class="sv">Auto</div><div class="sl">EHR sync</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag sky">WebRTC</span>
-                <span class="mscard-tag coral">NHIF</span>
-                <span class="mscard-tag green">HL7 FHIR</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-sky">WebRTC</span>
+                <span class="tag tag-coral">NHIF</span>
+                <span class="tag tag-green">SNOMED CT</span>
               </div>
-              <button class="btn btn-coral btn-sm" onclick="Toast.info('Join beta','Beta access form will open')"><i data-lucide="zap"></i> Join Beta</button>
+              <button type="button" class="btn btn-sm"
+                style="background:var(--coral);color:white;box-shadow:0 4px 12px rgba(249,115,22,0.3)"
+                onclick="Toast.info('Beta access requested','We will be in touch within 48 hours')">
+                <i data-lucide="zap"></i> Join Beta
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- SUPPLY CHAIN -->
-        <div class="module-section-card" id="mod-supply">
-          <div class="mscard-hero">
+        <article class="mod-card" id="mod-supply" data-toc-section>
+          <div class="mod-card-img">
             <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80" alt="Supply Chain"/>
-            <div class="mscard-hero-overlay"></div>
-            <div class="mscard-hero-badge"><i data-lucide="package"></i> Supply Chain</div>
-            <div class="mscard-hero-num">08</div>
+            <div class="mod-card-img-overlay"></div>
+            <div class="mod-card-img-badge"><i data-lucide="package"></i> Supply Chain</div>
+            <div class="mod-card-img-num">08</div>
           </div>
-          <div class="mscard-body">
-            <div class="mscard-top">
-              <div class="mscard-icon" style="background:#065F46"><i data-lucide="package"></i></div>
-              <span class="mscard-status live">Live in all facilities</span>
+          <div class="mod-card-body">
+            <div class="mod-card-top">
+              <div class="mod-icon" style="background:#065F46"><i data-lucide="package"></i></div>
+              <span class="status-badge status-live">Live in all facilities</span>
             </div>
-            <h2 class="mscard-title">Supply Chain &amp; Inventory</h2>
-            <p class="mscard-subtitle">Real-time stock visibility — zero stockouts, zero waste</p>
-            <p class="mscard-desc">Gives facility managers real-time visibility into stock levels across every store — pharmacy, ward, theatre, and central stores — and automates replenishment before shortages occur. Consumption-based forecasting with seasonal adjustments cuts both stockouts and expiry waste simultaneously.</p>
-            <div class="mscard-features">
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Real-time stock ledger updated from dispensing</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Expiry tracking with FEFO rotation enforcement</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Consumption-based demand forecasting</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> KEMSA automated pull requisition submission</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Multi-store management across all departments</div>
-              <div class="mscard-feature"><i data-lucide="check-circle"></i> Procurement with GRN and invoice matching</div>
+            <h2 class="mod-title">Supply Chain &amp; Inventory</h2>
+            <p class="mod-sub">Real-time stock visibility — zero stockouts, zero waste</p>
+            <p class="mod-desc">Real-time visibility into stock levels across every store — pharmacy, ward, theatre, and central stores. Consumption-based forecasting cuts both stockouts and expiry waste simultaneously.</p>
+            <div class="mod-features">
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Real-time stock ledger updated from dispensing</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Expiry tracking with FEFO rotation enforcement</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Consumption-based demand forecasting</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> KEMSA automated pull requisition submission</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> Multi-store management across all departments</div>
+              <div class="mod-feature"><i data-lucide="check-circle"></i> GRN and supplier invoice matching</div>
             </div>
-            <div class="mscard-stats">
-              <div class="mscard-stat"><div class="sv">-43%</div><div class="sl">Stockout incidents</div></div>
-              <div class="mscard-stat"><div class="sv">-28%</div><div class="sl">Expiry waste</div></div>
-              <div class="mscard-stat"><div class="sv">KEMSA</div><div class="sl">Integrated</div></div>
+            <div class="mod-stats">
+              <div class="mod-stat"><div class="sv">-43%</div><div class="sl">Stockout incidents</div></div>
+              <div class="mod-stat"><div class="sv">-28%</div><div class="sl">Expiry waste</div></div>
+              <div class="mod-stat"><div class="sv">KEMSA</div><div class="sl">Integrated</div></div>
             </div>
-            <div class="mscard-footer">
-              <div class="mscard-tags">
-                <span class="mscard-tag green">KEMSA</span>
-                <span class="mscard-tag sky">GS1</span>
-                <span class="mscard-tag coral">KEML</span>
+            <div class="mod-footer">
+              <div class="mod-tags">
+                <span class="tag tag-green">KEMSA</span>
+                <span class="tag tag-sky">GS1</span>
+                <span class="tag tag-coral">KEML</span>
               </div>
-              <button class="btn btn-sky btn-sm" onclick="Toast.success('Demo booked','Our team will reach out within 4 hours')"><i data-lucide="play"></i> Live Demo</button>
+              <button type="button" class="btn btn-sky btn-sm"
+                onclick="Toast.success('Demo booked','Our team will contact you within 4 hours')">
+                <i data-lucide="play"></i> Live Demo
+              </button>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- CTA card -->
-        <div style="background:linear-gradient(135deg,var(--sky-600) 0%,var(--sky-800) 100%);border-radius:var(--r-xl);padding:40px 36px;text-align:center;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background-image:url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4z'/%3E%3C/g%3E%3C/svg%3E\")"></div>
+        <!-- Bottom CTA -->
+        <div style="background:linear-gradient(135deg,var(--sky-600) 0%,#1D4ED8 100%);border-radius:var(--r-xl);padding:36px 32px;text-align:center;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:40px 40px"></div>
           <div style="position:relative;z-index:1">
-            <div style="width:52px;height:52px;background:rgba(255,255,255,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;border:1px solid rgba(255,255,255,0.2)">
-              <i data-lucide="rocket" style="width:24px;height:24px;color:white"></i>
+            <div style="width:48px;height:48px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+              <i data-lucide="rocket" style="width:22px;height:22px;color:white"></i>
             </div>
-            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:white;margin-bottom:10px">Ready to see all 8 modules live?</h3>
-            <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto">We configure demos to your facility type. No generic slides — your actual clinical workflows, running live.</p>
-            <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-              <a href="../../pages/contact.html" class="btn btn-white btn-lg"><i data-lucide="calendar-days"></i> Book a Demo</a>
-              <a href="../../pages/interoperability.html" class="btn btn-ghost-white" style="height:52px;padding:0 24px;font-size:0.95rem"><i data-lucide="git-branch"></i> View Integrations</a>
+            <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;color:white;margin-bottom:8px">Ready to see all 8 modules live?</h3>
+            <p style="font-size:0.86rem;color:rgba(255,255,255,0.68);margin-bottom:22px;max-width:380px;margin-left:auto;margin-right:auto">We configure demos to your facility type — your actual workflows, running live.</p>
+            <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+              <a href="../../pages/contact.html" class="btn btn-white btn-lg">
+                <i data-lucide="calendar-days"></i> Book a Demo
+              </a>
+              <a href="../../pages/interoperability.html" class="btn btn-ghost" style="height:48px;padding:0 22px;color:white;border-color:rgba(255,255,255,0.3)">
+                <i data-lucide="git-branch"></i> Integrations
+              </a>
             </div>
           </div>
         </div>
 
       </div><!-- /modules-feed -->
-    </div><!-- /module-layout -->
+    </div><!-- /module-page-layout -->
   </main>
 </div>
 
 <script src="../js/db.js"></script>
 <script src="../js/app.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const auth = requireAuth();
-  if (!auth) return;
+(function () {
+  'use strict';
 
-  // Reading progress bar
-  const main = document.getElementById('mainScroll');
-  const bar  = document.getElementById('readingBar');
-  main.addEventListener('scroll', () => {
-    const scrollable = main.scrollHeight - main.clientHeight;
-    const pct = scrollable > 0 ? (main.scrollTop / scrollable) * 100 : 0;
-    bar.style.width = pct + '%';
-  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const auth = requireAuth();
+    if (!auth) return;
 
-  // ToC active state and read count via IntersectionObserver
-  const cards = document.querySelectorAll('.module-section-card[id]');
-  const tocLinks = document.querySelectorAll('.toc-link[data-target]');
-  const readCount = document.getElementById('tocReadCount');
-  const tocBar    = document.getElementById('tocProgressBar');
-  const viewed    = new Set();
+    const main    = document.getElementById('mainArea');
+    const readBar = document.getElementById('readingBar');
+    const cards   = document.querySelectorAll('.mod-card[id]');
+    const tocItems= document.querySelectorAll('.toc-item[data-toc-id]');
+    const tocProg = document.getElementById('tocProgress');
+    const tocCount= document.getElementById('tocReadCount');
+    const viewed  = new Set();
 
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
+    // Reading progress on scroll
+    main.addEventListener('scroll', () => {
+      const pct = main.scrollHeight > main.clientHeight
+        ? (main.scrollTop / (main.scrollHeight - main.clientHeight)) * 100 : 0;
+      readBar.style.width = pct + '%';
+    });
+
+    // IntersectionObserver for ToC active state and read count
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const id = e.target.id;
         viewed.add(id);
-        tocLinks.forEach(l => {
-          l.classList.toggle('active', l.dataset.target === id);
-        });
+        tocItems.forEach(t => t.classList.toggle('is-active', t.dataset.tocId === id));
         const pct = Math.round((viewed.size / cards.length) * 100);
-        tocBar.style.width = pct + '%';
-        readCount.textContent = `${viewed.size} of ${cards.length} modules viewed`;
-      }
-    });
-  }, { root: main, threshold: 0.25 });
-  cards.forEach(c => obs.observe(c));
+        tocProg.style.width = pct + '%';
+        tocCount.textContent = `${viewed.size} of ${cards.length} viewed`;
+      });
+    }, { root: main, threshold: 0.25 });
+    cards.forEach(c => obs.observe(c));
 
-  // Smooth scroll for ToC links
-  tocLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.getElementById(link.dataset.target);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Smooth scroll for ToC links
+    tocItems.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.tocId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Sidebar anchor links
+    document.querySelectorAll('.app-sidebar a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Module search
+    document.getElementById('moduleSearchInput').addEventListener('input', function () {
+      const q = this.value.toLowerCase().trim();
+      cards.forEach(card => {
+        card.style.display = (!q || card.textContent.toLowerCase().includes(q)) ? '' : 'none';
+      });
     });
   });
 
-  // Module search
-  document.getElementById('moduleSearch').addEventListener('input', e => {
-    const q = e.target.value.toLowerCase();
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = (!q || text.includes(q)) ? 'block' : 'none';
-    });
+  document.getElementById('signOutBtn').addEventListener('click', async () => {
+    const auth = db.getAuth();
+    if (auth) await db.destroySession(auth.token);
+    db.clearAuth();
+    window.location.href = 'login.html';
   });
-});
-
-document.getElementById('signOutBtn').addEventListener('click', async e => {
-  e.preventDefault();
-  const auth = db.getAuth();
-  if (auth) await db.destroySession(auth.token);
-  db.clearAuth();
-  window.location.href = 'login.html';
-});
+}());
 </script>
 </body>
 </html>

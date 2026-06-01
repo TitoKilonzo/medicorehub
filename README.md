@@ -1,298 +1,329 @@
 # MediCore Hub
-
 **Integrated Health Intelligence Platform for East Africa**
 
----
-
-## Overview
-
-MediCore Hub is a comprehensive, production-grade Health IT web application designed to serve Kenya's and East Africa's healthcare facilities — from Level 2 dispensaries to national referral hospitals. The platform unifies clinical, administrative, financial, and public health workflows on a single secure, interoperable system built on HL7 FHIR R4 open standards.
-
-The web application is a marketing and product showcase site for the MediCore Hub platform, featuring detailed module descriptions, live-style analytics dashboards, interoperability architecture, security documentation, and a full contact/demo request flow.
+> Sky Blue + White — Progressive Web App — Turso (libSQL) Database
 
 ---
 
-## Project Name Origin
+## Quick Start
 
-**MediCore** — "Medi" from *medicine/medical*, "Core" representing the central, essential hub of all health system operations. The name communicates that MediCore Hub is the nucleus around which all clinical and administrative workflows revolve.
+```bash
+cd medicorehub
+python3 -m http.server 8080
+# Open: http://localhost:8080/app/pages/login.html
+```
+
+Or with Node:
+```bash
+npx serve . -l 8080
+```
+
+No build tools. No bundler. Open `index.html` in any modern browser.
 
 ---
 
-## Live Features
+## Demo Credentials
 
-- **6-page responsive website** with full navigation, active page highlighting, and mobile hamburger menu
-- **Animated hero** with gradient text, counter animations, and scroll-cue
-- **Scrolling marquee** feature strip
-- **8 detailed module pages** — EHR, LIS, Pharmacy, Radiology, Scheduling, RCM, Telemedicine, Supply Chain
-- **Live-style analytics dashboard** — line chart, donut chart, horizontal bars, KPI tiles, alerts panel
-- **Interoperability architecture** diagram with integration cards
-- **Security page** — compliance badges and illustrative audit log table
-- **Contact page** — full enquiry form with animated success state and FAQ section
-- **Scroll-triggered card reveal animations**
-- **Counter animations** that fire when stats scroll into view
-- **Offline-capable** — all critical assets are local (no external dependencies beyond fonts and Lucide icons CDN)
+> **Security note:** Credentials are NOT shown in the UI. Use these to sign in or test the auth flows.
+
+| Field    | Value                        |
+|----------|------------------------------|
+| Email    | `demo@medicorehub.co.ke`     |
+| Password | `Demo@2026`                  |
+
+The demo account is seeded automatically on first page load. You can also register a new account via `/app/pages/register.html`.
+
+---
+
+## Project Structure
+
+```
+medicorehub/
+├── index.html                    # Marketing landing page
+├── favicon.svg                   # SVG favicon — sky blue ECG icon
+├── manifest.json                 # PWA manifest
+├── sw.js                         # Service worker (offline + caching)
+├── README.md
+│
+├── app/
+│   ├── css/
+│   │   └── app.css               # Full design system
+│   ├── js/
+│   │   ├── app.js                # UI helpers, toast, PWA, mobile nav
+│   │   └── db.js                 # Turso simulation layer (localStorage)
+│   └── pages/
+│       ├── login.html            # Sign in
+│       ├── register.html         # 2-step account creation
+│       ├── reset-password.html   # 4-state password recovery flow
+│       ├── onboarding.html       # 5-step preference wizard
+│       ├── dashboard.html        # Main app dashboard
+│       ├── settings.html         # Profile, password, notifications, security
+│       └── modules.html          # Section-based platform module reference
+│
+├── pages/                        # Marketing inner pages
+│   ├── modules.html
+│   ├── analytics.html
+│   ├── interoperability.html
+│   ├── security.html
+│   └── contact.html
+│
+├── css/
+│   └── main.css                  # Marketing site stylesheet
+├── js/
+│   └── main.js                   # Marketing site JS
+└── icons/
+    └── icon-{72,96,128,192,512}.svg  # PWA icons
+```
 
 ---
 
 ## Design System
 
-### Color Palette
+### Colour Palette
 
-| Token | Value | Usage |
-|---|---|---|
-| `--navy` | `#0B1929` | Primary background |
-| `--navy-mid` | `#112236` | Section alternates |
-| `--navy-light` | `#1A3149` | Cards, panels |
-| `--teal` | `#0EA5A0` | Primary brand / CTA |
-| `--teal-light` | `#2EC4BF` | Highlights, links |
-| `--teal-dark` | `#087872` | Dark accents, marquee |
-| `--amber` | `#F59E0B` | Secondary accent / alerts |
-| `--amber-light` | `#FCD34D` | Warm highlights |
+| Token          | Hex       | Usage                          |
+|----------------|-----------|--------------------------------|
+| `--sky-600`    | `#0284C7` | Primary brand, buttons, links  |
+| `--sky-700`    | `#0369A1` | Hover state                    |
+| `--sky-500`    | `#0EA5E9` | Accent, highlights             |
+| `--white`      | `#FFFFFF` | Card backgrounds, panels       |
+| `--gray-50`    | `#F9FAFB` | Page background                |
+| `--gray-900`   | `#111827` | Primary text                   |
+| `--success`    | `#10B981` | Success states                 |
+| `--error`      | `#EF4444` | Error states                   |
+| `--warning`    | `#F59E0B` | Warning states                 |
 
 ### Typography
 
-- **Headings:** Sora (Google Fonts) — weights 300–800
-- **Body:** DM Sans (Google Fonts) — weights 300–500
-- **Sizing:** Fluid with `clamp()` for responsive scaling
-
-### Icons
-
-All icons use [Lucide Icons](https://lucide.dev/) via unpkg CDN — SVG-based, consistent 24px grid, no emoji used anywhere in the project.
+| Font              | Weights        | Usage                    |
+|-------------------|----------------|--------------------------|
+| Plus Jakarta Sans | 400–800        | Headings, labels, buttons|
+| Inter             | 400–600        | Body text, inputs        |
 
 ---
 
-## File Structure
+## Turso (libSQL) Database Setup
 
-```
-medicorehub/
-├── index.html                  # Homepage / landing page
-├── favicon.svg                 # SVG favicon (activity/pulse icon)
-├── README.md                   # This file
-│
-├── css/
-│   └── main.css                # Complete stylesheet (all pages)
-│
-├── js/
-│   └── main.js                 # Navigation, counter animations, scroll reveal
-│
-└── pages/
-    ├── modules.html            # All 8 platform module detail pages
-    ├── analytics.html          # Analytics & reporting with mock dashboard
-    ├── interoperability.html   # Integration standards & architecture
-    ├── security.html           # Security architecture & compliance
-    └── contact.html            # Demo request form & FAQ
-```
+The app ships with a **localStorage-backed simulation** in `app/js/db.js`. Every method is a 1:1 swap for real `@libsql/client` calls — no code changes required beyond swapping the client.
 
----
-
-## Pages
-
-### 1. `index.html` — Homepage
-- Full-viewport hero with Unsplash background, animated headline, stat counters
-- Feature marquee strip
-- Mission section with image stack + floating badge
-- 8-module grid with featured card
-- Analytics preview section with mock charts
-- Interoperability logos strip
-- Testimonials from three Kenyan clinicians
-- Security credential strip
-- CTA banner with background image
-- Full footer
-
-### 2. `pages/modules.html` — Platform Modules
-- Detailed alternating-layout sections for each of 8 modules
-- Real Unsplash clinical photography per module
-- Feature bullet lists per module
-- Individual CTA per module linking to contact form
-
-### 3. `pages/analytics.html` — Analytics & Reporting
-- 4 animated metric KPI cards
-- Full mock dashboard with:
-  - SVG line chart (OPD attendance trend)
-  - SVG donut chart (payer mix)
-  - Horizontal bar chart (top diagnoses by ICD-10)
-  - KPI panel
-  - Alerts panel
-- 6 report type cards covering clinical, financial, regulatory, HR, supply chain, and geospatial
-
-### 4. `pages/interoperability.html` — Interoperability
-- Open standards breakdown (FHIR, OpenHIE, SNOMED, HL7 v2)
-- Visual integration architecture diagram
-- 6 pre-built integration cards (NHIF, DHIS2, KEMSA, M-Pesa, AfricasTalking, PEPFAR)
-
-### 5. `pages/security.html` — Security & Compliance
-- 6 security pillar cards (encryption, RBAC, audit, BCM, MFA, pen testing)
-- Compliance certification badges (ISO 27001, DPA 2019, SOC 2 Type II, FHIR, GDPR, MoH)
-- Illustrative audit log table
-
-### 6. `pages/contact.html` — Contact & Demo
-- Split-layout contact page: info + form
-- Full enquiry form with field validation
-- Animated form-to-success-state transition
-- Office hours and dedicated support line information
-- Nairobi map placeholder with Unsplash aerial image
-- 6-item FAQ section
-
----
-
-## Technologies Used
-
-| Technology | Version | Purpose |
-|---|---|---|
-| HTML5 | — | Semantic markup |
-| CSS3 | — | Custom properties, Grid, Flexbox, animations |
-| Vanilla JavaScript | ES6+ | Counter animations, scroll reveal, nav, form |
-| Lucide Icons | Latest (CDN) | SVG icon system |
-| Google Fonts | — | Sora + DM Sans typefaces |
-| Unsplash | — | Real clinical photography |
-
-**No frameworks. No build tools. No dependencies beyond CDN-loaded fonts and icons.** The site opens directly from the filesystem without a local server.
-
----
-
-## Setup & Running
-
-### Option A — Open directly in browser
-Simply open `index.html` in any modern browser. All pages and assets are self-contained with relative paths.
+### Step 1 — Install the Turso CLI
 
 ```bash
-open index.html          # macOS
-start index.html         # Windows
-xdg-open index.html      # Linux
+# macOS / Linux
+curl -sSfL https://get.tur.so/install.sh | bash
+
+# Windows (PowerShell)
+irm https://get.tur.so/install.ps1 | iex
 ```
 
-### Option B — Local development server (recommended for full experience)
-
-Using Python:
+Verify installation:
 ```bash
-cd medicorehub
-python3 -m http.server 8080
-# Then open http://localhost:8080
+turso --version
 ```
 
-Using Node.js (npx serve):
+### Step 2 — Authenticate
+
 ```bash
-cd medicorehub
-npx serve .
+turso auth login
 ```
 
-Using VS Code Live Server:
-Right-click `index.html` → Open with Live Server
+This opens a browser window. Complete the OAuth flow, then return to the terminal.
 
----
+### Step 3 — Create your database
 
-## Browser Support
+```bash
+turso db create medicorehub
+```
 
-| Browser | Support |
-|---|---|
-| Chrome 90+ | Full |
-| Firefox 88+ | Full |
-| Safari 14+ | Full |
-| Edge 90+ | Full |
-| Mobile Chrome / Safari | Full (responsive) |
+### Step 4 — Get your connection URL and auth token
 
----
+```bash
+# Print the database URL (copy this)
+turso db show medicorehub --url
 
-## Health IT Standards Referenced
+# Create a long-lived auth token (copy this)
+turso db tokens create medicorehub
+```
 
-- **HL7 FHIR R4** — RESTful API standard for clinical data exchange
-- **OpenHIE** — Open Health Information Exchange component framework
-- **SNOMED CT** — Clinical terminology for diagnoses and procedures
-- **ICD-10-CM/PCS** — International Classification of Diseases coding
-- **DICOM** — Digital imaging standard for radiology
-- **Kenya Data Protection Act 2019** — National patient data privacy law
-- **NHIF/SHA** — National Hospital Insurance Fund / Social Health Authority (Kenya)
-- **KHIS/DHIS2** — Kenya Health Information System
-- **KEMSA** — Kenya Medical Supplies Authority
-- **MOH forms** — 240, 257, 333, 405, 705A/B, HMIS 710
+Save both values — you'll need them in Step 6.
 
----
+### Step 5 — Run the schema
 
-## Customisation
+Open the Turso shell for your database:
+```bash
+turso db shell medicorehub
+```
 
-### Changing the color theme
-All colors are CSS custom properties in `css/main.css` under `:root`. Update `--teal`, `--navy`, and `--amber` to rebrand to any color scheme.
+Then paste and run the SQL below:
 
-### Adding a real backend form
-Replace the `form` submit handler in `pages/contact.html` with a `fetch()` POST to your API endpoint:
+```sql
+CREATE TABLE IF NOT EXISTS users (
+  id            TEXT PRIMARY KEY,
+  email         TEXT UNIQUE NOT NULL,
+  name          TEXT NOT NULL,
+  role          TEXT DEFAULT 'clinician',
+  facility      TEXT DEFAULT '',
+  county        TEXT DEFAULT '',
+  phone         TEXT DEFAULT '',
+  password_hash TEXT NOT NULL,
+  onboarded     INTEGER DEFAULT 0,
+  created_at    TEXT DEFAULT (datetime('now')),
+  updated_at    TEXT DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  id         TEXT PRIMARY KEY,
+  user_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  token      TEXT UNIQUE NOT NULL,
+  expires_at TEXT NOT NULL,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS password_resets (
+  id         TEXT PRIMARY KEY,
+  email      TEXT NOT NULL,
+  token      TEXT UNIQUE NOT NULL,
+  used       INTEGER DEFAULT 0,
+  expires_at TEXT NOT NULL,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS onboarding_progress (
+  user_id   TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  step      INTEGER DEFAULT 1,
+  completed INTEGER DEFAULT 0,
+  payload   TEXT DEFAULT '{}'
+);
+
+CREATE TABLE IF NOT EXISTS audit_log (
+  id         TEXT PRIMARY KEY,
+  user_id    TEXT,
+  action     TEXT NOT NULL,
+  resource   TEXT,
+  ip_address TEXT,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+```
+
+Type `.quit` to exit the shell when done.
+
+### Step 6 — Install the libSQL client and connect
+
+```bash
+npm install @libsql/client
+```
+
+In `app/js/db.js`, replace the top of the file with:
 
 ```javascript
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const data = Object.fromEntries(new FormData(form));
-  await fetch('https://your-api.com/enquiries', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  // show success state
+import { createClient } from '@libsql/client';
+
+const client = createClient({
+  url: 'libsql://medicorehub-<your-org>.turso.io',   // from Step 4
+  authToken: '<your-auth-token>'                       // from Step 4
 });
 ```
 
-### Replacing Unsplash images
-All images use Unsplash URLs with width and quality parameters (`?w=800&q=80`). Replace with your own hosted images by swapping the `src` attributes in any HTML file.
+> **Security tip:** In production, load these from environment variables (`process.env.TURSO_URL`, `process.env.TURSO_TOKEN`) and never commit them to version control.
 
----
+### Step 7 — Swap the simulation methods
 
-## Inspiration & Context
+Each method in `db.js` is already documented with the equivalent real `client.execute()` call. Example replacement for `authenticate()`:
 
-This project was built as an extension of [AfyaTech](https://afyatech.vercel.app/), an AI-powered healthcare startup for East Africa. MediCore Hub takes the Health IT focus further — building a full clinical operations platform rather than an AI advisory layer, addressing the complete facility management lifecycle from patient registration to revenue cycle and supply chain.
-
----
-
-## License
-
-This project is provided as a demonstration web application. All Unsplash images are used under the [Unsplash License](https://unsplash.com/license). Lucide Icons are licensed under the [ISC License](https://github.com/lucide-icons/lucide/blob/main/LICENSE). Google Fonts are used under the [SIL Open Font License](https://scripts.sil.org/OFL).
-
----
-
-## Contact
-
-**MediCore Hub Ltd.**  
-Upper Hill Medical Centre, 5th Floor  
-Hospital Road, Nairobi, Kenya  
-hello@medicorehub.co.ke  
-+254 700 000 000
-
----
-
-*Built with precision for East Africa's health system — 2026*
-
----
-
-## v3 Updates — PWA + Auth + App Pages
-
-### New Theme
-Complete redesign to **Sky Blue (#0284C7) + Pure White + Coral (#FF6B4A)**. Fonts upgraded to **Plus Jakarta Sans** (headings) + **Instrument Sans** (body).
-
-### PWA Features
-- `manifest.json` — installable on Android/iOS/desktop
-- `sw.js` — service worker with network-first caching + offline fallback
-- Push notification support with clinical alert payloads
-- Background sync for offline form submissions
-- Install prompt banner with dismiss/install flow
-
-### App Pages (`/app/pages/`)
-
-| Page | File | Description |
-|---|---|---|
-| Login | `login.html` | Email/password + social SSO buttons + demo credentials |
-| Register | `register.html` | 2-step registration with password strength meter |
-| Reset Password | `reset-password.html` | 4-state flow: request → email sent → set new → success |
-| Onboarding | `onboarding.html` | 5-step preference wizard with chip selection + module toggles |
-| Dashboard | `dashboard.html` | Live stats, clinical alerts, appointment schedule, audit log |
-| Settings | `settings.html` | Profile, password, notifications, preferences, security, danger zone |
-| Modules (App) | `modules.html` | Section-based scrollable module reference with ToC + reading progress |
-
-### Database Layer (`/app/js/db.js`)
-Simulates Turso/libSQL with localStorage persistence. Swap each method body for `await client.execute({ sql, args })` using `@libsql/client` in production. Full schema SQL is embedded as a comment.
-
-### Contact Page — Implementation Journey
-Replaced the FAQ section with a visual **Implementation Journey timeline** — 5 phases from Discovery through Ongoing Support — plus a proof-strip with key deployment metrics.
-
-### To run
-```bash
-cd medicorehub
-python3 -m http.server 8080
-# Navigate to http://localhost:8080/app/pages/login.html
+```javascript
+async authenticate(email, password) {
+  const result = await client.execute({
+    sql: 'SELECT * FROM users WHERE email = ?',
+    args: [email.toLowerCase()]
+  });
+  const user = result.rows[0];
+  if (!user || user.password_hash !== hashPassword(password)) {
+    throw new Error('Invalid email or password.');
+  }
+  return sanitize(user);
+}
 ```
+
+Replace `hashPassword()` with `bcrypt.compare()` or `argon2.verify()` in production.
+
+### Turso Quick Reference
+
+| Command | Description |
+|---------|-------------|
+| `turso db list` | List all your databases |
+| `turso db show medicorehub` | Show DB info (URL, region, size) |
+| `turso db shell medicorehub` | Open interactive SQL shell |
+| `turso db tokens create medicorehub` | Create a new auth token |
+| `turso db destroy medicorehub` | Delete the database |
+| `turso db replicate medicorehub --location <region>` | Add a read replica |
+
+Available regions: `ams` (Amsterdam), `nbo` (Nairobi), `sin` (Singapore), `iad` (N. Virginia), and [more](https://docs.turso.tech/reference/platform-rest-api/locations).
+
+> **Tip for Kenya deployments:** Use `nbo` (Nairobi) as your primary region for the lowest latency from East African facilities.
+
+---
+
+## PWA Features
+
+- **Manifest** — installable on Android, iOS (Safari "Add to Home Screen"), and desktop Chrome/Edge
+- **Service Worker** — network-first fetch with offline fallback to cached pages
+- **Offline indicator** — yellow bar appears when connectivity is lost
+- **Install banner** — triggered by `beforeinstallprompt` event after 3 seconds
+- **Push notifications** — registered in service worker, demo payload structure included
+- **Background sync** — `sync` event handler stubbed for offline form submissions
+
+---
+
+## App Pages
+
+| Page                     | Route                          | Description                                        |
+|--------------------------|--------------------------------|----------------------------------------------------|
+| Login                    | `/app/pages/login.html`        | Email + social SSO, back-to-home button            |
+| Register                 | `/app/pages/register.html`     | 2-step: personal info → facility info              |
+| Reset Password           | `/app/pages/reset-password.html` | 4-state: request → sent → set new → done         |
+| Onboarding               | `/app/pages/onboarding.html`   | 5-step preference wizard with role, modules, alerts|
+| Dashboard                | `/app/pages/dashboard.html`    | Stats, alerts, appointments, audit log             |
+| Settings                 | `/app/pages/settings.html`     | Profile, password, notifications, security, danger |
+| Platform Modules         | `/app/pages/modules.html`      | Section-based, sticky ToC, reading progress bar    |
+
+---
+
+## Responsive Breakpoints
+
+| Breakpoint  | Behaviour                                                        |
+|-------------|------------------------------------------------------------------|
+| `> 1024px`  | Full layout — sidebar + content, 4-col stats grid               |
+| `≤ 1024px`  | 2-col stats grid, 2-col grid-3                                   |
+| `≤ 960px`   | Sidebar collapses to drawer, auth left panel hidden              |
+| `≤ 768px`   | Single column grids, search bar shrinks, page padding reduces    |
+| `≤ 480px`   | Mobile-first: search hidden, form grids stack, full-width CTAs   |
+| `≤ 360px`   | Extra small phone optimisations                                  |
+| Touch        | All interactive targets ≥ 44px per WCAG 2.5.5                   |
+
+---
+
+## Security Notes
+
+- Passwords are hashed in the simulation layer using a deterministic function. **In production, use bcrypt or Argon2.**
+- Session tokens are UUIDs stored in `sessionStorage` (cleared on browser close).
+- The password reset simulation logs the token to `console.info` and `window._mch_reset_token` for testing only. In production, send via email (Resend/SendGrid).
+- All form inputs are validated client-side. **Always validate server-side in production.**
+
+---
+
+## Deployment
+
+### Vercel
+```bash
+vercel --prod
+```
+
+### Netlify
+Drag and drop the `medicorehub/` folder to netlify.com/drop.
+
+### Static hosting
+Any static host works — the app has no server dependencies in simulation mode.
+
+---
+
+*MediCore Hub — Built for Kenya's health system. 2026*

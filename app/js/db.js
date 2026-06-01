@@ -139,6 +139,11 @@ class TursoClient {
     return u ? this._safe(u) : null;
   }
 
+  async findUserByEmail(email) {
+    const u = this._store.users.find(u => u.email === email.toLowerCase());
+    return u ? this._safe(u) : null;
+  }
+
   async updateProfile(id, { name, phone, facility, county, role }) {
     const idx = this._store.users.findIndex(u => u.id === id);
     if (idx === -1) throw new Error('User not found.');

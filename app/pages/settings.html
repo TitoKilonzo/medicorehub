@@ -11,72 +11,96 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
 </head>
 <body>
-<div class="offline-bar" id="offlineBar"><i data-lucide="wifi-off"></i> You are offline — changes will sync when reconnected</div>
+<div class="offline-bar" id="offlineBar">
+  <i data-lucide="wifi-off"></i> You are offline — changes will sync when reconnected
+</div>
 
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="app-shell">
-  <!-- TOPBAR -->
   <header class="app-topbar">
     <a href="dashboard.html" class="topbar-brand">
       <div class="brand-icon"><i data-lucide="activity"></i></div>
       MediCore<span>Hub</span>
     </a>
+    <button type="button" class="topbar-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu"></i></button>
     <div class="topbar-search">
       <i data-lucide="search"></i>
-      <input type="text" placeholder="Search settings…" id="settingsSearch"/>
+      <input type="text" placeholder="Search settings…" aria-label="Search settings"/>
     </div>
-    <div class="topbar-actions">
-      <a href="dashboard.html" class="topbar-icon-btn" title="Back to Dashboard"><i data-lucide="layout-dashboard"></i></a>
-      <button class="topbar-icon-btn" title="Notifications" onclick="Toast.info('3 unread alerts')"><i data-lucide="bell"></i><span class="notif-badge"></span></button>
+    <div class="topbar-right">
+      <a href="dashboard.html" class="topbar-btn" title="Back to Dashboard">
+        <i data-lucide="layout-dashboard"></i>
+      </a>
+      <button type="button" class="topbar-btn" title="Notifications"
+        onclick="Toast.info('3 unread alerts')">
+        <i data-lucide="bell"></i><span class="notif-dot"></span>
+      </button>
       <div class="topbar-avatar" id="topbarAvatar" title="My Account">UN</div>
     </div>
   </header>
 
-  <!-- SIDEBAR -->
-  <aside class="app-sidebar">
+  <nav class="app-sidebar" aria-label="Main navigation">
     <div class="sidebar-section">
       <div class="sidebar-section-label">Clinical</div>
       <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-      <a href="../../pages/modules.html#ehr" class="sidebar-link"><i data-lucide="file-text"></i> Patient Records</a>
-      <a href="../../pages/modules.html#scheduling" class="sidebar-link"><i data-lucide="calendar-days"></i> Appointments</a>
-      <a href="../../pages/modules.html#lab" class="sidebar-link"><i data-lucide="microscope"></i> Laboratory</a>
-      <a href="../../pages/modules.html#pharmacy" class="sidebar-link"><i data-lucide="pill"></i> Pharmacy</a>
+      <a href="modules.html"   class="sidebar-link"><i data-lucide="file-text"></i> Patient Records</a>
+      <a href="modules.html"   class="sidebar-link"><i data-lucide="calendar-days"></i> Appointments</a>
+      <a href="modules.html"   class="sidebar-link"><i data-lucide="microscope"></i> Laboratory</a>
+      <a href="modules.html"   class="sidebar-link"><i data-lucide="pill"></i> Pharmacy</a>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
       <div class="sidebar-section-label">Account</div>
-      <a href="settings.html" class="sidebar-link active"><i data-lucide="settings"></i> Settings</a>
+      <a href="settings.html" class="sidebar-link is-active"><i data-lucide="settings"></i> Settings</a>
       <a href="../../pages/security.html" class="sidebar-link"><i data-lucide="shield-check"></i> Security</a>
-      <a href="#" class="sidebar-link" id="signOutBtn"><i data-lucide="log-out"></i> Sign Out</a>
+      <button type="button" class="sidebar-link" id="signOutBtn"
+        style="width:100%;background:none;border:none;text-align:left">
+        <i data-lucide="log-out"></i> Sign Out
+      </button>
     </div>
-  </aside>
+  </nav>
 
-  <!-- MAIN -->
   <main class="app-main">
     <div class="app-page">
       <div class="page-header">
-        <div class="page-eyebrow">Account</div>
-        <h1 class="page-title">Settings</h1>
-        <p class="page-sub">Manage your profile, security, and platform preferences</p>
+        <div>
+          <div class="page-eyebrow">Account</div>
+          <h1 class="page-title">Settings</h1>
+          <p class="page-sub">Manage your profile, security, and preferences</p>
+        </div>
       </div>
 
       <div class="settings-layout">
         <!-- Settings nav -->
-        <nav class="settings-nav">
-          <a class="settings-nav-item active" data-section="profile" href="#"><i data-lucide="user"></i> Profile</a>
-          <a class="settings-nav-item" data-section="password" href="#"><i data-lucide="lock"></i> Password</a>
-          <a class="settings-nav-item" data-section="notifications" href="#"><i data-lucide="bell"></i> Notifications</a>
-          <a class="settings-nav-item" data-section="preferences" href="#"><i data-lucide="sliders"></i> Preferences</a>
+        <nav class="settings-nav" aria-label="Settings sections">
+          <a class="settings-nav-item is-active" data-section="profile" href="#">
+            <i data-lucide="user"></i> Profile
+          </a>
+          <a class="settings-nav-item" data-section="password" href="#">
+            <i data-lucide="lock"></i> Password
+          </a>
+          <a class="settings-nav-item" data-section="notifications" href="#">
+            <i data-lucide="bell"></i> Notifications
+          </a>
+          <a class="settings-nav-item" data-section="preferences" href="#">
+            <i data-lucide="sliders"></i> Preferences
+          </a>
           <div class="settings-nav-divider"></div>
-          <a class="settings-nav-item" data-section="security" href="#"><i data-lucide="shield-check"></i> Security</a>
+          <a class="settings-nav-item" data-section="security" href="#">
+            <i data-lucide="shield-check"></i> Security
+          </a>
           <div class="settings-nav-divider"></div>
-          <a class="settings-nav-item" data-section="danger" href="#" style="color:var(--error)"><i data-lucide="alert-triangle"></i> Danger Zone</a>
+          <a class="settings-nav-item" data-section="danger" href="#"
+            style="color:var(--error)">
+            <i data-lucide="alert-triangle"></i> Danger Zone
+          </a>
         </nav>
 
-        <!-- Settings content -->
-        <div class="settings-content">
+        <!-- Sections -->
+        <div>
 
           <!-- ── PROFILE ── -->
-          <div class="settings-section active" id="section-profile">
+          <div class="settings-section is-active" id="section-profile">
             <div class="settings-card">
               <div class="settings-card-header">
                 <div>
@@ -85,81 +109,90 @@
                 </div>
               </div>
               <div class="settings-card-body">
-                <div class="avatar-upload-area">
-                  <div class="avatar-circle" id="profileAvatar">
+                <div class="avatar-row">
+                  <div class="avatar-circle" id="settingsAvatar">
                     UN
-                    <button class="avatar-change-btn" onclick="Toast.info('Avatar upload','Coming soon — photo upload will be enabled')" title="Change photo">
+                    <button type="button" class="avatar-cam-btn"
+                      onclick="Toast.info('Photo upload','File picker coming soon')"
+                      title="Change photo" aria-label="Change avatar">
                       <i data-lucide="camera"></i>
                     </button>
                   </div>
                   <div class="avatar-meta">
-                    <h4 id="profileName">Loading…</h4>
-                    <p id="profileEmail">—</p>
-                    <button class="btn btn-sm btn-ghost" style="margin-top:8px" onclick="Toast.info('Photo upload','File picker coming soon')">
+                    <h4 id="avatarName">Loading…</h4>
+                    <p id="avatarEmail">—</p>
+                    <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px"
+                      onclick="Toast.info('Photo upload','File picker coming soon')">
                       <i data-lucide="upload"></i> Upload photo
                     </button>
                   </div>
                 </div>
-                <form id="profileForm">
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <form id="profileForm" novalidate>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
                     <div class="form-group">
-                      <label class="form-label" for="settingName">Full Name</label>
+                      <label class="form-label" for="sName">Full Name</label>
                       <div class="input-wrap">
                         <span class="input-icon"><i data-lucide="user"></i></span>
-                        <input type="text" id="settingName" class="form-input has-icon" placeholder="Your full name"/>
+                        <input type="text" id="sName" class="form-input has-icon" placeholder="Your full name"/>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="settingPhone">Phone Number</label>
+                      <label class="form-label" for="sPhone">Phone Number</label>
                       <div class="input-wrap">
                         <span class="input-icon"><i data-lucide="phone"></i></span>
-                        <input type="tel" id="settingPhone" class="form-input has-icon" placeholder="+254 7XX XXX XXX"/>
+                        <input type="tel" id="sPhone" class="form-input has-icon" placeholder="+254 7XX XXX XXX"/>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="settingRole">Role</label>
-                    <select id="settingRole" class="form-select">
+                    <label class="form-label" for="sRole">Role</label>
+                    <select id="sRole" class="form-select">
                       <option value="clinician">Clinician / Doctor</option>
                       <option value="nurse">Nurse</option>
                       <option value="pharmacist">Pharmacist</option>
                       <option value="lab_tech">Lab Technician</option>
+                      <option value="radiographer">Radiographer</option>
                       <option value="admin">Administrator</option>
                       <option value="manager">Facility Manager</option>
                       <option value="chw">Community Health Worker</option>
                     </select>
                   </div>
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
                     <div class="form-group">
-                      <label class="form-label" for="settingFacility">Facility Name</label>
+                      <label class="form-label" for="sFacility">Facility Name</label>
                       <div class="input-wrap">
                         <span class="input-icon"><i data-lucide="building-2"></i></span>
-                        <input type="text" id="settingFacility" class="form-input has-icon" placeholder="Your facility"/>
+                        <input type="text" id="sFacility" class="form-input has-icon" placeholder="Your facility"/>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="form-label" for="settingCounty">County</label>
-                      <select id="settingCounty" class="form-select">
+                      <label class="form-label" for="sCounty">County</label>
+                      <select id="sCounty" class="form-select">
                         <option value="">Select county…</option>
                         <option>Nairobi</option><option>Mombasa</option><option>Kisumu</option>
-                        <option>Nakuru</option><option>Eldoret / Uasin Gishu</option><option>Kiambu</option>
+                        <option>Nakuru</option><option>Uasin Gishu</option><option>Kiambu</option>
                         <option>Machakos</option><option>Meru</option><option>Nyeri</option>
-                        <option>Kakamega</option><option>Turkana</option><option>Garissa</option><option>Other</option>
+                        <option>Kakamega</option><option>Turkana</option><option>Garissa</option>
+                        <option>Other</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Email Address <span style="color:var(--text-300);font-weight:400">(contact support to change)</span></label>
+                    <label class="form-label">
+                      Email Address
+                      <span style="color:var(--gray-400);font-weight:400;font-size:0.76rem">Contact support to change</span>
+                    </label>
                     <div class="input-wrap">
                       <span class="input-icon"><i data-lucide="mail"></i></span>
-                      <input type="email" id="settingEmail" class="form-input has-icon" disabled style="opacity:0.6;cursor:not-allowed"/>
+                      <input type="email" id="sEmail" class="form-input has-icon"
+                        disabled style="opacity:0.55;cursor:not-allowed"/>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="settings-card-footer">
-                <button class="btn btn-ghost btn-sm" onclick="loadProfile()">Discard</button>
-                <button class="btn btn-sky btn-sm" id="saveProfileBtn" onclick="saveProfile()">
+                <button type="button" class="btn btn-ghost btn-sm" onclick="loadProfile()">Discard</button>
+                <button type="button" class="btn btn-sky btn-sm" id="saveProfileBtn">
                   <span class="btn-text"><i data-lucide="save"></i> Save Changes</span>
                 </button>
               </div>
@@ -172,51 +205,64 @@
               <div class="settings-card-header">
                 <div>
                   <div class="settings-card-title">Change Password</div>
-                  <div class="settings-card-sub">Use a strong password — minimum 8 characters, one uppercase, one number</div>
+                  <div class="settings-card-sub">Minimum 8 characters, one uppercase, one number</div>
                 </div>
               </div>
               <div class="settings-card-body">
-                <form id="changePwForm">
+                <form id="changePwForm" novalidate>
                   <div class="form-group">
-                    <label class="form-label">Current Password</label>
+                    <label class="form-label" for="curPw">Current Password</label>
                     <div class="input-wrap">
                       <span class="input-icon"><i data-lucide="lock"></i></span>
-                      <input type="password" id="currentPw" class="form-input has-icon has-toggle" placeholder="Your current password"/>
-                      <button type="button" class="input-toggle"><i data-lucide="eye"></i></button>
+                      <input type="password" id="curPw" class="form-input has-icon has-toggle"
+                        placeholder="Your current password"/>
+                      <button type="button" class="input-toggle" aria-label="Show password">
+                        <i data-lucide="eye"></i>
+                      </button>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">New Password</label>
+                    <label class="form-label" for="newPwField">New Password</label>
                     <div class="input-wrap">
                       <span class="input-icon"><i data-lucide="key"></i></span>
-                      <input type="password" id="newPassword" class="form-input has-icon has-toggle" placeholder="New password"/>
-                      <button type="button" class="input-toggle"><i data-lucide="eye"></i></button>
+                      <input type="password" id="newPwField" class="form-input has-icon has-toggle"
+                        placeholder="New password"/>
+                      <button type="button" class="input-toggle" aria-label="Show password">
+                        <i data-lucide="eye"></i>
+                      </button>
                     </div>
-                    <div class="password-strength">
-                      <div class="strength-bars">
-                        <div class="strength-bar"></div><div class="strength-bar"></div>
-                        <div class="strength-bar"></div><div class="strength-bar"></div>
-                      </div>
-                      <span class="strength-label" id="pwStrengthLabel"></span>
+                    <div class="strength-bars" style="margin-top:8px">
+                      <div class="strength-bar"></div><div class="strength-bar"></div>
+                      <div class="strength-bar"></div><div class="strength-bar"></div>
                     </div>
+                    <span class="strength-label" id="newPwStrLabel"></span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Confirm New Password</label>
+                    <label class="form-label" for="confirmPwField">Confirm New Password</label>
                     <div class="input-wrap">
                       <span class="input-icon"><i data-lucide="key"></i></span>
-                      <input type="password" id="confirmPassword" class="form-input has-icon has-toggle" placeholder="Repeat new password"/>
-                      <button type="button" class="input-toggle"><i data-lucide="eye"></i></button>
+                      <input type="password" id="confirmPwField" class="form-input has-icon has-toggle"
+                        placeholder="Repeat new password"/>
+                      <button type="button" class="input-toggle" aria-label="Show password">
+                        <i data-lucide="eye"></i>
+                      </button>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="settings-card-footer">
-                <button class="btn btn-ghost btn-sm" onclick="document.getElementById('changePwForm').reset()">Clear</button>
-                <button class="btn btn-sky btn-sm" id="savePwBtn" onclick="changePassword()">
+                <button type="button" class="btn btn-ghost btn-sm"
+                  onclick="document.getElementById('changePwForm').reset();
+                    document.querySelector('.strength-bars .strength-bar') && renderStrengthBar('', document.querySelector('#section-password .strength-bars'), document.getElementById('newPwStrLabel'))">
+                  Clear
+                </button>
+                <button type="button" class="btn btn-sky btn-sm" id="savePwBtn">
                   <span class="btn-text"><i data-lucide="shield-check"></i> Update Password</span>
                 </button>
               </div>
             </div>
+
+            <!-- Active sessions -->
             <div class="settings-card">
               <div class="settings-card-header">
                 <div>
@@ -224,26 +270,34 @@
                   <div class="settings-card-sub">Devices where you are currently signed in</div>
                 </div>
               </div>
-              <div class="settings-card-body">
-                <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
-                  <div style="width:40px;height:40px;border-radius:10px;background:var(--sky-50);border:1px solid var(--sky-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600)"><i data-lucide="monitor" style="width:18px;height:18px"></i></div>
-                  <div style="flex:1">
-                    <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">Chrome — Windows 11</p>
-                    <p style="font-size:0.76rem;color:var(--text-400)">Nairobi, KE · Current session</p>
+              <div class="settings-card-body" style="padding:0">
+                <div style="display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--gray-100)">
+                  <div style="width:38px;height:38px;border-radius:var(--r-md);background:var(--blue-50);border:1px solid var(--blue-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600)">
+                    <i data-lucide="monitor" style="width:16px;height:16px"></i>
                   </div>
-                  <span style="font-size:0.72rem;padding:3px 10px;background:#F0FDF4;color:#166534;border-radius:20px;font-weight:700">Active now</span>
+                  <div style="flex:1">
+                    <p style="font-size:0.84rem;font-weight:600;color:var(--gray-900)">Chrome — Windows 11</p>
+                    <p style="font-size:0.74rem;color:var(--gray-500)">Nairobi, KE · Current session</p>
+                  </div>
+                  <span style="font-size:0.68rem;padding:3px 9px;background:#F0FDF4;color:#166534;border-radius:20px;font-weight:700">Active now</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:14px;padding:14px 0">
-                  <div style="width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-400)"><i data-lucide="smartphone" style="width:18px;height:18px"></i></div>
-                  <div style="flex:1">
-                    <p style="font-size:0.86rem;font-weight:600;color:var(--text-900)">MediCore Hub App — Android</p>
-                    <p style="font-size:0.76rem;color:var(--text-400)">Nairobi, KE · 3 hours ago</p>
+                <div style="display:flex;align-items:center;gap:12px;padding:14px 20px">
+                  <div style="width:38px;height:38px;border-radius:var(--r-md);background:var(--gray-50);border:1px solid var(--gray-200);display:flex;align-items:center;justify-content:center;color:var(--gray-400)">
+                    <i data-lucide="smartphone" style="width:16px;height:16px"></i>
                   </div>
-                  <button class="btn btn-sm btn-ghost" onclick="Toast.info('Session revoked','Device signed out')">Revoke</button>
+                  <div style="flex:1">
+                    <p style="font-size:0.84rem;font-weight:600;color:var(--gray-900)">MediCore Hub App — Android</p>
+                    <p style="font-size:0.74rem;color:var(--gray-500)">Nairobi, KE · 3 hours ago</p>
+                  </div>
+                  <button type="button" class="btn btn-ghost btn-sm"
+                    onclick="Toast.info('Session revoked','Device has been signed out')">
+                    Revoke
+                  </button>
                 </div>
               </div>
               <div class="settings-card-footer">
-                <button class="btn btn-sm" style="background:#FFF5F5;color:var(--error);border:1px solid #FECACA;font-size:0.82rem;padding:7px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600" onclick="Toast.info('All other sessions revoked')">
+                <button type="button" class="btn btn-danger-soft btn-sm"
+                  onclick="Toast.info('All other sessions revoked')">
                   Sign out all other devices
                 </button>
               </div>
@@ -260,39 +314,63 @@
                 </div>
               </div>
               <div class="settings-card-body">
-                <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-300);margin-bottom:16px">Clinical Alerts</p>
+                <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-400);margin-bottom:14px">Clinical Alerts</p>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Critical Lab Values</h5><p>Immediate alert for life-threatening results (e.g. K+ &gt;6.5 or Hb &lt;5)</p></div>
-                  <label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Critical Lab Values</h5>
+                    <p>Immediate alert for life-threatening results (K+ &gt;6.5, Hb &lt;5)</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox" checked/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Medication Interaction Alerts</h5><p>Notify when a newly prescribed drug interacts with existing medications</p></div>
-                  <label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Medication Interaction Alerts</h5>
+                    <p>Notify when a new prescription interacts with existing medications</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox" checked/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Appointment Reminders</h5><p>SMS and in-app reminders 24 hours before scheduled appointments</p></div>
-                  <label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Appointment Reminders</h5>
+                    <p>SMS and in-app reminders 24 hours before appointments</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox" checked/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Stockout Warnings</h5><p>Alert when essential medicines reach reorder threshold</p></div>
-                  <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Stockout Warnings</h5>
+                    <p>Alert when essential medicines reach reorder threshold</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox"/><span class="toggle-track"></span></label>
                 </div>
-                <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-300);margin:20px 0 16px">Delivery Methods</p>
+                <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-400);margin:20px 0 14px">Delivery Methods</p>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>In-App Notifications</h5><p>Show alerts within the MediCore Hub interface</p></div>
-                  <label class="toggle-switch"><input type="checkbox" checked/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>In-App Notifications</h5>
+                    <p>Show alerts within MediCore Hub</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox" checked/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Push Notifications</h5><p>Browser and mobile push notifications for critical alerts</p></div>
-                  <label class="toggle-switch"><input type="checkbox" id="pushToggle"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Push Notifications</h5>
+                    <p>Browser and mobile push for critical alerts</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox" id="pushToggle"/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Email Digest</h5><p>Daily summary of alerts and activity sent to your work email</p></div>
-                  <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Email Digest</h5>
+                    <p>Daily summary of alerts sent to your work email</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox"/><span class="toggle-track"></span></label>
                 </div>
               </div>
               <div class="settings-card-footer">
-                <button class="btn btn-sky btn-sm" onclick="saveNotificationPrefs()"><i data-lucide="save"></i> Save Preferences</button>
+                <button type="button" class="btn btn-sky btn-sm"
+                  onclick="Toast.success('Notification preferences saved')">
+                  <i data-lucide="save"></i> Save Preferences
+                </button>
               </div>
             </div>
           </div>
@@ -303,37 +381,37 @@
               <div class="settings-card-header">
                 <div>
                   <div class="settings-card-title">Display &amp; Locale</div>
-                  <div class="settings-card-sub">Language, timezone, and date format preferences</div>
+                  <div class="settings-card-sub">Language, timezone, and date format</div>
                 </div>
               </div>
               <div class="settings-card-body">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
                   <div class="form-group">
-                    <label class="form-label">Language</label>
-                    <select class="form-select">
+                    <label class="form-label" for="prefLang">Language</label>
+                    <select id="prefLang" class="form-select">
                       <option selected>English</option>
                       <option>Kiswahili</option>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Timezone</label>
-                    <select class="form-select">
+                    <label class="form-label" for="prefTz">Timezone</label>
+                    <select id="prefTz" class="form-select">
                       <option selected>Africa/Nairobi (EAT, UTC+3)</option>
                       <option>Africa/Dar_es_Salaam</option>
                       <option>Africa/Kampala</option>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Date Format</label>
-                    <select class="form-select">
+                    <label class="form-label" for="prefDate">Date Format</label>
+                    <select id="prefDate" class="form-select">
                       <option selected>DD/MM/YYYY</option>
                       <option>MM/DD/YYYY</option>
                       <option>YYYY-MM-DD</option>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Default Landing Page</label>
-                    <select class="form-select">
+                    <label class="form-label" for="prefLanding">Default Landing Page</label>
+                    <select id="prefLanding" class="form-select">
                       <option selected>Dashboard</option>
                       <option>Patient Records</option>
                       <option>Appointments</option>
@@ -341,22 +419,34 @@
                     </select>
                   </div>
                 </div>
-                <p style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-300);margin:20px 0 16px">Accessibility</p>
+                <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-400);margin:20px 0 14px">Accessibility</p>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>High Contrast Mode</h5><p>Increase contrast for better readability in bright clinical environments</p></div>
-                  <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>High Contrast Mode</h5>
+                    <p>Increase contrast for bright clinical environments</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox"/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Reduce Motion</h5><p>Minimise animations throughout the interface</p></div>
-                  <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Reduce Motion</h5>
+                    <p>Minimise animations throughout the interface</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox"/><span class="toggle-track"></span></label>
                 </div>
                 <div class="setting-row">
-                  <div class="setting-row-info"><h5>Compact Layout</h5><p>Show more content per screen — useful on smaller clinical workstations</p></div>
-                  <label class="toggle-switch"><input type="checkbox"/><span class="toggle-track"></span></label>
+                  <div class="setting-row-info">
+                    <h5>Compact Layout</h5>
+                    <p>Show more content per screen</p>
+                  </div>
+                  <label class="toggle-sw"><input type="checkbox"/><span class="toggle-track"></span></label>
                 </div>
               </div>
               <div class="settings-card-footer">
-                <button class="btn btn-sky btn-sm" onclick="Toast.success('Preferences saved','Interface will refresh')"><i data-lucide="save"></i> Save Preferences</button>
+                <button type="button" class="btn btn-sky btn-sm"
+                  onclick="Toast.success('Preferences saved','Interface will refresh shortly')">
+                  <i data-lucide="save"></i> Save Preferences
+                </button>
               </div>
             </div>
           </div>
@@ -367,31 +457,43 @@
               <div class="settings-card-header">
                 <div>
                   <div class="settings-card-title">Two-Factor Authentication</div>
-                  <div class="settings-card-sub">Add an extra layer of security to your account</div>
+                  <div class="settings-card-sub">Add an extra layer of protection to your account</div>
                 </div>
-                <span style="font-size:0.72rem;padding:4px 10px;background:#FFF7ED;color:#C2410C;border-radius:20px;font-weight:700;flex-shrink:0">Recommended</span>
+                <span style="font-size:0.68rem;padding:3px 9px;background:#FFF7ED;color:#C2410C;border-radius:20px;font-weight:700;flex-shrink:0;align-self:flex-start">Recommended</span>
               </div>
               <div class="settings-card-body">
-                <div style="display:flex;align-items:center;gap:16px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:16px">
-                  <div style="width:44px;height:44px;border-radius:10px;background:#FFF7ED;border:1px solid #FED7AA;display:flex;align-items:center;justify-content:center;color:#EA580C;flex-shrink:0"><i data-lucide="shield-alert" style="width:22px;height:22px"></i></div>
-                  <div>
-                    <p style="font-size:0.88rem;font-weight:600;color:var(--text-900)">Two-factor authentication is not enabled</p>
-                    <p style="font-size:0.78rem;color:var(--text-400)">Protect your account by requiring a verification code at login</p>
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--r-lg);margin-bottom:14px">
+                  <div style="width:40px;height:40px;border-radius:var(--r-md);background:#FFF7ED;border:1px solid #FED7AA;display:flex;align-items:center;justify-content:center;color:var(--coral);flex-shrink:0">
+                    <i data-lucide="shield-alert" style="width:20px;height:20px"></i>
                   </div>
-                  <button class="btn btn-sky btn-sm" style="flex-shrink:0" onclick="Toast.info('MFA setup','TOTP authenticator setup coming soon')"><i data-lucide="plus"></i> Enable</button>
+                  <div style="flex:1">
+                    <p style="font-size:0.86rem;font-weight:600;color:var(--gray-900)">Two-factor authentication is not enabled</p>
+                    <p style="font-size:0.76rem;color:var(--gray-500)">Require a verification code at every login</p>
+                  </div>
+                  <button type="button" class="btn btn-sky btn-sm" style="flex-shrink:0"
+                    onclick="Toast.info('MFA setup','TOTP authenticator setup coming soon')">
+                    <i data-lucide="plus"></i> Enable
+                  </button>
                 </div>
-                <div style="display:flex;gap:10px;flex-wrap:wrap">
-                  <div style="flex:1;min-width:180px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px">
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><i data-lucide="smartphone" style="width:15px;height:15px;color:var(--sky-600)"></i><span style="font-size:0.78rem;font-weight:700;color:var(--sky-700)">Authenticator App</span></div>
-                    <p style="font-size:0.76rem;color:var(--text-400)">Use Google Authenticator or Authy</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                  <div style="padding:14px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-md)">
+                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+                      <i data-lucide="smartphone" style="width:14px;height:14px;color:var(--sky-600)"></i>
+                      <span style="font-size:0.76rem;font-weight:700;color:var(--sky-700)">Authenticator App</span>
+                    </div>
+                    <p style="font-size:0.74rem;color:var(--gray-500)">Use Google Authenticator or Authy</p>
                   </div>
-                  <div style="flex:1;min-width:180px;padding:14px 16px;background:white;border:1px solid var(--border);border-radius:10px">
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><i data-lucide="message-square" style="width:15px;height:15px;color:var(--sky-600)"></i><span style="font-size:0.78rem;font-weight:700;color:var(--sky-700)">SMS Code</span></div>
-                    <p style="font-size:0.76rem;color:var(--text-400)">Receive a code via SMS to your phone</p>
+                  <div style="padding:14px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r-md)">
+                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+                      <i data-lucide="message-square" style="width:14px;height:14px;color:var(--sky-600)"></i>
+                      <span style="font-size:0.76rem;font-weight:700;color:var(--sky-700)">SMS Code</span>
+                    </div>
+                    <p style="font-size:0.74rem;color:var(--gray-500)">Receive a code via SMS</p>
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="settings-card">
               <div class="settings-card-header">
                 <div>
@@ -399,92 +501,114 @@
                   <div class="settings-card-sub">Every action on your account is recorded here</div>
                 </div>
               </div>
-              <div class="settings-card-body" style="padding:0">
-                <div id="auditLogList"></div>
-              </div>
+              <div id="auditLogContainer" style="padding:0"></div>
             </div>
           </div>
 
           <!-- ── DANGER ZONE ── -->
           <div class="settings-section" id="section-danger">
             <div class="danger-zone">
-              <div class="danger-zone-header"><i data-lucide="alert-triangle"></i> Danger Zone</div>
-              <div class="danger-zone-body">
+              <div class="danger-zone-header">
+                <i data-lucide="alert-triangle"></i> Danger Zone
+              </div>
+              <div style="padding:0">
                 <div class="danger-action">
                   <div>
-                    <p style="font-weight:600;color:var(--text-900);margin-bottom:4px">Export my data</p>
-                    <p>Download a full copy of your account data in JSON format (GDPR/DPA compliant)</p>
+                    <p style="font-weight:600;color:var(--gray-900);margin-bottom:3px">Export my data</p>
+                    <p>Download a full copy of your account data in JSON format (DPA 2019 compliant)</p>
                   </div>
-                  <button class="btn-danger" onclick="Toast.info('Export requested','Your data archive will be emailed within 24 hours')"><i data-lucide="download" style="width:13px;height:13px;display:inline"></i> Export</button>
+                  <button type="button" class="btn-danger"
+                    onclick="Toast.info('Export requested','Your data archive will be emailed within 24 hours')">
+                    Export
+                  </button>
                 </div>
                 <div class="danger-action">
                   <div>
-                    <p style="font-weight:600;color:var(--text-900);margin-bottom:4px">Sign out of all devices</p>
+                    <p style="font-weight:600;color:var(--gray-900);margin-bottom:3px">Sign out of all devices</p>
                     <p>Immediately invalidate all active sessions across all devices</p>
                   </div>
-                  <button class="btn-danger" onclick="signOutAll()">Sign out all</button>
+                  <button type="button" class="btn-danger" onclick="signOutAll()">Sign out all</button>
                 </div>
                 <div class="danger-action">
                   <div>
-                    <p style="font-weight:600;color:var(--text-900);margin-bottom:4px">Deactivate account</p>
-                    <p>Temporarily disable your account. Your data is retained and you can reactivate by contacting support.</p>
+                    <p style="font-weight:600;color:var(--gray-900);margin-bottom:3px">Deactivate account</p>
+                    <p>Temporarily disable your account. Reactivate by contacting support.</p>
                   </div>
-                  <button class="btn-danger" onclick="openModal('deactivateModal')">Deactivate</button>
+                  <button type="button" class="btn-danger" onclick="openModal('deactivateModal')">Deactivate</button>
                 </div>
                 <div class="danger-action">
                   <div>
-                    <p style="font-weight:600;color:var(--text-900);margin-bottom:4px">Delete account permanently</p>
-                    <p>Permanently delete your account and all associated data. This cannot be undone. Requires facility admin approval for accounts with active patient records.</p>
+                    <p style="font-weight:600;color:var(--gray-900);margin-bottom:3px">Delete account permanently</p>
+                    <p>Permanently delete your account and all associated data. This cannot be undone.</p>
                   </div>
-                  <button class="btn-danger" style="border-color:var(--error);color:var(--error)" onclick="openModal('deleteModal')">Delete account</button>
+                  <button type="button" class="btn-danger"
+                    style="border-color:var(--error);color:var(--error)"
+                    onclick="openModal('deleteModal')">
+                    Delete account
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-        </div><!-- /settings-content -->
-      </div>
+        </div><!-- /sections -->
+      </div><!-- /settings-layout -->
     </div>
   </main>
 </div>
 
 <!-- Deactivate modal -->
-<div class="modal-overlay" id="deactivateModal">
+<div class="modal-backdrop" id="deactivateModal" role="dialog" aria-modal="true" aria-labelledby="deactivateTitle">
   <div class="modal">
     <div class="modal-header">
-      <h3>Deactivate Account</h3>
-      <button class="modal-close"><i data-lucide="x"></i></button>
+      <h3 id="deactivateTitle">Deactivate Account</h3>
+      <button type="button" class="modal-close" aria-label="Close"><i data-lucide="x"></i></button>
     </div>
     <div class="modal-body">
-      <div class="alert alert-info"><i data-lucide="info"></i><span>Your account will be disabled and you will be signed out. Contact support to reactivate.</span></div>
-      <div class="form-group" style="margin-bottom:20px">
-        <label class="form-label">Type <strong>deactivate</strong> to confirm</label>
+      <div class="alert alert-info" style="margin-bottom:16px">
+        <i data-lucide="info"></i>
+        <span>Your account will be disabled and you will be signed out. Contact support to reactivate.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="deactivateConfirm">
+          Type <strong>deactivate</strong> to confirm
+        </label>
         <input type="text" id="deactivateConfirm" class="form-input" placeholder="deactivate"/>
       </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button class="btn btn-ghost" onclick="closeModal('deactivateModal')">Cancel</button>
-        <button class="btn" style="background:#FFF5F5;color:var(--error);border:1.5px solid #FECACA" onclick="confirmDeactivate()">Deactivate my account</button>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('deactivateModal')">Cancel</button>
+        <button type="button" class="btn btn-danger-soft" onclick="confirmDeactivate()">
+          Deactivate my account
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Delete modal -->
-<div class="modal-overlay" id="deleteModal">
+<div class="modal-backdrop" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
   <div class="modal">
     <div class="modal-header">
-      <h3>Delete Account Permanently</h3>
-      <button class="modal-close"><i data-lucide="x"></i></button>
+      <h3 id="deleteTitle">Delete Account Permanently</h3>
+      <button type="button" class="modal-close" aria-label="Close"><i data-lucide="x"></i></button>
     </div>
     <div class="modal-body">
-      <div class="alert alert-error"><i data-lucide="alert-triangle"></i><span>This is irreversible. All your data will be permanently deleted and cannot be recovered.</span></div>
-      <div class="form-group" style="margin-bottom:20px">
-        <label class="form-label">Type <strong>delete my account</strong> to confirm</label>
+      <div class="alert alert-error" style="margin-bottom:16px">
+        <i data-lucide="alert-triangle"></i>
+        <span>This is irreversible. All your data will be permanently deleted and cannot be recovered.</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="deleteConfirm">
+          Type <strong>delete my account</strong> to confirm
+        </label>
         <input type="text" id="deleteConfirm" class="form-input" placeholder="delete my account"/>
       </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button class="btn btn-ghost" onclick="closeModal('deleteModal')">Cancel</button>
-        <button class="btn" style="background:var(--error);color:white" onclick="confirmDelete()">Permanently delete</button>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('deleteModal')">Cancel</button>
+        <button type="button" class="btn btn-sky" style="background:var(--error);box-shadow:none"
+          onclick="confirmDelete()">
+          Permanently delete
+        </button>
       </div>
     </div>
   </div>
@@ -493,153 +617,168 @@
 <script src="../js/db.js"></script>
 <script src="../js/app.js"></script>
 <script>
-let currentUser = null;
+(function () {
+  'use strict';
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const auth = requireAuth();
-  if (!auth) return;
-  currentUser = auth.user;
-  loadProfile();
-  loadAuditLog(auth.user.id);
+  let currentUser = null;
 
-  // Settings nav
-  document.querySelectorAll('.settings-nav-item').forEach(item => {
-    item.addEventListener('click', e => {
-      e.preventDefault();
-      const sec = item.dataset.section;
-      document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('active'));
-      document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
-      item.classList.add('active');
-      document.getElementById(`section-${sec}`)?.classList.add('active');
-    });
-  });
-
-  // Strength bar for new password
-  document.getElementById('newPassword')?.addEventListener('input', e => {
-    updateStrengthBar(e.target.value, document.querySelector('.strength-bars'), document.getElementById('pwStrengthLabel'));
-  });
-
-  // Push notification toggle
-  document.getElementById('pushToggle')?.addEventListener('change', async e => {
-    if (e.target.checked && 'Notification' in window) {
-      const perm = await Notification.requestPermission();
-      if (perm !== 'granted') { e.target.checked = false; Toast.error('Permission denied','Enable notifications in your browser settings'); }
-      else Toast.success('Push notifications enabled');
-    }
-  });
-});
-
-function loadProfile() {
-  if (!currentUser) return;
-  document.getElementById('settingName').value     = currentUser.name     || '';
-  document.getElementById('settingPhone').value    = currentUser.phone    || '';
-  document.getElementById('settingFacility').value = currentUser.facility || '';
-  document.getElementById('settingEmail').value    = currentUser.email    || '';
-  const county  = document.getElementById('settingCounty');
-  const role    = document.getElementById('settingRole');
-  if (county) county.value = currentUser.county || '';
-  if (role)   role.value   = currentUser.role   || 'clinician';
-  const initials = currentUser.name?.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase() || 'UN';
-  document.getElementById('profileAvatar').childNodes[0].textContent = initials;
-  document.getElementById('profileName').textContent  = currentUser.name  || '—';
-  document.getElementById('profileEmail').textContent = currentUser.email || '—';
-  document.getElementById('topbarAvatar').textContent = initials;
-}
-
-async function saveProfile() {
-  const btn = document.getElementById('saveProfileBtn');
-  const name = document.getElementById('settingName').value.trim();
-  if (!name) { showFieldError(document.getElementById('settingName'), 'Name is required'); return; }
-  setLoading(btn, true);
-  try {
-    const updated = await db.updateProfile(currentUser.id, {
-      name, phone:    document.getElementById('settingPhone').value.trim(),
-      facility:       document.getElementById('settingFacility').value.trim(),
-      county:         document.getElementById('settingCounty').value,
-      role:           document.getElementById('settingRole').value
-    });
-    const auth = db.getAuth();
-    db.saveAuth(auth.token, { ...auth.user, ...updated });
-    currentUser = updated;
+  document.addEventListener('DOMContentLoaded', async () => {
+    const auth = requireAuth();
+    if (!auth) return;
+    currentUser = auth.user;
     loadProfile();
-    Toast.success('Profile updated', 'Changes saved successfully');
-  } catch (err) { Toast.error(err.message); }
-  setLoading(btn, false);
-}
+    loadAuditLog(auth.user.id);
 
-async function changePassword() {
-  const btn  = document.getElementById('savePwBtn');
-  const cur  = document.getElementById('currentPw').value;
-  const next = document.getElementById('newPassword').value;
-  const conf = document.getElementById('confirmPassword').value;
-  clearAllErrors(document.getElementById('changePwForm'));
+    // Settings nav tabs
+    document.querySelectorAll('.settings-nav-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const sec = item.dataset.section;
+        document.querySelectorAll('.settings-nav-item').forEach(i => i.classList.remove('is-active'));
+        document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('is-active'));
+        item.classList.add('is-active');
+        document.getElementById(`section-${sec}`)?.classList.add('is-active');
+      });
+    });
 
-  if (!cur)  { showFieldError(document.getElementById('currentPw'),   'Enter your current password'); return; }
-  if (validatePassword(next).score < 2) { showFieldError(document.getElementById('newPassword'), 'Password is too weak'); return; }
-  if (next !== conf) { showFieldError(document.getElementById('confirmPassword'), 'Passwords do not match'); return; }
+    // Password strength
+    document.getElementById('newPwField').addEventListener('input', function () {
+      renderStrengthBar(
+        this.value,
+        document.querySelector('#section-password .strength-bars'),
+        document.getElementById('newPwStrLabel')
+      );
+    });
 
-  setLoading(btn, true);
-  try {
-    await db.changePassword(currentUser.id, cur, next);
-    document.getElementById('changePwForm').reset();
-    Toast.success('Password updated', 'You will need to use your new password next time');
-  } catch (err) { showFormAlert(document.getElementById('changePwForm'), err.message); }
-  setLoading(btn, false);
-}
+    // Push notification permission
+    document.getElementById('pushToggle').addEventListener('change', async e => {
+      if (e.target.checked && 'Notification' in window) {
+        const perm = await Notification.requestPermission();
+        if (perm !== 'granted') {
+          e.target.checked = false;
+          Toast.error('Permission denied', 'Enable notifications in your browser settings');
+        } else {
+          Toast.success('Push notifications enabled');
+        }
+      }
+    });
+  });
 
-async function loadAuditLog(userId) {
-  const logs = await db.getAuditLog(userId, 10);
-  const container = document.getElementById('auditLogList');
-  const icons = { LOGIN:'log-in', USER_REGISTERED:'user-plus', PROFILE_UPDATED:'edit-3', PASSWORD_CHANGED:'key', ONBOARDING_COMPLETED:'check-circle', PASSWORD_RESET:'shield' };
-  const labels = { LOGIN:'Signed in', USER_REGISTERED:'Account created', PROFILE_UPDATED:'Profile updated', PASSWORD_CHANGED:'Password changed', ONBOARDING_COMPLETED:'Onboarding completed', PASSWORD_RESET:'Password reset' };
-  if (!logs.length) { container.innerHTML = '<p style="padding:20px 24px;font-size:0.84rem;color:var(--text-400)">No activity recorded yet</p>'; return; }
-  container.innerHTML = logs.map(l => `
-    <div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border)">
-      <div style="width:34px;height:34px;border-radius:9px;background:var(--sky-50);border:1px solid var(--sky-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600);flex-shrink:0">
-        <i data-lucide="${icons[l.action]||'activity'}" style="width:14px;height:14px"></i>
-      </div>
-      <div style="flex:1">
-        <p style="font-size:0.84rem;font-weight:600;color:var(--text-900)">${labels[l.action]||l.action}</p>
-        <p style="font-size:0.74rem;color:var(--text-400)">${new Date(l.created_at).toLocaleString('en-KE')} · ${l.ip_address}</p>
-      </div>
-    </div>`).join('');
-  if (window.lucide) lucide.createIcons({ nodes: [container] });
-}
+  window.loadProfile = function () {
+    if (!currentUser) return;
+    document.getElementById('sName').value     = currentUser.name     || '';
+    document.getElementById('sPhone').value    = currentUser.phone    || '';
+    document.getElementById('sFacility').value = currentUser.facility || '';
+    document.getElementById('sEmail').value    = currentUser.email    || '';
+    const county = document.getElementById('sCounty');
+    const role   = document.getElementById('sRole');
+    if (county) county.value = currentUser.county || '';
+    if (role)   role.value   = currentUser.role   || 'clinician';
+    const initials = (currentUser.name || 'UN').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    const av1 = document.getElementById('settingsAvatar');
+    const av2 = document.getElementById('topbarAvatar');
+    if (av1) av1.childNodes[0].textContent = initials;
+    if (av2) av2.textContent = initials;
+    document.getElementById('avatarName').textContent  = currentUser.name  || '—';
+    document.getElementById('avatarEmail').textContent = currentUser.email || '—';
+  };
 
-function saveNotificationPrefs() {
-  Toast.success('Notification preferences saved', 'Changes take effect immediately');
-}
+  document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+    const btn  = document.getElementById('saveProfileBtn');
+    const name = document.getElementById('sName').value.trim();
+    clearForm(document.getElementById('profileForm'));
+    if (!name) { fieldError(document.getElementById('sName'), 'Name is required'); return; }
+    setLoading(btn, true);
+    try {
+      const updated = await db.updateProfile(currentUser.id, {
+        name,
+        phone:    document.getElementById('sPhone').value.trim(),
+        facility: document.getElementById('sFacility').value.trim(),
+        county:   document.getElementById('sCounty').value,
+        role:     document.getElementById('sRole').value
+      });
+      const auth = db.getAuth();
+      db.saveAuth(auth.token, { ...auth.user, ...updated });
+      currentUser = updated;
+      loadProfile();
+      Toast.success('Profile updated');
+    } catch (err) {
+      Toast.error(err.message);
+    }
+    setLoading(btn, false);
+  });
 
-async function signOutAll() {
-  const auth = db.getAuth();
-  if (auth) await db.destroySession(auth.token);
-  db.clearAuth();
-  window.location.href = 'login.html';
-}
+  document.getElementById('savePwBtn').addEventListener('click', async () => {
+    const btn  = document.getElementById('savePwBtn');
+    const cur  = document.getElementById('curPw').value;
+    const next = document.getElementById('newPwField').value;
+    const conf = document.getElementById('confirmPwField').value;
+    clearForm(document.getElementById('changePwForm'));
+    if (!cur)  { fieldError(document.getElementById('curPw'),        'Enter your current password'); return; }
+    if (pwStrength(next).score < 2) { fieldError(document.getElementById('newPwField'), 'Password is too weak'); return; }
+    if (next !== conf) { fieldError(document.getElementById('confirmPwField'), 'Passwords do not match'); return; }
+    setLoading(btn, true);
+    try {
+      await db.changePassword(currentUser.id, cur, next);
+      document.getElementById('changePwForm').reset();
+      renderStrengthBar('', document.querySelector('#section-password .strength-bars'), document.getElementById('newPwStrLabel'));
+      Toast.success('Password updated');
+    } catch (err) {
+      formAlert(document.getElementById('changePwForm'), err.message);
+    }
+    setLoading(btn, false);
+  });
 
-function confirmDeactivate() {
-  if (document.getElementById('deactivateConfirm').value !== 'deactivate') {
-    Toast.error('Type "deactivate" exactly to confirm'); return;
+  async function loadAuditLog(userId) {
+    const logs = await db.getAuditLog(userId, 10);
+    const container = document.getElementById('auditLogContainer');
+    const ICONS  = { LOGIN:'log-in', USER_REGISTERED:'user-plus', PROFILE_UPDATED:'edit-3', PASSWORD_CHANGED:'key', ONBOARDING_COMPLETED:'check-circle', PASSWORD_RESET:'shield' };
+    const LABELS = { LOGIN:'Signed in', USER_REGISTERED:'Account created', PROFILE_UPDATED:'Profile updated', PASSWORD_CHANGED:'Password changed', ONBOARDING_COMPLETED:'Onboarding completed', PASSWORD_RESET:'Password reset' };
+    if (!logs.length) {
+      container.innerHTML = '<p style="padding:18px 20px;font-size:0.84rem;color:var(--gray-400)">No activity recorded yet.</p>';
+      return;
+    }
+    container.innerHTML = logs.map(l => `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--gray-100)">
+        <div style="width:32px;height:32px;border-radius:var(--r-sm);background:var(--blue-50);border:1px solid var(--blue-200);display:flex;align-items:center;justify-content:center;color:var(--sky-600);flex-shrink:0">
+          <i data-lucide="${ICONS[l.action]||'activity'}" style="width:13px;height:13px"></i>
+        </div>
+        <div style="flex:1">
+          <p style="font-size:0.83rem;font-weight:600;color:var(--gray-900)">${LABELS[l.action]||l.action}</p>
+          <p style="font-size:0.72rem;color:var(--gray-500)">${new Date(l.created_at).toLocaleString('en-KE')} · ${l.ip_address}</p>
+        </div>
+      </div>`).join('');
+    initIcons(container);
   }
-  closeModal('deactivateModal');
-  Toast.info('Account deactivated', 'Signing you out…');
-  setTimeout(signOutAll, 1500);
-}
 
-function confirmDelete() {
-  if (document.getElementById('deleteConfirm').value !== 'delete my account') {
-    Toast.error('Type "delete my account" exactly to confirm'); return;
-  }
-  closeModal('deleteModal');
-  db.clearAuth();
-  Toast.error('Account deleted', 'All data has been removed');
-  setTimeout(() => { window.location.href = 'login.html'; }, 1500);
-}
+  window.signOutAll = async function () {
+    const auth = db.getAuth();
+    if (auth) await db.destroySession(auth.token);
+    db.clearAuth();
+    window.location.href = 'login.html';
+  };
 
-document.getElementById('signOutBtn').addEventListener('click', async e => {
-  e.preventDefault();
-  await signOutAll();
-});
+  window.confirmDeactivate = function () {
+    if (document.getElementById('deactivateConfirm').value !== 'deactivate') {
+      Toast.error('Type "deactivate" exactly to confirm'); return;
+    }
+    closeModal('deactivateModal');
+    Toast.info('Account deactivated', 'Signing you out…');
+    setTimeout(signOutAll, 1200);
+  };
+
+  window.confirmDelete = function () {
+    if (document.getElementById('deleteConfirm').value !== 'delete my account') {
+      Toast.error('Type "delete my account" exactly to confirm'); return;
+    }
+    closeModal('deleteModal');
+    db.clearAuth();
+    Toast.error('Account deleted', 'All data has been removed');
+    setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+  };
+
+  document.getElementById('signOutBtn').addEventListener('click', signOutAll);
+}());
 </script>
 </body>
 </html>

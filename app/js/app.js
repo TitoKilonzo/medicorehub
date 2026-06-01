@@ -1,249 +1,245 @@
-/* =====================================================================
-   MediCore Hub — App JS (PWA + UI helpers)
-   ===================================================================== */
+/* MediCore Hub — App JS  */
+'use strict';
 
-// ── PWA Registration ──────────────────────────────────────────────────
+// ── PWA ──────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('[SW] Registered:', reg.scope))
-      .catch(err => console.warn('[SW] Failed:', err));
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
 
-// ── Init Lucide icons wherever called ────────────────────────────────
-function initIcons() {
-  if (window.lucide) lucide.createIcons();
+// ── Lucide icons ─────────────────────────────────────────────────
+function initIcons(root) {
+  if (window.lucide) {
+    root ? lucide.createIcons({ nodes: [root] }) : lucide.createIcons();
+  }
 }
-document.addEventListener('DOMContentLoaded', initIcons);
+document.addEventListener('DOMContentLoaded', () => initIcons());
 
-// ── Offline indicator ─────────────────────────────────────────────────
-const offlineBar = document.getElementById('offlineBar');
-function updateOnlineStatus() {
-  if (offlineBar) offlineBar.classList.toggle('visible', !navigator.onLine);
-}
-window.addEventListener('online',  updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
-updateOnlineStatus();
+// ── Offline indicator ─────────────────────────────────────────────
+(function () {
+  const bar = document.getElementById('offlineBar');
+  function sync() { bar && bar.classList.toggle('visible', !navigator.onLine); }
+  window.addEventListener('online',  sync);
+  window.addEventListener('offline', sync);
+  sync();
+})();
 
-// ── Toast system ──────────────────────────────────────────────────────
-const Toast = {
-  container: null,
-  init() {
-    if (this.container) return;
-    this.container = document.createElement('div');
-    this.container.className = 'toast-container';
-    document.body.appendChild(this.container);
-  },
-  show(message, type = 'info', sub = '', duration = 4000) {
-    this.init();
-    const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.innerHTML = `<i data-lucide="${icons[type] || 'info'}"></i>
-      <div class="toast-text"><p>${message}</p>${sub ? `<span>${sub}</span>` : ''}</div>`;
-    this.container.appendChild(toast);
-    if (window.lucide) lucide.createIcons({ nodes: [toast] });
+// ── Toast ─────────────────────────────────────────────────────────
+const Toast = (function () {
+  let container = null;
+  function getContainer() {
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    return container;
+  }
+  const ICONS = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
+  function show(msg, type, sub, ms) {
+    const t = document.createElement('div');
+    t.className = `toast toast-${type}`;
+    t.innerHTML = `<i data-lucide="${ICONS[type] || 'info'}"></i>
+      <div><div class="toast-msg">${msg}</div>${sub ? `<div class="toast-sub">${sub}</div>` : ''}</div>`;
+    getContainer().appendChild(t);
+    initIcons(t);
     setTimeout(() => {
-      toast.classList.add('removing');
-      toast.addEventListener('animationend', () => toast.remove());
-    }, duration);
-  },
-  success(msg, sub) { this.show(msg, 'success', sub); },
-  error(msg, sub)   { this.show(msg, 'error',   sub); },
-  info(msg, sub)    { this.show(msg, 'info',     sub); }
-};
+      t.classList.add('is-removing');
+      t.addEventListener('animationend', () => t.remove(), { once: true });
+    }, ms || 4000);
+  }
+  return {
+    success(m, s) { show(m, 'success', s); },
+    error(m, s)   { show(m, 'error',   s); },
+    info(m, s)    { show(m, 'info',    s); },
+    warning(m, s) { show(m, 'warning', s); }
+  };
+})();
 window.Toast = Toast;
 
-// ── Button loading state ──────────────────────────────────────────────
-function setLoading(btn, loading, text = '') {
+// ── Button loading ────────────────────────────────────────────────
+function setLoading(btn, on) {
   if (!btn) return;
-  if (loading) {
-    btn.classList.add('loading');
-    btn.disabled = true;
-    if (text) btn.dataset.origText = btn.innerHTML;
-  } else {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-    if (btn.dataset.origText) btn.innerHTML = btn.dataset.origText;
-  }
+  btn.disabled = on;
+  btn.classList.toggle('is-loading', on);
 }
 window.setLoading = setLoading;
 
-// ── Form validation ───────────────────────────────────────────────────
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-function validatePassword(pw) {
-  return {
-    length:  pw.length >= 8,
-    upper:   /[A-Z]/.test(pw),
-    number:  /\d/.test(pw),
-    special: /[!@#$%^&*]/.test(pw),
-    score:   [pw.length >= 8, /[A-Z]/.test(pw), /\d/.test(pw), /[!@#$%^&*]/.test(pw)].filter(Boolean).length
-  };
-}
-window.validateEmail    = validateEmail;
-window.validatePassword = validatePassword;
-
-// ── Password strength UI ──────────────────────────────────────────────
-function updateStrengthBar(pw, barsEl, labelEl) {
-  const v = validatePassword(pw);
-  const levels = ['', 'weak', 'fair', 'good', 'strong'];
-  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-  const bars = barsEl.querySelectorAll('.strength-bar');
-  bars.forEach((bar, i) => {
-    bar.className = 'strength-bar';
-    if (i < v.score) bar.classList.add(levels[v.score]);
-  });
-  if (labelEl) {
-    labelEl.textContent = pw ? `Password strength: ${labels[v.score]}` : '';
-    labelEl.style.color = ['','#EF4444','#F59E0B','#0EA5E9','#10B981'][v.score];
-  }
-}
-window.updateStrengthBar = updateStrengthBar;
-
-// ── Toggle password visibility ────────────────────────────────────────
+// ── Password visibility toggle ────────────────────────────────────
 document.addEventListener('click', e => {
   const btn = e.target.closest('.input-toggle');
   if (!btn) return;
-  const input = btn.closest('.input-wrap').querySelector('input');
-  const icon  = btn.querySelector('i');
-  if (input.type === 'password') {
-    input.type = 'text';
-    icon.setAttribute('data-lucide', 'eye-off');
-  } else {
-    input.type = 'password';
-    icon.setAttribute('data-lucide', 'eye');
-  }
-  if (window.lucide) lucide.createIcons({ nodes: [btn] });
+  const input = btn.closest('.input-wrap')?.querySelector('input');
+  if (!input) return;
+  const isHidden = input.type === 'password';
+  input.type = isHidden ? 'text' : 'password';
+  btn.querySelector('i')?.setAttribute('data-lucide', isHidden ? 'eye-off' : 'eye');
+  initIcons(btn);
 });
 
-// ── Field error helpers ───────────────────────────────────────────────
-function showFieldError(input, msg) {
-  input.classList.add('error');
-  let err = input.closest('.form-group').querySelector('.field-error');
-  if (!err) {
-    err = document.createElement('div');
-    err.className = 'field-error';
-    input.closest('.form-group').appendChild(err);
+// ── Validation helpers ────────────────────────────────────────────
+function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+function pwStrength(v) {
+  const checks = [v.length >= 8, /[A-Z]/.test(v), /[0-9]/.test(v), /[^A-Za-z0-9]/.test(v)];
+  return { score: checks.filter(Boolean).length, checks };
+}
+window.validEmail = validEmail;
+window.pwStrength = pwStrength;
+
+// ── Password strength bar ─────────────────────────────────────────
+function renderStrengthBar(val, barsEl, labelEl) {
+  const { score } = pwStrength(val);
+  const levels = ['', 'weak', 'fair', 'good', 'strong'];
+  const names  = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const colors = ['', '#EF4444', '#F59E0B', '#38BDF8', '#10B981'];
+  barsEl.querySelectorAll('.strength-bar').forEach((b, i) => {
+    b.className = 'strength-bar' + (i < score ? ` ${levels[score]}` : '');
+  });
+  if (labelEl) {
+    labelEl.textContent = val ? `Password strength: ${names[score]}` : '';
+    labelEl.style.color = colors[score] || '';
   }
-  err.innerHTML = `<i data-lucide="alert-circle"></i>${msg}`;
-  if (window.lucide) lucide.createIcons({ nodes: [err] });
 }
-function clearFieldError(input) {
-  input.classList.remove('error');
-  const err = input.closest('.form-group')?.querySelector('.field-error');
-  if (err) err.remove();
+window.renderStrengthBar = renderStrengthBar;
+
+// ── Field error helpers ───────────────────────────────────────────
+function fieldError(input, msg) {
+  input.classList.add('is-error');
+  let el = input.closest('.form-group')?.querySelector('.field-error');
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'field-error';
+    input.closest('.form-group').appendChild(el);
+  }
+  el.innerHTML = `<i data-lucide="alert-circle"></i>${msg}`;
+  initIcons(el);
 }
-function clearAllErrors(form) {
-  form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+function clearField(input) {
+  input.classList.remove('is-error');
+  input.closest('.form-group')?.querySelector('.field-error')?.remove();
+}
+function clearForm(form) {
+  form.querySelectorAll('.is-error').forEach(el => el.classList.remove('is-error'));
   form.querySelectorAll('.field-error').forEach(el => el.remove());
-  form.querySelectorAll('.alert').forEach(el => el.remove());
+  form.querySelectorAll('.form-alert').forEach(el => el.remove());
 }
-function showFormAlert(form, msg, type = 'error') {
+function formAlert(form, msg, type) {
   let el = form.querySelector('.form-alert');
   if (!el) { el = document.createElement('div'); el.className = 'form-alert'; form.prepend(el); }
   const icons = { error: 'x-circle', success: 'check-circle', info: 'info' };
-  el.className = `alert alert-${type} form-alert`;
-  el.innerHTML = `<i data-lucide="${icons[type]}"></i><span>${msg}</span>`;
-  if (window.lucide) lucide.createIcons({ nodes: [el] });
+  el.className = `alert alert-${type || 'error'} form-alert`;
+  el.innerHTML = `<i data-lucide="${icons[type || 'error']}"></i><span>${msg}</span>`;
+  initIcons(el);
 }
-window.showFieldError  = showFieldError;
-window.clearFieldError = clearFieldError;
-window.clearAllErrors  = clearAllErrors;
-window.showFormAlert   = showFormAlert;
+window.fieldError   = fieldError;
+window.clearField   = clearField;
+window.clearForm    = clearForm;
+window.formAlert    = formAlert;
 
-// ── Topbar avatar initials ────────────────────────────────────────────
-function setAvatarInitials(name) {
-  const els = document.querySelectorAll('.topbar-avatar, .avatar-circle');
-  const initials = name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
-  els.forEach(el => { if (!el.querySelector('img')) el.textContent = initials; });
-}
-window.setAvatarInitials = setAvatarInitials;
-
-// ── Auth guard ────────────────────────────────────────────────────────
-function requireAuth() {
-  if (!window.db) return;
+// ── Auth guard ────────────────────────────────────────────────────
+function requireAuth(redirect) {
+  if (!window.db) return null;
   const auth = db.getAuth();
-  if (!auth) { window.location.href = '/app/pages/login.html'; return null; }
-  setAvatarInitials(auth.user.name || 'U');
+  if (!auth) {
+    window.location.href = redirect || '/app/pages/login.html';
+    return null;
+  }
+  // Set avatar initials wherever present
+  const initials = (auth.user.name || 'U')
+    .split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  document.querySelectorAll('.topbar-avatar').forEach(el => {
+    if (!el.querySelector('img')) el.textContent = initials;
+  });
   return auth;
 }
 window.requireAuth = requireAuth;
 
-// ── PWA install prompt ────────────────────────────────────────────────
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  const banner = document.getElementById('pwaBanner');
-  if (banner && !localStorage.getItem('pwa_dismissed')) {
-    setTimeout(() => banner.classList.remove('hidden'), 2500);
-  }
-});
-document.addEventListener('click', async e => {
-  if (e.target.closest('#pwaInstall')) {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') Toast.success('Installing MediCore Hub…', 'Check your home screen');
-      deferredPrompt = null;
-    }
-    document.getElementById('pwaBanner')?.classList.add('hidden');
-  }
-  if (e.target.closest('#pwaDismiss')) {
-    document.getElementById('pwaBanner')?.classList.add('hidden');
-    localStorage.setItem('pwa_dismissed', '1');
-  }
-});
-
-// ── Smooth scroll for ToC ─────────────────────────────────────────────
+// ── Modal helpers ─────────────────────────────────────────────────
+function openModal(id)  { const m = document.getElementById(id); if (m) { m.classList.add('is-open');  document.body.style.overflow = 'hidden'; } }
+function closeModal(id) { const m = document.getElementById(id); if (m) { m.classList.remove('is-open'); document.body.style.overflow = '';       } }
 document.addEventListener('click', e => {
-  const toc = e.target.closest('.toc-item[href]');
-  if (!toc) return;
-  e.preventDefault();
-  const target = document.querySelector(toc.getAttribute('href'));
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
-    toc.classList.add('active');
-  }
-});
-
-// ── Intersection observer for ToC active state ────────────────────────
-function initTocObserver() {
-  const sections = document.querySelectorAll('.section-content-block[id]');
-  if (!sections.length) return;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
-        const active = document.querySelector(`.toc-item[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
-  sections.forEach(s => obs.observe(s));
-}
-document.addEventListener('DOMContentLoaded', initTocObserver);
-
-// ── Modal helpers ─────────────────────────────────────────────────────
-function openModal(id)  {
-  const m = document.getElementById(id);
-  if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
-}
-function closeModal(id) {
-  const m = document.getElementById(id);
-  if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
-}
-document.addEventListener('click', e => {
-  if (e.target.closest('.modal-close') || e.target.classList.contains('modal-overlay')) {
-    document.querySelectorAll('.modal-overlay.open').forEach(m => {
-      m.classList.remove('open');
+  if (e.target.classList.contains('modal-backdrop') || e.target.closest('.modal-close')) {
+    document.querySelectorAll('.modal-backdrop.is-open').forEach(m => {
+      m.classList.remove('is-open');
       document.body.style.overflow = '';
     });
   }
 });
 window.openModal  = openModal;
 window.closeModal = closeModal;
+
+// ── ToC scroll observer ───────────────────────────────────────────
+function initToc(scrollEl) {
+  const sections = document.querySelectorAll('[data-toc-section]');
+  if (!sections.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('is-active'));
+      document.querySelector(`.toc-item[href="#${e.target.id}"]`)?.classList.add('is-active');
+    });
+  }, { root: scrollEl || null, threshold: 0.3, rootMargin: '-70px 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+}
+window.initToc = initToc;
+
+// ── PWA install ───────────────────────────────────────────────────
+let _deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _deferredPrompt = e;
+  const banner = document.getElementById('pwaBanner');
+  if (banner && !localStorage.getItem('pwa_dismissed')) {
+    setTimeout(() => banner.classList.remove('is-hidden'), 3000);
+  }
+});
+document.addEventListener('click', async e => {
+  if (e.target.closest('#pwaInstallBtn') && _deferredPrompt) {
+    _deferredPrompt.prompt();
+    const { outcome } = await _deferredPrompt.userChoice;
+    if (outcome === 'accepted') Toast.success('Installing MediCore Hub', 'Check your home screen');
+    _deferredPrompt = null;
+    document.getElementById('pwaBanner')?.classList.add('is-hidden');
+  }
+  if (e.target.closest('#pwaDismissBtn')) {
+    document.getElementById('pwaBanner')?.classList.add('is-hidden');
+    localStorage.setItem('pwa_dismissed', '1');
+  }
+});
+
+// ── Mobile sidebar drawer ────────────────────────────────────────
+(function () {
+  document.addEventListener('DOMContentLoaded', () => {
+    const sidebar  = document.querySelector('.app-sidebar');
+    const menuBtn  = document.getElementById('mobileMenuBtn');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (!sidebar) return;
+
+    function openDrawer()  {
+      sidebar.classList.add('is-open');
+      if (backdrop) backdrop.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+      sidebar.classList.remove('is-open');
+      if (backdrop) backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    menuBtn?.addEventListener('click', openDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+
+    // Close on nav link click (mobile)
+    sidebar.querySelectorAll('.sidebar-link, .sidebar-link button').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 960) closeDrawer();
+      });
+    });
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 960) closeDrawer();
+    });
+  });
+})();
