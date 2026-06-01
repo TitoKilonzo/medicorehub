@@ -91,7 +91,7 @@
 
         <!-- Step 1 -->
         <div class="reg-step is-active" id="regStep1">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="reg-name-grid">
             <div class="form-group">
               <label class="form-label" for="regFirstName">First Name</label>
               <div class="input-wrap">
@@ -163,7 +163,7 @@
                 placeholder="e.g. Kenyatta National Hospital"/>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="reg-name-grid">
             <div class="form-group">
               <label class="form-label" for="regCounty">County</label>
               <select id="regCounty" class="form-select">
@@ -199,7 +199,7 @@
               </span>
             </label>
           </div>
-          <div style="display:flex;gap:10px">
+          <div class="reg-btn-row">
             <button type="button" class="btn btn-ghost" id="backBtn" style="flex-shrink:0">
               <i data-lucide="arrow-left"></i> Back
             </button>
@@ -218,8 +218,8 @@
   </div>
 </div>
 
-<script src="/app/js/db.js"></script>
-<script src="/app/js/app.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/app.js"></script>
 <script>
 (function () {
   'use strict';

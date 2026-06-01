@@ -1311,6 +1311,17 @@ h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
 .tag-coral { background: var(--sky-pale); color: var(--sky-700); border: 1px solid var(--sky-200, #BAE6FD); }
 .tag-green { background: #F0FDF4;           color: #166534;         border: 1px solid #BBF7D0; }
 
+/* ── Register page responsive grids ─────────────────────────────── */
+.reg-name-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.reg-btn-row {
+  display: flex;
+  gap: 10px;
+}
+
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1321,7 +1332,9 @@ h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
   .auth-left  { display: none; }
   .auth-right { padding: 48px 28px 40px; }
   .app-shell  { grid-template-columns: 1fr; }
-  .app-sidebar { display: none; }
+  /* App-main spans full width (sidebar is now a fixed drawer, not in grid flow) */
+  .app-main { grid-column: 1; }
+  /* Do NOT display:none the sidebar here - the JS drawer uses transform instead */
   .settings-layout { grid-template-columns: 1fr; }
   .module-page-layout { grid-template-columns: 1fr; padding: 16px; }
   .modules-toc { display: none; }
@@ -1348,6 +1361,8 @@ h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
   .stats-grid { grid-template-columns: 1fr; gap: 10px; }
   .topbar-search { display: none; }
   .topbar-brand span { display: none; }
+  /* Register page grids collapse to single column */
+  .reg-name-grid { grid-template-columns: 1fr; gap: 0; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1405,19 +1420,17 @@ h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
 
 /* Tablet — 960px */
 @media (max-width: 960px) {
-  .auth-shell  { grid-template-columns: 1fr; }
-  .auth-left   { display: none; }
   .auth-right  { padding: 60px 28px 40px; min-height: 100vh; }
   .auth-back-btn { top: 20px; left: 20px; }
 
   .app-shell { grid-template-columns: 1fr; grid-template-rows: 60px 1fr; }
+  /* sidebar width for when it slides in as a drawer */
   .app-sidebar { width: 260px; }
 
   .module-page-layout { grid-template-columns: 1fr; padding: 16px; }
   .modules-toc { display: none; }
   .reading-bar { display: none; }
 
-  .settings-layout { grid-template-columns: 1fr; }
   .settings-nav {
     display: flex; flex-wrap: wrap; gap: 4px;
     padding: 10px; position: static;
@@ -1478,9 +1491,11 @@ h1,h2,h3,h4,h5 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;
   .btn.btn-lg { height: 46px; font-size: 0.9rem; }
   .step-dots { margin-bottom: 20px; }
 
-  /* Reg step 2 grids */
+  /* Reg step grids collapse to single column */
   #regStep1 > div[style*="grid"],
-  #regStep2 > div[style*="grid"] { grid-template-columns: 1fr !important; }
+  #regStep2 > div[style*="grid"],
+  .reg-name-grid { grid-template-columns: 1fr !important; }
+  .reg-btn-row { flex-direction: column-reverse; }
 
   /* App */
   .app-page { padding: 14px; }

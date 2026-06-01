@@ -522,12 +522,24 @@
         box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       }
     }
+
+    /* Tablet — 680px to 860px: full-width card, no clipping */
+    @media (min-width: 681px) and (max-width: 900px) {
+      body { padding: 20px 16px; align-items: flex-start; padding-top: 72px; }
+      .auth-card {
+        max-width: 100%;
+        min-height: 500px;
+      }
+      .form-panel { padding: 40px 28px; }
+    }
+
     .mobile-tabs { display: none; }
     @media (max-width: 680px) { .mobile-tabs { display: flex; } }
 
     @media (max-width: 420px) {
       .form-panel { padding: 28px 20px; }
       .form-panel h2 { font-size: 1.35rem; }
+      body { padding: 12px; padding-top: 56px; }
     }
 
     /* ── Toast notifications ──────────────────────────────────── */
@@ -823,7 +835,7 @@ MediCore Hub?</h3>
   </div>
 </div><!-- /auth-card -->
 
-<script src="/app/js/db.js"></script>
+<script src="../js/db.js"></script>
 <script>
 (function () {
   'use strict';

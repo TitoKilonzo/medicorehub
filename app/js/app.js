@@ -4,7 +4,9 @@
 // ── PWA ──────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+    // Determine SW path relative to the root regardless of page depth
+    const swPath = location.pathname.includes('/app/') ? '../../sw.js' : '/sw.js';
+    navigator.serviceWorker.register(swPath).catch(() => {});
   });
 }
 

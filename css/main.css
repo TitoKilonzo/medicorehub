@@ -302,7 +302,14 @@ em { font-style: normal; color: var(--sky); }
   font-weight: 600;
 }
 .nav-toggle { display: none; background: none; border: none; color: var(--sky); cursor: pointer; font-size: 1.4rem; }
-.mobile-menu { display: none; background: var(--white); border-top: 1px solid var(--border); }
+/* Mobile menu: hidden by default, shown via .open class at mobile breakpoints */
+.mobile-menu {
+  display: none;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(2,132,199,0.12);
+}
+.mobile-menu.open { display: flex; }
 
 /* ============================
    HERO
@@ -954,7 +961,8 @@ em { font-style: normal; color: var(--sky); }
   .nav-links, .nav-header .btn-primary { display: none; }
   .nav-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius-sm); }
   .nav-toggle:hover { background: rgba(2,132,199,0.1); }
-  .mobile-menu {
+  /* .mobile-menu base is display:none; toggled to .open to show */
+  .mobile-menu.open {
     display: flex; flex-direction: column; gap: 6px;
     background: var(--white);
     padding: 16px 24px 24px;
@@ -962,13 +970,12 @@ em { font-style: normal; color: var(--sky); }
     max-height: 70vh;
     overflow-y: auto;
   }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu.hidden { display: none; }
   .mob-link {
     padding: 12px 12px; font-size: 0.95rem; color: #1E3A5F;
     border-radius: var(--radius-sm);
     font-family: 'Inter', sans-serif;
     transition: all 0.2s ease;
+    display: block;
   }
   .mob-link:hover {
     background: rgba(2,132,199,0.08);
